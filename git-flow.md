@@ -10,3 +10,4 @@
         * bug - Branch used to fix any bugs that may present themselves
         * junk - Branch that is just to test with and will likely be thrown out
 	    * resource - Branch that contains resources of some sort, that you don't necessarily want to merge in
+
