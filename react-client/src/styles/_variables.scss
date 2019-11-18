@@ -1,0 +1,16 @@
+// Color Scheme (and names) generated from https://coolors.co/. I tried to find a fitting green scheme to match the stereotypical frog
+$theme-isabelline: #F3E8EE;
+$theme-deep-space-sparkle: #475B63;
+$theme-ash-grey: #2E2C2F;
+
+$theme-coral: #fc814a;
+$theme-platinum: #e8e8e8;
+$theme-pineapple: #564256;
+$theme-spanish-grey: #96939b;
+$theme-silver: #bfbfbf;
+
+$colors: (
+        "deep-space-sparkle": ($theme-deep-space-sparkle, $theme-isabelline),
+        "coral-light": ($theme-coral, $theme-isabelline),
+        "spanish-grey": ($theme-platinum, $theme-deep-space-sparkle),
+);
