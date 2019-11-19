@@ -8,9 +8,19 @@ import BaseRouter from './routes';
 // Init express
 const app = express();
 
+// Init neo4j
+var neo4j = require('neo4j-driver').v1
+
+// Creates a driver instant 
+var driver = neo4j.driver(
+    process.env.DB, // change to actual database location
+    neo4j.auth.basic('neo4j', 'neo4j')
+  )
+
 // Add middleware/settings/routes to express.
 app.use(logger('dev'));
 app.use(express.json());
+app.use(neo4j);
 app.use(express.urlencoded({extended: true}));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
