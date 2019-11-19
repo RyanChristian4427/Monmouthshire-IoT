@@ -20,7 +20,7 @@ const App: React.FC = () => {
             </section>
             <section className="card">
                 <div className="level" id="layered-background">
-                    <Link className="button is-spanish-grey level-item" to="/">Back to Safety</Link>
+                    <Link className="button is-platinum level-item" to="/">Back to Safety</Link>
                 </div>
             </section>
         </div>
