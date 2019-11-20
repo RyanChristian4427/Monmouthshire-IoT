@@ -6,7 +6,7 @@ module.exports =  {
     ],
     settings: {
         react: {
-            version: "16.11"
+            version: "16.12"
         }
     },
     parserOptions:  {
@@ -16,7 +16,7 @@ module.exports =  {
     rules:  {
         "quotes": "off",
         "@typescript-eslint/quotes": ["warn", "single"],
-        "@typescript-eslint/no-use-before-define": ["error", { "classes": false }],
+        "@typescript-eslint/no-use-before-define": ["error", { "functions": false, "classes": false,  }],
         "arrow-parens": "warn",
         "@typescript-eslint/ban-ts-ignore": ["off"],
         "@typescript-eslint/interface-name-prefix": "off",
