@@ -6,10 +6,10 @@ var router = express.Router();
 router.get('/', (req, res, next) => {
     let people: string[] = []
     req.app.locals.driver.session().run(
-        'MATCH (person:Person) RETURN person.name AS name'
+        'MATCH (person:Person) RETURN properties(person) AS person'
     ).subscribe({
         onNext: function(record :any) {
-             people.push(record.get('name'));
+             people.push(record.get('person'));
         },
         onCompleted: function() {
             res.send(people);
