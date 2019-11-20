@@ -1,8 +1,12 @@
-import express from "express";
 import path from "path";
+import dotenv from "dotenv";
+import express from "express";
 import homeRouter from './views/home';
 
-const port = 8080;
+// Init dotenv
+dotenv.config();
+
+const port = process.env.SERVER_PORT;
 const app = express();
 
 app.set( "views", path.join( __dirname, "views" ));
