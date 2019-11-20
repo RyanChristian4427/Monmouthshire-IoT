@@ -1,9 +1,17 @@
 @charset "utf-8";
 @import 'variables';
 
+html {
+  overflow-y: hidden !important;
+}
+
 #root {
   background-color: $theme-platinum;
   min-height: 100vh;
+}
+
+.is-clickable {
+  cursor: pointer;
 }
 
 // Importing all of Bulma
