@@ -1,5 +1,4 @@
 import path from "path";
-import cors from 'cors';
 import http from 'http';
 import dotenv from "dotenv";
 import express from "express";
@@ -37,7 +36,6 @@ var driver = neo4j.driver(
 // Allows driver to be used throughout express
 app.locals.driver = driver; 
 
-app.use(cors());
 
 app.set( "views", path.join( __dirname, "views" ));
 
