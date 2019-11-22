@@ -3,7 +3,6 @@ import { useHistory } from 'react-router-dom';
 
 import { Settings } from 'react-feather';
 
-// import logo from 'assets/logo.png';
 import './HeroHeader.scss';
 
 
@@ -55,7 +54,6 @@ const HeroHeader: React.FC<IProps> = (props: IProps) => {
                         <div className="navbar-brand">
                             <a className="navbar-item" href="/">
                                 {/* TODO Add a logo */}
-                                {/*<img className="navbar-item" src={logo} alt="Site logo"/>*/}
                             </a>
                             <span className="navbar-burger burger" data-target="navbarMenuHeroB">
                                 <span/>
