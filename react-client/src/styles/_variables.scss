@@ -8,15 +8,10 @@ $theme-platinum: #e8e8e8;
 $theme-spanish-grey: #96939b;
 $theme-silver: #bfbfbf;
 
-$theme-primary: #557A95;
-$theme-secondary: #7395AE;
-$theme-tertiary: #5D5C61;
-$theme-4: #938E94;
-$theme-5: #B2A196;
 
 $colors: (
         "deep-space-sparkle": ($theme-deep-space-sparkle, $theme-isabelline),
+        "platinum-light": (whitesmoke, $theme-coral),
+        "platinum-dark": ($theme-platinum, $theme-deep-space-sparkle),
         "coral-light": ($theme-coral, $theme-isabelline),
-        "platinum": ($theme-platinum, $theme-deep-space-sparkle),
-        "primary": ($theme-primary, $theme-platinum),
 );

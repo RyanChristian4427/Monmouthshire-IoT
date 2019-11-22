@@ -16,7 +16,7 @@ const HeroHeader: React.FC<IProps> = (props: IProps) => {
     const history = useHistory();
 
     function handleClick(): void {
-        history.push('/t');
+        history.push('/login');
     }
 
     const settingsMenu = (props.withSettingsMenu)
