@@ -5,8 +5,8 @@ import dotenv from "dotenv";
 import express from "express";
 import socket from 'socket.io';
 import neo4j from 'neo4j-driver';
-import homeRouter from './views/home';
-import exampleRouter from './views/example';
+import homeRouter from './controllers/home';
+import exampleRouter from './controllers/example';
 
 const app = express();
 // Init dotenv
