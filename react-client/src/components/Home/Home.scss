@@ -1,6 +1,6 @@
-@import 'styles/variables.scss';
+@import 'styles/variables';
 
-.error-page {
+.home-page {
   .card {
     border-radius: 23px;
     background: #d8d8d8;
@@ -13,5 +13,7 @@
     border-radius: 20px;
     background: $theme-coral;
     padding: 5vh 15vw 5vh;
+    color: $theme-platinum;
+    fill: $theme-platinum;
   }
 }
