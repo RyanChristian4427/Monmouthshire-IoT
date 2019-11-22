@@ -25,12 +25,12 @@ const HeroHeader: React.FC<IProps> = (props: IProps) => {
             <div className="navbar-end">
                 <div className="navbar-item dropdown is-hoverable">
                     <div className="dropdown-trigger">
-                        <button className="button is-primary" aria-haspopup="true" aria-controls="dropdown-menu">
+                        <div className="button is-coral-light" aria-haspopup="true" aria-controls="dropdown-menu">
                             <span>Settings</span>
                             <span className="icon is-small">
                                 <Settings/>
                             </span>
-                        </button>
+                        </div>
                     </div>
                     <div className="dropdown-menu" role="menu">
                         <div className="dropdown-content">
@@ -48,7 +48,7 @@ const HeroHeader: React.FC<IProps> = (props: IProps) => {
         : null;
 
     return (
-        <section className="hero is-primary is-bold">
+        <section className="hero is-coral-light is-bold">
             <div className="hero-head">
                 <nav className="navbar">
                     <div className="container">
