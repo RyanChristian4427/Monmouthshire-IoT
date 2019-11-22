@@ -14,7 +14,6 @@ const Home: React.FC = () => {
             <section className="card">
                 <div className="level" id="layered-background">
                     <h3>Percent of Day Spent in Room</h3>
-                    <br/>
                     <RadialChart
                         data={myData}
                         width={300}
