@@ -11,3 +11,11 @@ test frontend:
         - npm install --progress=false
         - npm run test
         - npm run lint
+
+test backend:
+    stage: test
+    script:
+        - cd express-server
+        - npm install --progress=false
+        - npm run test
+        - npm run lint
