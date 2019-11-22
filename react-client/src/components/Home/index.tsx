@@ -12,7 +12,7 @@ const Home: React.FC = () => {
         <div className="home-page">
             <HeroHeader title="Home" withSettingsMenu={true}/>
             <section className="card">
-                <div className="level" id="layered-background">
+                <div className="container" id="layered-background">
                     <h3>Percent of Day Spent in Room</h3>
                     <RadialChart
                         data={myData}
