@@ -1,8 +1,9 @@
 import { Response, Request, Router } from 'express';
 import bcrypt from 'bcrypt';
+import jwt from 'jsonwebtoken';
 
 import {LoginUser} from 'src/models/User';
-import {USER, PASS} from 'src/util/secrets';
+import {USER, PASS, JWT_SECRET} from 'src/util/secrets';
 
 const router = Router();
 
@@ -11,13 +12,30 @@ router.post('/users/login', (req: Request, res: Response) => {
     if (credentials.email == USER) {
         bcrypt.compare(credentials.password, PASS, function (err, success) {
             if (success) {
-                res.status(200).json({ messages: 'Success' });
+                const token = jwt.sign(
+                    { email: credentials.email},
+                    JWT_SECRET,
+                    { expiresIn: '2h' }
+                );
+                res.status(200).json(
+                    {
+                        success: true,
+                        message: 'Authentication successful',
+                        token: token
+                    }
+                );
             } else {
-                res.status(401).json({ errors: 'Incorrect Password' });
+                res.status(401).json({
+                    success: false,
+                    message: 'Incorrect Password'
+                });
             }
         });
     } else {
-        res.status(401).json({ errors: 'Unknown User' });
+        res.status(401).json({
+            success: false,
+            message: 'Unknown User'
+        });
     }
 });
 
