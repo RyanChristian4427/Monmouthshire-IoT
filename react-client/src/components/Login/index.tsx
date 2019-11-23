@@ -1,59 +1,46 @@
 import React, {useState} from 'react';
-import {observer, useLocalStore} from 'mobx-react-lite';
 import { useHistory } from 'react-router-dom';
 import {apiService, jwtService} from 'ts-api-toolkit';
 
 import {HeroHeader} from 'components/HeroHeader';
-import {LoginUser, NewLoginUser} from 'models/User';
+import {LoginUser} from 'models/User';
 import './Login.scss';
 
 
-export const Login: React.FC = observer(() => {
+export const Login: React.FC = (() => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const [inProgress, setInProgress] = useState(false);
+    const [errors, setErrors] = useState('');
     const history = useHistory();
 
-    const store = useLocalStore(() => ({
-        credentials: NewLoginUser,
-        inProgress: false,
-        errors: '',
+    const login = (credentials: LoginUser): Promise<string> => {
+        return new Promise((resolve, reject) => {
+            setInProgress(true);
+            apiService.post('users/login', credentials)
+                .then(({ data }) => {
+                    setInProgress(false);
+                    jwtService.saveToken(data.token);
+                    resolve(data);
+                })
+                .catch(({ response }) => {
+                    setInProgress(false);
+                    if (response !== undefined) {
+                        setErrors(response.data.message);
+                        reject(response.data.message);
+                    } else {
+                        setErrors('Unknown Error');
+                        reject('Unknown Error');
+                    }
+                });
+        });
+    };
 
-        setUser(email: string, password: string): void {
-            this.credentials = { user: { email, password }};
-            this.login(this.credentials)
-                .then(() => history.push('/'));
-        },
-
-        async login(credentials: LoginUser): Promise<LoginUser | string> {
-            return await new Promise((resolve, reject) => {
-                this.inProgress = true;
-                apiService.post('users/login', credentials)
-                    .then(({ data }) => {
-                        this.inProgress = false;
-                        jwtService.saveToken(data.token);
-                        resolve(data);
-                    })
-                    .catch(({ response }) => {
-                        this.inProgress = false;
-                        if (response !== undefined) {
-                            this.errors = response.data.message;
-                            reject(response.data.message);
-                        } else {
-                            this.errors = 'Unknown Error';
-                            reject('Unknown Error');
-                        }
-                    });
-            });
-        }
-    }));
-
-    const submitButton = (store.inProgress)
-        ? <button className="button is-platinum-light level-item is-loading">Submit</button>
-        : <button className="button is-platinum-light level-item" onClick={(): void => store.setUser(email, password)}>Submit</button>;
-
-    const errorMessage = (store.errors != '')
-        ? <h2 className="error is-size-5">{store.errors}</h2>
-        : null;
+    const setUser = (): void => {
+        const credentials = { user: { email, password }};
+        login(credentials)
+            .then(() => history.push('/'));
+    };
 
     return (
         <div className="login-page">
@@ -83,13 +70,13 @@ export const Login: React.FC = observer(() => {
                         </div>
                     </div>
                     <div className="level">
-                        {/*Removing the following line breaks the the layout*/}
                         <div className="level-left"/>
                         <div className="level-right">
-                            {submitButton}
+                            <button className={'button is-platinum-light level-item ' + (inProgress ? 'is-loading' : '') }
+                                    onClick={(): void => setUser()}>Submit</button>
                         </div>
                     </div>
-                    {errorMessage}
+                    <h2 className={'error is-size-5' + (errors ? '' : 'is-hidden')}>{errors}</h2>
                 </div>
             </section>
         </div>
