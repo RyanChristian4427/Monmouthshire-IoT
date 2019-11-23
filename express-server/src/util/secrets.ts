@@ -22,3 +22,6 @@ if (!NEO4JDB_URI) {
     }
     process.exit(1);
 }
+
+export const USER = prod ? process.env['USER'] : process.env['USER_LOCAL'];
+export const PASS = prod ? process.env['PASS'] : process.env['PASS_LOCAL'];
