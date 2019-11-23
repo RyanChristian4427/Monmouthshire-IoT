@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import {observer, useLocalStore} from 'mobx-react-lite';
 import { useHistory } from 'react-router-dom';
-import {apiService} from 'ts-api-toolkit';
+import {apiService, jwtService} from 'ts-api-toolkit';
 
 import {HeroHeader} from 'components/HeroHeader';
 import {LoginUser, NewLoginUser} from 'models/User';
@@ -30,13 +30,14 @@ export const Login: React.FC = observer(() => {
                 apiService.post('users/login', credentials)
                     .then(({ data }) => {
                         this.inProgress = false;
-                        resolve(data.user);
+                        jwtService.saveToken(data.token);
+                        resolve(data);
                     })
                     .catch(({ response }) => {
                         this.inProgress = false;
                         if (response !== undefined) {
-                            this.errors = response.data.errors;
-                            reject(response.data.errors);
+                            this.errors = response.data.message;
+                            reject(response.data.message);
                         } else {
                             this.errors = 'Unknown Error';
                             reject('Unknown Error');

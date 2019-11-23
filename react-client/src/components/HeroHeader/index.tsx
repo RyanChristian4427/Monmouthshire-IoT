@@ -1,6 +1,7 @@
 import React from 'react';
 import { useHistory } from 'react-router-dom';
 import { Settings } from 'react-feather';
+import {jwtService} from 'ts-api-toolkit';
 
 import './HeroHeader.scss';
 
@@ -15,6 +16,7 @@ export const HeroHeader: React.FC<IProps> = (props: IProps) => {
     const history = useHistory();
 
     function handleClick(): void {
+        jwtService.destroyToken();
         history.push('/login');
     }
 
