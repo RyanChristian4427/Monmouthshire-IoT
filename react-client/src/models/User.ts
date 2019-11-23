@@ -1,6 +1,13 @@
 export interface LoginUser {
-    email: string;
-    password: string;
+    user: {
+        email: string;
+        password: string;
+    };
 }
 
-export const NewLoginUser: LoginUser = { email: '', password: '' };
+export const NewLoginUser: LoginUser = {
+    user: {
+        email: '',
+        password: ''
+    }
+};

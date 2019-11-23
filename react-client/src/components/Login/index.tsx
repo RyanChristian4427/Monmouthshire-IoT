@@ -19,7 +19,7 @@ export const Login: React.FC = observer(() => {
         errors: '',
 
         setUser(email: string, password: string): void {
-            this.credentials = { email, password };
+            this.credentials = { user: { email, password }};
             this.login(this.credentials)
                 .then(() => history.push('/'));
         },
@@ -35,8 +35,8 @@ export const Login: React.FC = observer(() => {
                     .catch(({ response }) => {
                         this.inProgress = false;
                         if (response !== undefined) {
-                            this.errors = response.data;
-                            reject(response.data);
+                            this.errors = response.data.errors;
+                            reject(response.data.errors);
                         } else {
                             this.errors = 'Unknown Error';
                             reject('Unknown Error');
