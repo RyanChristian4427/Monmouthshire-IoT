@@ -1,10 +1,10 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
-import HeroHeader from 'components/HeroHeader';
+import {HeroHeader} from 'components/HeroHeader';
 
 import './Errors.scss';
 
-const PageNotFound: React.FC = () => {
+export const PageNotFound: React.FC = () => {
     return (
         <div className="error-page">
            <HeroHeader title="Sorry" subtitle="This page does not yet exist" withSettingsMenu={false}/>
@@ -16,5 +16,3 @@ const PageNotFound: React.FC = () => {
         </div>
     );
 };
-
-export default PageNotFound;

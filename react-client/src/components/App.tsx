@@ -4,9 +4,9 @@ import {
   Switch,
   Route,
 } from 'react-router-dom';
-import PageNotFound from 'components/errors/PageNotFound';
-import Home from 'components/Home';
 import Login from 'components/Login';
+import {PageNotFound} from 'components/errors/PageNotFound';
+import {Home} from 'components/Home';
 
 const App: React.FC = () => {
   return (

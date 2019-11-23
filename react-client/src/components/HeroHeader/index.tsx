@@ -1,6 +1,5 @@
 import React from 'react';
 import { useHistory } from 'react-router-dom';
-
 import { Settings } from 'react-feather';
 
 import './HeroHeader.scss';
@@ -12,7 +11,7 @@ interface IProps {
     withSettingsMenu: boolean;
 }
 
-const HeroHeader: React.FC<IProps> = (props: IProps) => {
+export const HeroHeader: React.FC<IProps> = (props: IProps) => {
     const history = useHistory();
 
     function handleClick(): void {
@@ -77,5 +76,3 @@ const HeroHeader: React.FC<IProps> = (props: IProps) => {
         </section>
     );
 };
-
-export default HeroHeader;
