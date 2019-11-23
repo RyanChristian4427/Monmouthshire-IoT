@@ -29,6 +29,11 @@
     "@types/react-dom": "16.9.4",
     "@types/react-router-dom": "^5.1.2"
   },
+  "jest": {
+    "transformIgnorePatterns": [
+      "/node_modules/(?!ts-api-toolkit).+\\.js$"
+    ]
+  },
   "browserslist": [
     "last 1 chrome version",
     "last 1 firefox version",
