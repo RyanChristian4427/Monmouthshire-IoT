@@ -13,7 +13,7 @@ router.post('/users/login', (req: Request, res: Response) => {
             if (success) {
                 res.status(200).json({ messages: 'Success' });
             } else {
-                res.status(401).json({ errors: 'Incorrect Password'});
+                res.status(401).json({ errors: 'Incorrect Password' });
             }
         });
     } else {
