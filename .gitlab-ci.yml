@@ -1,0 +1,13 @@
+image: "node:latest"
+
+cache:
+    paths:
+        - node_modules/
+
+test frontend:
+    stage: test
+    script:
+        - cd react-client
+        - npm install --progress=false
+        - npm run test
+        - npm run lint

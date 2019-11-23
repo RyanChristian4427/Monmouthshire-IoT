@@ -1,0 +1,22 @@
+// Color Scheme (and names) generated from https://coolors.co/
+$theme-isabelline: #F3E8EE;
+$theme-deep-space-sparkle: #475B63;
+$theme-ash-grey: #2E2C2F;
+
+$theme-coral: #fc814a;
+$theme-platinum: #e8e8e8;
+$theme-spanish-grey: #96939b;
+$theme-silver: #bfbfbf;
+
+$theme-primary: #557A95;
+$theme-secondary: #7395AE;
+$theme-tertiary: #5D5C61;
+$theme-4: #938E94;
+$theme-5: #B2A196;
+
+$colors: (
+        "deep-space-sparkle": ($theme-deep-space-sparkle, $theme-isabelline),
+        "coral-light": ($theme-coral, $theme-isabelline),
+        "platinum": ($theme-platinum, $theme-deep-space-sparkle),
+        "primary": ($theme-primary, $theme-platinum),
+);

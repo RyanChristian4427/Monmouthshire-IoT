@@ -1,0 +1,19 @@
+@import 'styles/variables';
+
+.home-page {
+  .card {
+    border-radius: 23px;
+    background: #d8d8d8;
+    width: auto;
+    margin: 10vh 25vw 5vh;
+    padding: 1vh 1vh 1vh;
+  }
+
+  #layered-background {
+    border-radius: 20px;
+    background: $theme-coral;
+    padding: 5vh 15vw 5vh;
+    color: $theme-platinum;
+    fill: $theme-platinum;
+  }
+}
