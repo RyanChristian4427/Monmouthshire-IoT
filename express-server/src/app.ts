@@ -2,9 +2,9 @@ import express from 'express';
 import bodyParser from 'body-parser';
 import neo4j from 'neo4j-driver';
 import path from 'path';
-import apiV1 from './api/v1';
 
-import {NEO4JDB_URI, NEO4JDB_USER, NEO4JDB_PASS} from './util/secrets';
+import apiV1 from 'src/api/v1';
+import {NEO4JDB_URI, NEO4JDB_USER, NEO4JDB_PASS} from 'src/util/secrets';
 
 
 // Create Express server
