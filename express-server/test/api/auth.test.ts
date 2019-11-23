@@ -8,13 +8,16 @@ describe('POST /api/v1/users/login', () => {
             password: 'came try steady fewer'
         }
     };
-    it('should return 200 OK with Success', async () => {
-       return request(app)
+    it('should return 200 OK with Token', async () => {
+       const response = await request(app)
            .post('/api/v1/users/login')
-           .send(data)
-           .expect(200, {
-               messages: 'Success'
-           });
+           .send(data);
+       return (
+           expect(response.status).toBe(200),
+           expect(response.body.success).toBe(true),
+           expect(response.body.message).toBe('Authentication successful'),
+           expect(response.body.token).toBeDefined
+       );
     });
 });
 
@@ -30,7 +33,8 @@ describe('POST /api/v1/users/login', () => {
             .post('/api/v1/users/login')
             .send(data)
             .expect(401, {
-                errors: 'Incorrect Password'
+                success: false,
+                message: 'Incorrect Password'
             });
     });
 });
@@ -47,7 +51,8 @@ describe('POST /api/v1/users/login', () => {
             .post('/api/v1/users/login')
             .send(data)
             .expect(401, {
-                errors: 'Unknown User'
+                success: false,
+                message: 'Unknown User'
             });
     });
 });
