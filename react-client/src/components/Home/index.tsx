@@ -20,7 +20,7 @@ export const Home: React.FC = () => {
                         height={300}
                         showLabels={true}
                         labelsAboveChildren={true}>
-                        <ChartLabel text="Hello World!" style={{textAlign: 'center'}} />
+                        <ChartLabel text="Hello World!"/>
                     </RadialChart>
                 </div>
             </section>

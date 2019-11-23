@@ -24,17 +24,21 @@ export const Login: React.FC = observer(() => {
                 .then(() => history.push('/'));
         },
 
-        async login(credentials: LoginUser): Promise<any> {
+        async login(credentials: LoginUser): Promise<LoginUser | string> {
             return await new Promise((resolve, reject) => {
                 this.inProgress = true;
                 apiService.post('users/login', credentials)
                     .then(({ data }) => {
+                        this.inProgress = false;
                         resolve(data.user);
                     })
                     .catch(({ response }) => {
+                        this.inProgress = false;
                         if (response !== undefined) {
+                            this.errors = response.data;
                             reject(response.data);
                         } else {
+                            this.errors = 'Unknown Error';
                             reject('Unknown Error');
                         }
                     });
@@ -45,6 +49,10 @@ export const Login: React.FC = observer(() => {
     const submitButton = (store.inProgress)
         ? <button className="button is-platinum-light level-item is-loading">Submit</button>
         : <button className="button is-platinum-light level-item" onClick={(): void => store.setUser(email, password)}>Submit</button>;
+
+    const errorMessage = (store.errors != '')
+        ? <h2 className="error is-size-5">{store.errors}</h2>
+        : null;
 
     return (
         <div className="login-page">
@@ -80,6 +88,7 @@ export const Login: React.FC = observer(() => {
                             {submitButton}
                         </div>
                     </div>
+                    {errorMessage}
                 </div>
             </section>
         </div>
