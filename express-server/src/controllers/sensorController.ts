@@ -1,12 +1,13 @@
 import express from 'express';
-import {fetchQuery, insertQuery} from "../database/databaseSetup";
+import { createSensorReading } from '../database/mappers/sensorReadingMapper';
+import { fetch, insert } from "../database/databaseConnectors";
 
 const router = express.Router();
 
 router.get('/all', (req, res, next) => {
     const query = 'MATCH (sensorReading:SensorReading) RETURN sensorReading';
     const objectKey = 'sensorReading';
-    fetchQuery(query, objectKey, {})
+    fetch(query, objectKey, {})
         .then(
             (result: object) => {
                 console.log(result);
@@ -20,9 +21,12 @@ router.get('/all', (req, res, next) => {
 
 router.get('/temperature/:userId', (req, res, next) => {
     const args = {userId: parseInt(req.params.userId), type: 'temperature'};
-    const query = `MATCH (sensorReading:SensorReading) WHERE sensorReading.userId = {userId}  AND sensorReading.type = {type} RETURN sensorReading`;
+    const query = `MATCH 
+                      (sensorReading:SensorReading)
+                          WHERE sensorReading.userId = {userId}  AND sensorReading.type = {type} 
+                               RETURN sensorReading`;
     const objectKey = 'sensorReading';
-    fetchQuery(query, objectKey, args)
+    fetch(query, objectKey, args)
         .then(
             (result: object) => {
                 console.log(result);
@@ -36,9 +40,12 @@ router.get('/temperature/:userId', (req, res, next) => {
 
 router.get('/motion/:userId', (req, res, next) => {
     const args = {userId: parseInt(req.params.userId), type: 'motion'};
-    const query = `MATCH (sensorReading:SensorReading) WHERE sensorReading.userId = {userId}  AND sensorReading.type = {type} RETURN sensorReading`;
+    const query = `MATCH 
+                      (sensorReading:SensorReading) 
+                          WHERE sensorReading.userId = {userId}  AND sensorReading.type = {type} 
+                              RETURN sensorReading`;
     const objectKey = 'sensorReading';
-    fetchQuery(query, objectKey, args)
+    fetch(query, objectKey, args)
         .then(
             (result: object) => {
                 console.log(result);
@@ -52,9 +59,12 @@ router.get('/motion/:userId', (req, res, next) => {
 
 router.get('/light/:userId', (req, res, next) => {
     const args = {userId: parseInt(req.params.userId), type: 'light'};
-    const query = `MATCH (sensorReading:SensorReading) WHERE sensorReading.userId = {userId}  AND sensorReading.type = {type} RETURN sensorReading`;
+    const query = `MATCH 
+                     (sensorReading:SensorReading) 
+                         WHERE sensorReading.userId = {userId}  AND sensorReading.type = {type}
+                             RETURN sensorReading`;
     const objectKey = 'sensorReading';
-    fetchQuery(query, objectKey, args)
+    fetch(query, objectKey, args)
         .then(
             (result: object) => {
                 console.log(result);
@@ -67,9 +77,14 @@ router.get('/light/:userId', (req, res, next) => {
 });
 
 router.post('/new', (req, res, next) => {
-    const query = 'CREATE (sensorReading:SensorReading {userId: {userId}, type: {type}, value: {value}, unit: {unit}, timestamp: datetime() }) RETURN sensorReading';
+    console.log('new reading');
     const objectKey = 'sensorReading';
-    insertQuery(query, objectKey, req.body.sensorReading)
+    const query = `CREATE
+                     (sensorReading:SensorReading 
+                        { userId: {userId}, type: {type}, value: {value}, unit: {unit}, timestamp: datetime() }) 
+                            RETURN sensorReading`;
+
+    insert(query, objectKey, createSensorReading(req.body.sensorReasding))
         .then((result) => res.send({data: result}))
         .catch((err) => next(err));
 });
