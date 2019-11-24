@@ -73,7 +73,9 @@ export const Login: React.FC = (() => {
                         <div className="level-left"/>
                         <div className="level-right">
                             <button className={'button is-platinum-light level-item ' + (inProgress ? 'is-loading' : '') }
-                                    onClick={(): void => setUser()}>Submit</button>
+                                    onClick={(): void => setUser()}>
+                                Submit
+                            </button>
                         </div>
                     </div>
                     <h2 className={'error is-size-5' + (errors ? '' : 'is-hidden')}>{errors}</h2>
