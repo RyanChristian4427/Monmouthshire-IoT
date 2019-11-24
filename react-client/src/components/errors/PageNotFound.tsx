@@ -10,7 +10,7 @@ export const PageNotFound: React.FC = () => {
            <HeroHeader title="Sorry" subtitle="This page does not yet exist" withSettingsMenu={false}/>
             <section className="card">
                 <div className="level" id="layered-background">
-                    <Link className="button is-platinum-light level-item" to="/">Back to Safety</Link>
+                    <Link className="button is-platinum-light level-item" to="/login">Back to Safety</Link>
                 </div>
             </section>
         </div>

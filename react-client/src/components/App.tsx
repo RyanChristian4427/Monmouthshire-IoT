@@ -12,15 +12,9 @@ const App: React.FC = () => {
   return (
       <BrowserRouter>
           <Switch>
-              <Route exact path="/">
-                  <Home/>
-              </Route>
-              <Route path="/login">
-                  <Login/>
-              </Route>
-              <Route path="/*">
-                  <PageNotFound/>
-              </Route>
+              <Route exact path="/" component={Home}/>
+              <Route exact path="/login" component={Login}/>
+              <Route path="/*" component={PageNotFound}/>
           </Switch>
       </BrowserRouter>
   );
