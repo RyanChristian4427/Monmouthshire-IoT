@@ -1,10 +1,11 @@
 import neo4j from 'neo4j-driver';
-import { dbHost, dbUser, dbPassword } from '../constants';
+import {NEO4JDB_URI, NEO4JDB_USER, NEO4JDB_PASS} from 'src/util/secrets';
+import SensorReading from 'src/database/models/sensorReading';
 
 // Init driver
 export const driver = neo4j.driver(
-    'bolt://localhost',
-    neo4j.auth.basic('neo4j', 'password')
+    NEO4JDB_URI,
+    neo4j.auth.basic(NEO4JDB_USER, NEO4JDB_PASS)
 );
 
 /**
@@ -14,40 +15,40 @@ export const driver = neo4j.driver(
  * @param objectKey - the reference to the objects being fetched n the query
  * @param args - any arguments you would like to pass to the query
  */
-export const fetch = (query: string, objectKey: string, args: object) => {
+export const fetch = (query: string, objectKey: string, args: object): Promise<SensorReading[]> => {
     const session = driver.session();
     return session
         .run(query,
             args
         )
-        .then(result => {
+        .then((result) => {
             session.close();
             return result.records.map((result) => result.get(objectKey));
         })
-        .catch(error => {
+        .catch((error) => {
             session.close();
             throw error;
         });
 };
 
 /**
- * Inserts a new node and returns it as an object upon successfull persistence
+ * Inserts a new node and returns it as an object upon successful persistence
  *
  * @param query
  * @param objectKey
  * @param args
  */
-export const insert = (query: string, objectKey: string, args: object) => {
+export const insert = (query: string, objectKey: string, args: object): Promise<SensorReading> => {
     const session = driver.session();
     return session
         .run(query,
             args
         )
-        .then(result => {
+        .then((result) => {
             session.close();
-            return result.records[0].get(objectKey)
+            return result.records[0].get(objectKey);
         })
-        .catch(error => {
+        .catch((error) => {
             session.close();
             throw error;
         });
