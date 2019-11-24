@@ -1,7 +1,7 @@
 import React from 'react';
 import { useHistory } from 'react-router-dom';
-
 import { Settings } from 'react-feather';
+import {jwtService} from 'ts-api-toolkit';
 
 import './HeroHeader.scss';
 
@@ -12,11 +12,12 @@ interface IProps {
     withSettingsMenu: boolean;
 }
 
-const HeroHeader: React.FC<IProps> = (props: IProps) => {
+export const HeroHeader: React.FC<IProps> = (props: IProps) => {
     const history = useHistory();
 
     function handleClick(): void {
-        history.push('/t');
+        jwtService.destroyToken();
+        history.push('/login');
     }
 
     const settingsMenu = (props.withSettingsMenu)
@@ -77,5 +78,3 @@ const HeroHeader: React.FC<IProps> = (props: IProps) => {
         </section>
     );
 };
-
-export default HeroHeader;

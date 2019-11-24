@@ -1,4 +1,2 @@
-
-express-server/node_modules/
-
-express-server/package-lock.json
+# KDE directory files
+.directory

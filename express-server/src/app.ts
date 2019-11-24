@@ -1,36 +1,30 @@
-import path from "path";
-import http from 'http';
-import express from "express";
-import socket from 'socket.io';
-import { driver } from './databaseSetup'
-import { port, websocketPort } from './constants';
-import homeRouter from './controllers/home';
-import exampleRouter from './controllers/example';
+import express from 'express';
+import bodyParser from 'body-parser';
+import neo4j from 'neo4j-driver';
+import path from 'path';
 
+import apiV1 from 'src/api/v1';
+import {NEO4JDB_URI, NEO4JDB_USER, NEO4JDB_PASS} from 'src/util/secrets';
+
+
+// Create Express server
 const app = express();
 
-var server = http.createServer(app);
-var io = socket(server);
-
-io.on('connection', (client) => {
-    console.log('client connected')
-    client.on('dbChange', (status) => {
-        io.emit('dbUpdate', status)
-    })
-})
-server.listen(websocketPort);
-
 // Allows driver to be used throughout express
-app.locals.driver = driver; 
+app.locals.driver = neo4j.driver(
+    NEO4JDB_URI,
+    neo4j.auth.basic(NEO4JDB_USER, NEO4JDB_PASS)
+);
 
+// Express configuration
+app.set('port', process.env.PORT || 8000);
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 
-app.set( "views", path.join( __dirname, "views" ));
+app.use(
+    express.static(path.join(__dirname, 'public'), { maxAge: 31557600000 })
+);
 
-app.use('/', homeRouter);
-app.use('/info', exampleRouter);
+app.use('/api/v1', apiV1);
 
-app.listen(port, () => {
-    // tslint:disable-next-line:no-console
-    console.log( `server started at http://localhost:${ port }` );
-});
-
+export default app;

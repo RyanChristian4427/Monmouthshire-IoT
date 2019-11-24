@@ -10,15 +10,13 @@
   },
   "dependencies": {
     "bulma": "^0.8.0",
-    "mobx": "^5.15.0",
-    "mobx-react": "^6.1.4",
-    "node-sass": "^4.13.0",
     "react": "^16.12.0",
     "react-dom": "^16.12.0",
     "react-feather": "^2.0.3",
     "react-router-dom": "^5.1.2",
     "react-scripts": "3.2.0",
     "react-vis": "^1.11.7",
+    "ts-api-toolkit": "^1.0.0",
     "typescript": "3.7.2"
   },
   "devDependencies": {
@@ -26,11 +24,18 @@
     "@types/node": "12.12.7",
     "@types/react": "16.9.11",
     "@types/react-dom": "16.9.4",
-    "@types/react-router-dom": "^5.1.2"
+    "@types/react-router-dom": "^5.1.2",
+    "node-sass": "^4.13.0"
+  },
+  "jest": {
+    "transformIgnorePatterns": [
+      "/node_modules/(?!ts-api-toolkit).+\\.js$"
+    ]
   },
   "browserslist": [
     "last 1 chrome version",
     "last 1 firefox version",
     "last 1 safari version"
-  ]
+  ],
+  "proxy": "http://localhost:8000"
 }
