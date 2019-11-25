@@ -24,18 +24,17 @@ const App: React.FC = () => {
 
 export default App;
 
-const PrivateRoute = ({ component: Component, ...rest }: any) => {
+// There's no real way to type the component
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const PrivateRoute = ({ component: Component, ...rest }: any): JSX.Element => {
     const isLoggedIn = jwtService.getToken() !== null;
     return (
-        <Route
-            {...rest}
-            render={props =>
-                isLoggedIn ? (
-                    <Component {...props} />
-                ) : (
-                    <Redirect to='/login' />
-                )
+        <Route {...rest}
+               render={(props): React.ReactNode =>
+                isLoggedIn
+                    ? (<Component {...props} />)
+                    : (<Redirect to='/login' />)
             }
         />
-    )
-}
+    );
+};
