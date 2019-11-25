@@ -40,4 +40,3 @@ router.post('/users/login', (req: Request, res: Response) => {
 });
 
 export default router;
->>>>>>> develop
