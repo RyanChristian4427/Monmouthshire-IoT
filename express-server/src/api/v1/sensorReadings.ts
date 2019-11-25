@@ -1,91 +1,115 @@
-import express from 'express';
-import { fetch, insert } from 'src/database/databaseConnectors';
-import { createSensorReading } from 'src/database/mappers/sensorReadingMapper';
+import { Response, Request, NextFunction, Router } from 'express';
+import {
+    insertNewReading,
+    getAllReadings,
+    getHumidityReadingsByUser,
+    getLuminanceReadingsByUser,
+    getMotionReadingsByUser,
+    getTempReadingsByUser,
+    getUltraVioletReadingsByUser
+} from 'src/database/repository/sensorReadingRepo';
 
-const router = express.Router();
+const router = Router();
 
-router.get('/all', (req, res, next) => {
-    const query = 'MATCH (sensorReading:SensorReading) RETURN sensorReading';
-    const objectKey = 'sensorReading';
-    fetch(query, objectKey, {})
+/**
+ * Return all sensor readings
+ */
+router.get('/sensorReadings/all', (req: Request, res: Response, next: NextFunction) => {
+    getAllReadings()
         .then(
-            (result: object) => {
-                console.log(result);
-                res.send({data: result});
-            })
+        (result) => {
+            res.send({data: result});
+        })
         .catch((err) => {
-            console.log(err);
             next(err);
         });
 });
 
-router.get('/temperature/:userId', (req, res, next) => {
-    const args = {userId: parseInt(req.params.userId), type: 'temperature'};
-    const query = `MATCH 
-                      (sensorReading:SensorReading)
-                          WHERE sensorReading.userId = {userId}  AND sensorReading.type = {type} 
-                               RETURN sensorReading`;
-    const objectKey = 'sensorReading';
-    fetch(query, objectKey, args)
+/**
+ * Return all temperature readings by user id
+ */
+router.get('/sensorReadings/temperature/:userId', (req: Request, res: Response, next: NextFunction) => {
+    const args = {userId: parseInt(req.params.userId)};
+    getTempReadingsByUser(args)
         .then(
-            (result: object) => {
-                console.log(result);
+            (result) => {
                 res.send({data: result});
             })
         .catch((err) => {
-            console.log(err);
             next(err);
         });
 });
 
-router.get('/motion/:userId', (req, res, next) => {
-    const args = {userId: parseInt(req.params.userId), type: 'motion'};
-    const query = `MATCH 
-                      (sensorReading:SensorReading) 
-                          WHERE sensorReading.userId = {userId}  AND sensorReading.type = {type} 
-                              RETURN sensorReading`;
-    const objectKey = 'sensorReading';
-    fetch(query, objectKey, args)
+/**
+ * Return all motion readings by user id
+ */
+router.get('/sensorReadings/motion/:userId', (req: Request, res: Response, next: NextFunction) => {
+    const args = {userId: parseInt(req.params.userId)};
+    getMotionReadingsByUser(args)
         .then(
             (result: object) => {
-                console.log(result);
                 res.send({data: result});
             })
         .catch((err) => {
-            console.log(err);
             next(err);
         });
 });
 
-router.get('/light/:userId', (req, res, next) => {
-    const args = {userId: parseInt(req.params.userId), type: 'light'};
-    const query = `MATCH 
-                     (sensorReading:SensorReading) 
-                         WHERE sensorReading.userId = {userId}  AND sensorReading.type = {type}
-                             RETURN sensorReading`;
-    const objectKey = 'sensorReading';
-    fetch(query, objectKey, args)
+/**
+ * Return all luminance readings by user id
+ */
+router.get('/sensorReadings/luminance/:userId', (req: Request, res: Response, next: NextFunction)=> {
+    const args = {userId: parseInt(req.params.userId)};
+    getLuminanceReadingsByUser(args)
         .then(
             (result: object) => {
-                console.log(result);
                 res.send({data: result});
             })
         .catch((err) => {
-            console.log(err);
             next(err);
         });
 });
 
-router.post('/new', (req, res, next) => {
+/**
+ * Return all ultraviolet readings by user id
+ */
+router.get('/sensorReadings/ultra-vi/:userId', (req: Request, res: Response, next: NextFunction) => {
+    const args = {userId: parseInt(req.params.userId)};
+    getUltraVioletReadingsByUser(args)
+        .then(
+            (result: object) => {
+                res.send({data: result});
+            })
+        .catch((err) => {
+            next(err);
+        });
+});
+
+/**
+ * Return humidity sensor readings by user id
+ */
+router.get('/sensorReadings/humidity/:userId', (req: Request, res: Response, next: NextFunction) => {
+    const args = {userId: parseInt(req.params.userId)};
+    getHumidityReadingsByUser(args)
+        .then(
+            (result: object) => {
+                res.send({data: result});
+            })
+        .catch((err) => {
+            next(err);
+        });
+});
+
+/**
+ * Add a new sensor reading
+ */
+router.post('/sensorReadings/new', (req: Request, res: Response, next: NextFunction) => {
     console.log('new reading');
-    const objectKey = 'sensorReading';
-    const query = `CREATE
-                     (sensorReading:SensorReading 
-                        { userId: {userId}, type: {type}, value: {value}, unit: {unit}, timestamp: datetime() }) 
-                            RETURN sensorReading`;
-
-    insert(query, objectKey, createSensorReading(req.body.sensorReasding))
-        .then((result) => res.send({data: result}))
+    insertNewReading(req.body.sensorReading)
+        .then((result) => {
+            console.log(result);
+            res.send({data: result});
+        })
         .catch((err) => next(err));
 });
 

@@ -1,5 +1,12 @@
 # IoT-Team-3
 
+## Web Application
+
+### Database
+There is a dated data dump of a Neo4j database in express-server/src/database/dumps.
+You can use the load command to re-create the database with the dump file e.g. 
+neo4j-admin load --from=<path-to-dump-file> --database=graph.db --force.
+
 ## Raspberry Pi Setup
 
 ### Sensor Pairing

@@ -1,7 +1,7 @@
 export default interface SensorReading {
    id?: string;
    nodeId?: number;
-   userId?: string;
+   userId?: number;
     type?: string;
     unit?: string;
     value?: number;

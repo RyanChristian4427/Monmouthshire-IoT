@@ -1,6 +1,6 @@
 import neo4j from 'neo4j-driver';
-import {NEO4JDB_URI, NEO4JDB_USER, NEO4JDB_PASS} from 'src/util/secrets';
 import SensorReading from 'src/database/models/sensorReading';
+import {NEO4JDB_URI, NEO4JDB_USER, NEO4JDB_PASS} from 'src/util/secrets';
 
 // Init driver
 export const driver = neo4j.driver(
