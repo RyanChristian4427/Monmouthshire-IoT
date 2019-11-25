@@ -1,5 +1,5 @@
-import logger from 'src/util/logger'
-import {checkToken} from 'src/api/middleware';
+import logger from 'src/util/logger';
+import { checkToken } from 'src/api/middleware';
 import { Response, Request, NextFunction, Router } from 'express';
 import {
     insertNewReading,
@@ -19,9 +19,9 @@ const router = Router();
 router.get('/sensorReadings/all', checkToken, (req: Request, res: Response, next: NextFunction) => {
     getAllReadings()
         .then(
-        (result) => {
-            res.send({data: result});
-        })
+            (result) => {
+                res.send({data: result});
+            })
         .catch((err) => {
             logger.error(err);
             next(err);
@@ -111,7 +111,7 @@ router.get('/sensorReadings/humidity/:userId', checkToken, (req: Request, res: R
 /**
  * Add a new sensor reading
  */
-router.post('/sensorReadings/new', checkToken, (req: Request, res: Response, next: NextFunction) => {
+router.post('/sensorReadings/new', (req: Request, res: Response, next: NextFunction) => {
     logger.info('New sensor reading received');
     insertNewReading(req.body.sensorReading)
         .then((result) => {
