@@ -11,9 +11,7 @@ html {
   min-height: 100vh;
 }
 
-.is-clickable {
-  cursor: pointer;
-}
+$label-color: $theme-deep-space-sparkle;
 
 // Importing all of Bulma
 @import '~bulma/bulma.sass';
