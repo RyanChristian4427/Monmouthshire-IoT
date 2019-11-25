@@ -1,3 +1,4 @@
+import logger from 'src/util/logger';
 import { Response, Request, NextFunction, Router } from 'express';
 import {
     insertNewReading,
@@ -21,6 +22,7 @@ router.get('/sensorReadings/all', (req: Request, res: Response, next: NextFuncti
             res.send({data: result});
         })
         .catch((err) => {
+            logger.error(err);
             next(err);
         });
 });
@@ -36,6 +38,7 @@ router.get('/sensorReadings/temperature/:userId', (req: Request, res: Response, 
                 res.send({data: result});
             })
         .catch((err) => {
+            logger.error(err);
             next(err);
         });
 });
@@ -51,6 +54,7 @@ router.get('/sensorReadings/motion/:userId', (req: Request, res: Response, next:
                 res.send({data: result});
             })
         .catch((err) => {
+            logger.error(err);
             next(err);
         });
 });
@@ -66,6 +70,7 @@ router.get('/sensorReadings/luminance/:userId', (req: Request, res: Response, ne
                 res.send({data: result});
             })
         .catch((err) => {
+            logger.error(err);
             next(err);
         });
 });
@@ -81,6 +86,7 @@ router.get('/sensorReadings/ultra-vi/:userId', (req: Request, res: Response, nex
                 res.send({data: result});
             })
         .catch((err) => {
+            logger.error(err);
             next(err);
         });
 });
@@ -96,6 +102,7 @@ router.get('/sensorReadings/humidity/:userId', (req: Request, res: Response, nex
                 res.send({data: result});
             })
         .catch((err) => {
+            logger.error(err);
             next(err);
         });
 });
@@ -104,13 +111,15 @@ router.get('/sensorReadings/humidity/:userId', (req: Request, res: Response, nex
  * Add a new sensor reading
  */
 router.post('/sensorReadings/new', (req: Request, res: Response, next: NextFunction) => {
-    console.log('new reading');
+    logger.info('New sensor reading received');
     insertNewReading(req.body.sensorReading)
         .then((result) => {
-            console.log(result);
             res.send({data: result});
         })
-        .catch((err) => next(err));
+        .catch((err) => {
+            logger.error(err);
+            next(err);
+        });
 });
 
 export default router;
