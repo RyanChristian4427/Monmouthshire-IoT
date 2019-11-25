@@ -27,7 +27,7 @@ export default App;
 // There's no real way to type the component
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const PrivateRoute = ({ component: Component, ...rest }: any): JSX.Element => {
-    const isLoggedIn = jwtService.getToken() !== null;
+    const isLoggedIn = jwtService.getToken() !== null && jwtService.getToken() !== undefined;
     return (
         <Route {...rest}
                render={(props): React.ReactNode =>
