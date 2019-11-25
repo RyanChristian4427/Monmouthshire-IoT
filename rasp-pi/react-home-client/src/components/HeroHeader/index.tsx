@@ -1,5 +1,4 @@
 import React from 'react';
-import { Settings } from 'react-feather';
 
 import './HeroHeader.scss';
 
@@ -11,24 +10,6 @@ interface IProps {
 }
 
 export const HeroHeader: React.FC<IProps> = (props: IProps) => {
-
-    const settingsMenu = (props.withSettingsMenu)
-        ? <div className="navbar-menu">
-            <div className="navbar-end">
-                <div className="navbar-item dropdown is-hoverable">
-                    <div className="dropdown-trigger">
-                        <div className="button is-coral-light" aria-haspopup="true" aria-controls="dropdown-menu">
-                            <span>Settings</span>
-                            <span className="icon is-small">
-                                <Settings/>
-                            </span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        : null;
-
     return (
         <section className="hero is-coral-light is-bold">
             <div className="hero-head">
@@ -44,7 +25,6 @@ export const HeroHeader: React.FC<IProps> = (props: IProps) => {
                                 <span/>
                             </span>
                         </div>
-                        {settingsMenu}
                     </div>
                 </nav>
             </div>

@@ -1,9 +1,18 @@
 import React from 'react';
-import {Home} from 'components/Home';
+
+import {HeroHeader} from 'components/HeroHeader';
+import './App.scss';
 
 const App: React.FC = () => {
   return (
-      <Home />
+      <div className="home-page">
+        <HeroHeader title="Home" withSettingsMenu={true}/>
+        <section className="card">
+          <div className="container" id="layered-background">
+            <h3>Lorem Ipsum</h3>
+          </div>
+        </section>
+      </div>
   );
 };
 
