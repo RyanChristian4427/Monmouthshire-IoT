@@ -1,15 +1,13 @@
 {
-  "name": "iot_team_3",
+  "name": "rasp-pi-home-server",
   "version": "1.0.0",
   "description": "",
   "main": "src/sensorPoll.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "babel src -d lib",
-    "dev": "npm run build && node lib/sensorPoll.js"
+    "dev": "rm -rf ./"
   },
-  "author": "",
-  "license": "ISC",
   "dependencies": {
     "@babel/preset-env": "^7.7.4",
     "axios": "^0.19.0",
