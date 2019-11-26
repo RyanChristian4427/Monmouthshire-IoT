@@ -6,7 +6,6 @@ import './HeroHeader.scss';
 interface IProps {
     title: string;
     subtitle?: string;
-    withSettingsMenu: boolean;
 }
 
 export const HeroHeader: React.FC<IProps> = (props: IProps) => {
