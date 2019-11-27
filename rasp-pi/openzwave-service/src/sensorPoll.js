@@ -1,12 +1,16 @@
-import { postNewReading } from './client';
+import logger from "./util/logger";
 import ZWave from 'openzwave-shared';
+import { postNewReading } from './client';
+import io from 'socket.io';
+
+const socket = io.listen(3030);
 
 const nodes = [];
 const zwave = new ZWave({
     ConsoleOutput: false,
     Logging: false,
     SaveConfiguration: false,
-    DriverMaxAttempts: 3,
+    DriverMaxAttempts: 5,
     PollInterval: 500,
     SuppressValueRefresh: true,
 });
@@ -35,6 +39,7 @@ zwave.on('node added', function(nodeid) {
         ready: false,
     };
     console.log('new node added, now ' + nodes.length + ' nodes');
+
 });
 
 zwave.on('value added', function(nodeid, comclass, value) {
