@@ -3,9 +3,9 @@ import { postNewReading } from './client';
 import { Promise } from 'bluebird';
 import AppDAO from './database/appDao.js';
 import SensorRepository from './database/sensorRepository.js';
+import { DB_LOCATION } from "./util/secrets";
 
-
-const appDao = new AppDAO('/home/pi/databases/iot_team_3/iot_team_3.sqlite');
+const appDao = new AppDAO(DB_LOCATION);
 const sensorRepository = new SensorRepository(appDao);
 sensorRepository.createTable();
 
@@ -90,7 +90,7 @@ zwave.on('node ready', function(nodeid, nodeinfo) {
 	const type = nodeinfo.product;
 	const location = nodeinfo.location;
 	const node_id = nodeid;
-	
+
     nodes[nodeid]['manufacturer'] = nodeinfo.manufacturer;
     nodes[nodeid]['manufacturerid'] = nodeinfo.manufacturerid;
     nodes[nodeid]['product'] = nodeinfo.product;
@@ -100,7 +100,7 @@ zwave.on('node ready', function(nodeid, nodeinfo) {
     nodes[nodeid]['name'] = nodeinfo.name;
     nodes[nodeid]['loc'] = nodeinfo.loc;
     nodes[nodeid]['ready'] = true;
-    
+
     //sensorRepository.create({
 	//	type,
 		//location,
