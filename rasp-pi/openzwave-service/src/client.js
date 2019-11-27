@@ -7,7 +7,7 @@ const url = `${API_URL}/sensorReadings/new`;
 export const postNewReading = (sensorReading) => {
 	sensorReading = formatReading(sensorReading);
 	axios.post(url, {sensorReading: sensorReading})
-		.then((res) => console.log(res))
+		.then((res) => {})
 		.catch((err) => console.log(err));
 };
 

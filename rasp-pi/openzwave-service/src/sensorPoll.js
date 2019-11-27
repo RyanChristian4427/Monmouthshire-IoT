@@ -1,9 +1,13 @@
-import logger from "./util/logger";
 import ZWave from 'openzwave-shared';
 import { postNewReading } from './client';
-import io from 'socket.io';
+import { Promise } from 'bluebird';
+import AppDAO from './database/appDao.js';
+import SensorRepository from './database/sensorRepository.js';
 
-const socket = io.listen(3030);
+
+const appDao = new AppDAO('/home/pi/databases/iot_team_3/iot_team_3.sqlite');
+const sensorRepository = new SensorRepository(appDao);
+sensorRepository.createTable();
 
 const nodes = [];
 const zwave = new ZWave({
@@ -39,7 +43,6 @@ zwave.on('node added', function(nodeid) {
         ready: false,
     };
     console.log('new node added, now ' + nodes.length + ' nodes');
-
 });
 
 zwave.on('value added', function(nodeid, comclass, value) {
@@ -78,7 +81,16 @@ zwave.on('value removed', function(nodeid, comclass, index) {
     }
 });
 
+zwave.on('node removed', function(nodeId){
+	console.log('node ' + nodeId + ' removed ');
+	zwave.healNetworkNode(nodeId, doReturnRoutes=false);
+});
+
 zwave.on('node ready', function(nodeid, nodeinfo) {
+	const type = nodeinfo.product;
+	const location = nodeinfo.location;
+	const node_id = nodeid;
+	
     nodes[nodeid]['manufacturer'] = nodeinfo.manufacturer;
     nodes[nodeid]['manufacturerid'] = nodeinfo.manufacturerid;
     nodes[nodeid]['product'] = nodeinfo.product;
@@ -88,6 +100,12 @@ zwave.on('node ready', function(nodeid, nodeinfo) {
     nodes[nodeid]['name'] = nodeinfo.name;
     nodes[nodeid]['loc'] = nodeinfo.loc;
     nodes[nodeid]['ready'] = true;
+    
+    //sensorRepository.create({
+	//	type,
+		//location,
+		//node_id
+	//});
 
     for (let comclass in nodes[nodeid]['classes']) {
         console.log('node%d: class %d', nodeid, comclass);
