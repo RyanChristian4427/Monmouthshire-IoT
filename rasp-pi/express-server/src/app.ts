@@ -9,10 +9,12 @@ import apiV1 from 'src/api/v1/sensorConfiguration';
 export const app = express();
 export const server = http.createServer(app);
 export const io = socketIo(server);
-// Express configuration
-app.use(bodyParser.json());
 
+// Express configuration
+app.set('port', process.env.PORT || 8000);
+app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+
 // Socket configuration
 setUpSockets(io);
 

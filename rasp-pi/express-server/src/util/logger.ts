@@ -1,11 +1,15 @@
 import winston from 'winston';
 
+const logFormat = winston.format.printf((log) => {
+    return `${log.level}: ${JSON.stringify(log.message, null, 4)}`;
+});
+
 const options: winston.LoggerOptions = {
     transports: [
         new winston.transports.Console({
-            level: 'error'
+            level: 'debug',
+            format: winston.format.combine(winston.format.colorize(), logFormat)
         }),
-        new winston.transports.File({ filename: 'debug.log', level: 'debug' })
     ]
 };
 
