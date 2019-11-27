@@ -28,7 +28,7 @@ while True:
 		reply = 'OK, I have done the important thing you have asked me!'
 
 	#and so on and on until...
-	elif data == 'quit':
+	elif data == 'stop':
 		conn.send(b'Terminating')
 		break
 	else:
