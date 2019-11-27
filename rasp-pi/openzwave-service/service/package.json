@@ -1,0 +1,25 @@
+{
+  "name": "rasp-pi-home-server",
+  "version": "1.0.0",
+  "description": "",
+  "main": "src/sensorPoll.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "babel src -d lib",
+    "dev": "npm run build && node lib/sensorPoll.js"
+  },
+  "dependencies": {
+    "@babel/preset-env": "^7.7.4",
+    "axios": "^0.19.0",
+    "bluebird": "^3.7.1",
+    "dotenv": "^8.2.0",
+    "openzwave-shared": "^1.5.10",
+    "socket.io": "^2.3.0",
+    "sqlite3": "^4.1.0"
+  },
+  "devDependencies": {
+    "babel-preset-es2019": "^1.0.0",
+    "@babel/cli": "^7.7.4",
+    "@babel/core": "^7.7.4"
+  }
+}
