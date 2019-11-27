@@ -1,0 +1,39 @@
+@import 'styles/variables';
+$scheme-invert: $theme-platinum;
+$scheme-main: $theme-coral;
+
+@import "~bulma/sass/utilities/mixins";
+
+
+
+.home-page {
+  .card {
+    border-radius: 23px;
+    background: whitesmoke;
+    width: auto;
+    margin: 10vh 25vw 5vh;
+    padding: 1vh 1vh 1vh;
+  }
+
+  #layered-background {
+    border-radius: 20px;
+    background: $theme-coral;
+    padding: 5vh 15vw 5vh;
+    color: $theme-platinum;
+    fill: $theme-platinum;
+    &.is-loading {
+      position: relative;
+      pointer-events: none;
+      opacity: 0.5;
+      &:after {
+        @include loader;
+        position: absolute;
+        top: calc(50% - 2.5em);
+        left: calc(50% - 2.5em);
+        width: 5em;
+        height: 5em;
+        border-width: 0.25em;
+      }
+    }
+  }
+}

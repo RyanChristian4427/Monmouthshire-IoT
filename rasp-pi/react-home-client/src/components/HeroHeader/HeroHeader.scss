@@ -1,0 +1,13 @@
+@import 'styles/variables';
+
+.hero {
+  flex: 0 1 auto;
+
+  img {
+    width: 3vw;
+    height: auto;
+  }
+  span {
+    color: $theme-platinum;
+  }
+}
