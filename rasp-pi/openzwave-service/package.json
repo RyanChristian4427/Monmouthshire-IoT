@@ -6,7 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "babel src -d lib",
-    "dev": "npm run build && node lib/app.js"
+    "dev": "npm run build && node lib/sensorPoll.js"
   },
   "dependencies": {
     "@babel/preset-env": "^7.7.4",
@@ -19,8 +19,9 @@
     "winston": "^3.2.1"
   },
   "devDependencies": {
-    "babel-preset-es2019": "^1.0.0",
     "@babel/cli": "^7.7.4",
-    "@babel/core": "^7.7.4"
+    "@babel/core": "^7.7.4",
+    "@babel/plugin-proposal-class-properties": "^7.7.4",
+    "babel-preset-es2019": "^1.0.0"
   }
 }

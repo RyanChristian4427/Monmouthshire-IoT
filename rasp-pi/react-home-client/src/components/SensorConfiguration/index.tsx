@@ -15,15 +15,23 @@ enum SensorType {
 export const SensorConfiguration: React.FC = () => {
     const [inProgress, setInProgress] = useState(false);
     const [sensorType, setSensorType] = useState();
+    const [sensors, setSensors] = useState();
 
     useEffect(() => {
         socket.on('sensor_joined_z_wave', (sensor: Sensor) => {
             // Increase count for frog sighting
             console.log('sensor received');
+            setSensors(sensors.push(sensor));
             console.log(sensor);
         });
     }, []);
     console.log(sensorType);
+
+    const updateSensorLocation = (): void => {
+        const sensorId = sensors[1].node_id;
+        const location = 'Living Room';
+        socket.emit('sensor_update', {sensorId, location});
+    };
 
     return (
         <React.Fragment>
@@ -44,7 +52,8 @@ export const SensorConfiguration: React.FC = () => {
             <div className="level">
                 <div className="level-left"/>
                 <div className="level-right">
-                    <button className={'button is-platinum-light level-item ' + (inProgress ? 'is-loading' : '') }>
+                    <button  onClick={updateSensorLocation}
+                             className={'button is-platinum-light level-item ' + (inProgress ? 'is-loading' : '') }>
                         Submit
                     </button>
                 </div>
