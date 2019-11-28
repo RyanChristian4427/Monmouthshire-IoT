@@ -14,16 +14,16 @@ export default class ClientSocket {
         });
     };
 
-    alertNewSensorJoinedNetwork = (sensor: Sensor): void => {
-        this.io.emit(
-            'NEW_SENSOR_JOINED_NETWORK',
-            sensor
-        );
-    };
-
     onSensorAddedToNetwork = (socket: Socket): void => {
-        socket.on('NEW', (sensor) => {
+        socket.on('new_sensor', (sensor) => {
             this.alertNewSensorJoinedNetwork(sensor);
         });
+    };
+
+    alertNewSensorJoinedNetwork = (sensor: Sensor): void => {
+        this.io.emit(
+            'new_sensor_joined_network',
+            sensor
+        );
     };
 }
