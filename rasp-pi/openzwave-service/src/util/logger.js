@@ -4,7 +4,7 @@ const logFormat = winston.format.printf((log) => {
     return `${log.level}: ${JSON.stringify(log.message, null, 4)}`;
 });
 
-const options: winston.LoggerOptions = {
+const options = {
     transports: [
         new winston.transports.Console({
             level: 'debug',

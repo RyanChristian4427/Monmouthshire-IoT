@@ -14,16 +14,16 @@ export default class OZWServiceSocket {
         });
     };
 
-    alertSensorUpdated = (sensor: Sensor): void => {
-        this.io.emit(
-            'SENSOR_UPDATE',
-            sensor
-        );
-    };
-
     onSensorUpdate = (socket: Socket): void => {
-        socket.on('SENSOR_UPDATED', (sensor: Sensor) => {
+        socket.on('sensor_updated', (sensor: Sensor) => {
             this.alertSensorUpdated(sensor);
         });
+    };
+
+    alertSensorUpdated = (sensor: Sensor): void => {
+        this.io.emit(
+            'sensor_update',
+            sensor
+        );
     };
 }

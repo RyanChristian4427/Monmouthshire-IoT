@@ -19,3 +19,19 @@ test backend:
         - npm install --progress=false
         - npm run test
         - npm run lint
+
+test rasp-pi-client:
+    stage: test
+    script:
+        - cd rasp-pi/react-home-client
+        - npm install --progress=false
+        - npm run test
+        - npm run lint
+
+test rasp-pi-server:
+    stage: test
+    script:
+        - cd rasp-pi/express-server
+        - npm install --progress=false
+        - npm run test
+        - npm run lint

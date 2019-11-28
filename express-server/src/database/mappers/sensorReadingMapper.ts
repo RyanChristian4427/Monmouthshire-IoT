@@ -1,6 +1,6 @@
-import SensorReadding from 'src/database/models/sensorReading';
+import SensorReading from 'src/database/models/sensorReading';
 
-export const createSensorReading = (newReading: any): SensorReadding => {
+export const createSensorReading = (newReading: any): SensorReading => {
     return {
         id : newReading.value_id,
         userId: 1,

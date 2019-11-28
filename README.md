@@ -19,12 +19,10 @@ connection has not been successful. On the back of the Multi-6 sensor, there is 
 can press to put the sensor into pairing mode should immediate connection fail (you shouldn't have to do this).
 
 ### Running the script
-To login to the RPi the username is pi and the password is raspberry. Go to a terminal and run the following:
+To login to the RPi the username is pi and the password is raspberry. Go to a terminal in rasp-pi/openzwave-service and run the following:
 
 ```bash
-cd iot_team_3
-npm run build
-node lib/sensorPolling.js
+npm run dev
 ```
 
 To start the script you won't have to do this soon, a service will be created to start this on boot.

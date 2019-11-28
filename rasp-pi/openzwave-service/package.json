@@ -15,7 +15,8 @@
     "dotenv": "^8.2.0",
     "openzwave-shared": "^1.5.10",
     "socket.io": "^2.3.0",
-    "sqlite3": "^4.1.0"
+    "sqlite3": "^4.1.0",
+    "winston": "^3.2.1"
   },
   "devDependencies": {
     "babel-preset-es2019": "^1.0.0",
