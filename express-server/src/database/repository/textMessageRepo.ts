@@ -15,7 +15,7 @@ export const fetchBuilder = (query: string, objectKey: string, args: object): Pr
 
 export const insertNewTextMessage = (textMessage: object): Promise<TextMessage> => {
     const objectKey = 'message';
-    const query = `CREATE(message:Message {from: {from}, body: {body}})`;
+    const query = `CREATE(message:Message {from: {from}, body: {body}, timestamp: datetime()})`;
     return insert(query, objectKey, createTextMessage(textMessage))
         .then((result) => {
             return result

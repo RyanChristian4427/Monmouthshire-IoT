@@ -1,5 +1,4 @@
 import { Response, Request, NextFunction, Router } from 'express';
-import { fetch, insert } from 'src/database/databaseConnectors';
 import { insertNewTextMessage, getAllMessages } from '../../database/repository/textMessageRepo'
 
 const MessagingResponse = require('twilio').twiml.MessagingResponse;
@@ -21,7 +20,7 @@ router.post('/sms', (req: Request, res: Response, next: NextFunction) => {
 router.get('/sms', (req: Request, res: Response, next: NextFunction) => {
     getAllMessages()
         .then((result) => {
-            res.send({result})
+            res.send(result)
         })
         .catch((err) => {
             next(err)
