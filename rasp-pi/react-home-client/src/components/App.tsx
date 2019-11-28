@@ -1,8 +1,10 @@
 import React, {useState} from 'react';
 
 import {HeroHeader} from 'components/HeroHeader';
-import './App.scss';
+import {SensorConfiguration} from 'components/SensorConfiguration';
 import socket from 'models/Socket';
+
+import './App.scss';
 
 const App: React.FC = () => {
     const [isLoading, setIsLoading] = useState(false);
@@ -13,7 +15,8 @@ const App: React.FC = () => {
 
     const display = (isLoading)
         ? <h3>Loading, please wait...</h3>
-        : <h3>Please connect a sensor to begin</h3>;
+        // : <h3>Please connect a sensor to begin</h3>;
+        : <SensorConfiguration/>;
 
     return (
         <div className="home-page">
