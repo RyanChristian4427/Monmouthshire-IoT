@@ -3,6 +3,7 @@ import { postNewReading } from './client';
 import { Promise } from 'bluebird';
 import AppDAO from './database/appDao.js';
 import SensorRepository from './database/sensorRepository.js';
+import logger from './util/logger';
 
 
 const appDao = new AppDAO('/home/pi/databases/iot_team_3/iot_team_3.sqlite');
@@ -20,11 +21,11 @@ const zwave = new ZWave({
 });
 
 zwave.on('driver ready', function(homeid) {
-    console.log('scanning homeid=0x%s...', homeid.toString(16));
+    logger.info(`scanning homeid=0x${homeid.toString(16)}...`)
 });
 
 zwave.on('driver failed', function() {
-    console.log('failed to start driver');
+    logger.info('failed to start driver');
     zwave.disconnect();
     process.exit();
 });
@@ -42,7 +43,7 @@ zwave.on('node added', function(nodeid) {
         classes: {},
         ready: false,
     };
-    console.log('new node added, now ' + nodes.length + ' nodes');
+    logger.info(`new node added, now ${nodes.length} nodes`);
 });
 
 zwave.on('value added', function(nodeid, comclass, value) {
@@ -57,14 +58,12 @@ zwave.on('value added', function(nodeid, comclass, value) {
 
 zwave.on('value changed', function(nodeid, comclass, value) {
     if (nodes[nodeid]['ready']) {
-        console.log('node%d: changed: %d:%s:%s->%s', nodeid, comclass,
-            value['label'],
-            nodes[nodeid]['classes'][comclass][value.index]['value'],
-            value['value']);
+        logger.info(`node${nodeid}: changed: 
+            ${comclass}:${value['label']}:${nodes[nodeid]['classes'][comclass][value.index]['value']}->${value['value']}`)
     }
     nodes[nodeid]['classes'][comclass][value.index] = value;
-    console.log('value changed for node%d: label: %s, value: ' +
-        value['value'] + ', unit: %s', nodeid, value['unit']);
+    logger.info(`value changed for node${nodeid}: 
+        label: ${value['unit']}, value: ${value['value']}, unit:${value['unit']}`);
     if (readingIsValid(value)) {
         postNewReading(value);
     }
@@ -82,7 +81,7 @@ zwave.on('value removed', function(nodeid, comclass, index) {
 });
 
 zwave.on('node removed', function(nodeId){
-	console.log('node ' + nodeId + ' removed ');
+	logger.info(`node ${nodeId} removed`);
 	zwave.healNetworkNode(nodeId, doReturnRoutes=false);
 });
 
@@ -108,7 +107,7 @@ zwave.on('node ready', function(nodeid, nodeinfo) {
 	//});
 
     for (let comclass in nodes[nodeid]['classes']) {
-        console.log('node%d: class %d', nodeid, comclass);
+        logger.info(`node${nodeid}: class ${comclass}`);
         switch (comclass) {
             case 0x25: // COMMAND_CLASS_SWITCH_BINARY
             case 0x26: // COMMAND_CLASS_SWITCH_MULTILEVEL
@@ -117,13 +116,13 @@ zwave.on('node ready', function(nodeid, nodeinfo) {
                     zwave.enablePoll(valueId);
                     break;
                 }
-                console.log('node%d:   %s=%s', nodeid, values[idx]['label'], values[idx]['value']);
+                logger.info(`node${nodeid}:   ${values[idx]['label']}=${values[idx]['value']}`)
         }
     }
 });
 
 zwave.on('scan complete', function() {
-    console.log('====> scan complete, hit ^C to finish.');
+    logger.info('====> scan complete, hit CTRL-C to finish.');
     // Add a new device to the ZWave controller
     if (zwave.hasOwnProperty('beginControllerCommand')) {
         // using legacy mode (OpenZWave version < 1.3) - no security
@@ -139,7 +138,7 @@ zwave.on('scan complete', function() {
 zwave.connect('/dev/ttyACM0');
 
 process.on('SIGINT', function() {
-    console.log('disconnecting...');
+    logger.info('disconnection...');
     zwave.disconnect('/dev/ttyACM0');
     process.exit();
 });

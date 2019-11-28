@@ -1,6 +1,7 @@
 import axios from 'axios';
 import { API_URL } from './util/secrets';
 import { fahrenheitToCelsius } from "./util/readings";
+import logger from './util/logger';
 
 const url = `${API_URL}/sensorReadings/new`;
 
@@ -8,7 +9,7 @@ export const postNewReading = (sensorReading) => {
 	sensorReading = formatReading(sensorReading);
 	axios.post(url, {sensorReading: sensorReading})
 		.then((res) => {})
-		.catch((err) => console.log(err));
+		.catch((err) => logger.error(err));
 };
 
 const formatReading = (sensorReading) => {
