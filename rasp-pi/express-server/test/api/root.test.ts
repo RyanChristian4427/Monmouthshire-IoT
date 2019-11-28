@@ -7,7 +7,7 @@ describe('POST /api/v1/update/5', () => {
             .post('/api/v1/update/5');
         return (
             expect(response.status).toBe(200),
-                expect(response.body).toBe('Hello World!')
+            expect(response.body).toBe('Hello World!')
         );
     });
 });

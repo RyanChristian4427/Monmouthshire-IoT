@@ -20,15 +20,6 @@
     "@types/dotenv": "^8.2.0",
     "@types/eslint": "^6.1.1",
     "@types/express": "^4.17.2",
-<<<<<<< HEAD
-    "@types/node": "^12.12.11",
-    "@types/socket.io": "^2.1.4",
-    "@typescript-eslint/eslint-plugin": "^2.3.1",
-    "@typescript-eslint/parser": "^2.3.1",
-    "eslint": "^6.6.0",
-    "nodemon": "^1.19.4",
-    "ts-node": "^8.5.2",
-=======
     "@types/jest": "^24.0.23",
     "@types/node": "^12.12.11",
     "@types/socket.io": "^2.1.4",
@@ -41,7 +32,6 @@
     "supertest": "^4.0.2",
     "ts-node": "^8.5.2",
     "ts-jest": "^24.2.0",
->>>>>>> df96736753cdae4cd7270e8dc0955fd65167c274
     "tsconfig-paths": "^3.9.0"
   }
 }

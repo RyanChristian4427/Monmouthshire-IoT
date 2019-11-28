@@ -1,4 +1,4 @@
-import {Server} from 'socket.io';
+import { Server } from 'socket.io';
 import ClientSocket from './clientSocket';
 import OZWServiceSocket from './serviceSocket';
 
