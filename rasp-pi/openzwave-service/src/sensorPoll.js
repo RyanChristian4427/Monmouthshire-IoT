@@ -106,11 +106,11 @@ export const pollSensors = () => {
         nodes[nodeid]['loc'] = nodeinfo.loc;
         nodes[nodeid]['ready'] = true;
 
-        //sensorRepository.create({
-        //	type,
-        //location,
-        //node_id
-        //});
+        sensorRepository.create({
+			type,
+			location,
+            node_id
+        });
 
         serverSocket.alertSensorAdded({
             node_id,
