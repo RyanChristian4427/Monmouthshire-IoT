@@ -1,5 +1,6 @@
 import AppDAO from '../database/appDao';
 import SensorRepository from '../database/sensorRepository';
+import logger from '../util/logger.js';
 
 export default class ServerSocket {
     io;
@@ -11,7 +12,7 @@ export default class ServerSocket {
         this.io = io;
     }
 
-    setUpSocketConnection = () => {
+    setUpSocketConnection(){
         this.io.on('connection',  (socket) => {
             this.onSensorUpdate(socket);
         });
@@ -24,10 +25,12 @@ export default class ServerSocket {
         );
     };
 
-    onSensorUpdate = (socket) => {
+    onSensorUpdate(socket){
         socket.on('sensor_update', (sensor) => {
             // Update in database
-            this.sensorRepository.updateSensorLocation(sensor.node_id, sensor.location);
+            logger.info('WE ADDING LOCATION UPDATE TO DATABASE!');
+            logger.info(sensor.nodeId + ', ' + sensor.location);
+            this.sensorRepository.updateSensorLocation(sensor.nodeId, sensor.location);
         });
     };
 }

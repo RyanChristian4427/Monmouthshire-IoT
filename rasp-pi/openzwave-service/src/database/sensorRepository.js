@@ -22,7 +22,7 @@ class SensorRepository {
 
   updateSensorLocation(sensorId, location) {
     return this.dao.run(
-      `UPDATE sensors SET location = ? WHERE id = ?`,
+      `UPDATE sensors SET location = ? WHERE node_id = ?`,
       [location, sensorId]
     );
   }

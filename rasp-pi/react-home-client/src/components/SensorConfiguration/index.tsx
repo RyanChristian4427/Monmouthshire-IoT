@@ -21,16 +21,17 @@ export const SensorConfiguration: React.FC = () => {
         socket.on('sensor_joined_z_wave', (sensor: Sensor) => {
             // Increase count for frog sighting
             console.log('sensor received');
-            setSensors(sensors.push(sensor));
+            //setSensors(sensors.push(sensor));
             console.log(sensor);
         });
     }, []);
     console.log(sensorType);
 
     const updateSensorLocation = (): void => {
-        const sensorId = sensors[1].node_id;
+        const nodeId = 3;
         const location = 'Living Room';
-        socket.emit('sensor_update', {sensorId, location});
+        console.log('about to update sensor');
+        socket.emit('sensor_update', {nodeId, location});
     };
 
     return (

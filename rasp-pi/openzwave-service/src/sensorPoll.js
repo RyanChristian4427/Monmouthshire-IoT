@@ -13,6 +13,7 @@ export const pollSensors = () => {
     sensorRepository.createTable();
     const socket = io.listen('3030');
     const serverSocket = new ServerSocket(socket);
+    serverSocket.setUpSocketConnection();
 
     const nodes = [];
     const zwave = new ZWave({
@@ -23,7 +24,8 @@ export const pollSensors = () => {
         PollInterval: 500,
         SuppressValueRefresh: true,
     });
-
+    
+    sensorRepository.updateSensorLocation(3, 'Kitchen');
     zwave.on('driver ready', function(homeid) {
         logger.info(`scanning homeid=0x${homeid.toString(16)}...`)
     });
