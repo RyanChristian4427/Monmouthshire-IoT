@@ -19,7 +19,7 @@ const App: React.FC = () => {
         <div className="home-page">
             <HeroHeader title="Home"/>
             <section className="card">
-                <div className={"container has-text-centered " + (isLoading ? "is-loading" : "")} id="layered-background">
+                <div className={'container has-text-centered ' + (isLoading ? 'is-loading' : '')} id="layered-background">
                     {display}
                 </div>
             </section>
