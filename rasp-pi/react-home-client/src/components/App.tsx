@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 
 import {HeroHeader} from 'components/HeroHeader';
 import {SensorConfiguration} from 'components/SensorConfiguration';
-import socket from 'models/Socket';
+import socket from 'Socket';
 
 import './App.scss';
 

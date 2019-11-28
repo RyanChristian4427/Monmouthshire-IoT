@@ -1,4 +1,6 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
+import socket from '../../Socket';
+import Sensor from '../../types/sensor';
 
 import './SensorConfiguration.scss';
 
@@ -14,6 +16,13 @@ export const SensorConfiguration: React.FC = () => {
     const [inProgress, setInProgress] = useState(false);
     const [sensorType, setSensorType] = useState();
 
+    useEffect(() => {
+        socket.on('sensor_joined_z_wave', (sensor: Sensor) => {
+            // Increase count for frog sighting
+            console.log('sensor received');
+            console.log(sensor);
+        });
+    }, []);
     console.log(sensorType);
 
     return (

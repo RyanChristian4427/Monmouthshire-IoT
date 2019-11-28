@@ -9,3 +9,8 @@ export const setUpSockets = (io: Server): void => {
     clientSocket.setUpSocketConnection();
     ozwServiceSocket.setUpSocketConnection();
 };
+
+const setUpClient = () => {
+
+};
+

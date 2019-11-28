@@ -4,11 +4,15 @@ import { Promise } from 'bluebird';
 import AppDAO from './database/appDao.js';
 import SensorRepository from './database/sensorRepository.js';
 import logger from './util/logger';
+import ServerSocket from "./sockets/serverSocket";
+import io from 'socket.io';
 
 export const pollSensors = () => {
     const appDao = new AppDAO('/home/pi/databases/iot_team_3/iot_team_3.sqlite');
     const sensorRepository = new SensorRepository(appDao);
     sensorRepository.createTable();
+    const socket = io.listen('3030');
+    const serverSocket = new ServerSocket(socket);
 
     const nodes = [];
     const zwave = new ZWave({
@@ -106,6 +110,12 @@ export const pollSensors = () => {
         //node_id
         //});
 
+        serverSocket.alertSensorAdded({
+            node_id,
+            type,
+            location
+        });
+
         for (let comclass in nodes[nodeid]['classes']) {
             logger.info(`node${nodeid}: class ${comclass}`);
             switch (comclass) {
@@ -143,4 +153,6 @@ export const pollSensors = () => {
         process.exit();
     });
 
-}
+};
+
+pollSensors();
