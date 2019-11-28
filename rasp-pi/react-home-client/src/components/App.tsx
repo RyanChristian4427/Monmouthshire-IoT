@@ -2,28 +2,26 @@ import React, {useState} from 'react';
 
 import {HeroHeader} from 'components/HeroHeader';
 import {SensorConfiguration} from 'components/SensorConfiguration';
-import socket from 'models/Socket';
+import {SensorList} from 'components/SensorList';
 
 import './App.scss';
 
+
 const App: React.FC = () => {
-    const [isLoading, setIsLoading] = useState(false);
-
-    socket.on('initial_loading_finished', () => {
-        setIsLoading(false);
-    });
-
-    const display = (isLoading)
-        ? <h3>Loading, please wait...</h3>
-        // : <h3>Please connect a sensor to begin</h3>;
-        : <SensorConfiguration/>;
-
     return (
         <div className="home-page">
             <HeroHeader title="Home"/>
-            <section className="card">
-                <div className={'container has-text-centered ' + (isLoading ? 'is-loading' : '')} id="layered-background">
-                    {display}
+            <section className="section">
+                <div className="columns is-variable is-2">
+                    <section className="card column">
+                        <SensorList/>
+                    </section>
+                    <section className="card column">
+                        <div className='container has-text-centered' id="layered-background">
+                            <h3 className="is-size-4">Please Select a Sensor to Begin</h3>
+                            <SensorConfiguration/>
+                        </div>
+                    </section>
                 </div>
             </section>
         </div>
