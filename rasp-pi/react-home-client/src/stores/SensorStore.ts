@@ -24,9 +24,15 @@ class SensorStore {
         this.tempSensorList[this.indexSelectedSensor].name = newName;
     }
 
+
     @action
     setSensorType(newType: number): void {
         this.tempSensorList[this.indexSelectedSensor].type = newType;
+    }
+
+    @action
+    addSensor(sensor: Sensor): void {
+        this.tempSensorList.push(sensor);
     }
 }
 

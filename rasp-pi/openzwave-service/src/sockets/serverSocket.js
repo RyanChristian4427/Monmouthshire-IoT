@@ -28,9 +28,8 @@ export default class ServerSocket {
     onSensorUpdate(socket){
         socket.on('sensor_update', (sensor) => {
             // Update in database
-            logger.info('WE ADDING LOCATION UPDATE TO DATABASE!');
-            logger.info(sensor.nodeId + ', ' + sensor.location);
-            this.sensorRepository.updateSensorLocation(sensor.nodeId, sensor.location);
+            logger.info(`Updating node ${sensor.id}: type is ${sensor.type} and name is ${sensor.name}`);
+            this.sensorRepository.updateSensor(sensor.nodeId, sensor.type, sensor.name);
         });
     };
 }

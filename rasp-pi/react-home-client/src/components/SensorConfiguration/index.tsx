@@ -1,31 +1,25 @@
 import React, {useContext, useState, useEffect} from 'react';
 import {observer} from 'mobx-react-lite';
-import socket from '../../Socket';
-import Sensor from '../../types/sensor';
-import {SensorType} from 'models/Sensor';
+import socket from 'sockets';
+import {Sensor, SensorType} from 'models/Sensor';
 import {SensorStoreContext} from 'stores/SensorStore';
 
-
 import './SensorConfiguration.scss';
-
 
 export const SensorConfiguration: React.FC = observer(() => {
     const sensorStore = useContext(SensorStoreContext);
 
     const [inProgress, setInProgress] = useState(false);
 
-    const [sensors, setSensors] = useState();
-    const updateSensorLocation = (): void => {
-         const nodeId = 3;
-         const location = 'Living Room';
-         console.log('about to update sensor');
-         socket.emit('sensor_update', {nodeId, location});
-     };
-    
+    const updateSensor = (): void => {
+        const sensor = sensorStore.tempSensorList[sensorStore.indexSelectedSensor];
+        socket.emit('sensor_update', sensor);
+    };
+
      useEffect(() => {
          socket.on('sensor_joined_z_wave', (sensor: Sensor) => {
              console.log('sensor received');
-             //setSensors(sensors.push(sensor));
+             sensorStore.addSensor(sensor);
              console.log(sensor);
          });
      }, []);
@@ -62,7 +56,10 @@ export const SensorConfiguration: React.FC = observer(() => {
                 <div className="level">
                     <div className="level-left"/>
                     <div className="level-right">
-                        <button className={'button is-platinum-light level-item ' + (inProgress ? 'is-loading' : '') }>
+                        <button
+                            className={'button is-platinum-light level-item ' + (inProgress ? 'is-loading' : '')}
+                            onClick={updateSensor}
+                        >
                             Submit
                         </button>
                     </div>

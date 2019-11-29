@@ -24,8 +24,7 @@ export const pollSensors = () => {
         PollInterval: 500,
         SuppressValueRefresh: true,
     });
-    
-    sensorRepository.updateSensorLocation(3, 'Kitchen');
+
     zwave.on('driver ready', function(homeid) {
         logger.info(`scanning homeid=0x${homeid.toString(16)}...`)
     });

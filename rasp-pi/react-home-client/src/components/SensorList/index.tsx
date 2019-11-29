@@ -2,11 +2,10 @@ import React, {useContext, useState} from 'react';
 import {observer} from 'mobx-react-lite';
 
 import {SensorCard} from 'components/SensorCard';
-import socket from 'models/Socket';
+import socket from 'sockets';
 import {SensorStoreContext} from 'stores/SensorStore';
 
 import './SensorList.scss';
-
 
 export const SensorList: React.FC = observer(() => {
     const sensorStore = useContext(SensorStoreContext);

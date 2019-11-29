@@ -6,7 +6,6 @@ import {SensorStoreContext} from 'stores/SensorStore';
 
 import './SensorCard.scss';
 
-
 export const SensorCard: React.FC<Sensor> = observer((props: Sensor) => {
     const sensorStore = useContext(SensorStoreContext);
 
