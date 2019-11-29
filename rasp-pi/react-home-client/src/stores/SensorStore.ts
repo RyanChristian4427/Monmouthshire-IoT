@@ -2,7 +2,7 @@ import {action, observable} from 'mobx';
 import {createContext} from 'react';
 
 import {Sensor, SensorType} from 'models/Sensor';
-import socket from 'models/Socket';
+import socket from 'sockets';
 
 
 class SensorStore {
