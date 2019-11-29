@@ -1,9 +1,10 @@
-import React, {useContext, useState} from 'react';
+import React, {useContext} from 'react';
+import {observer} from 'mobx-react-lite';
+
+import {Sensor} from 'models/Sensor';
+import {SensorStoreContext} from 'stores/SensorStore';
 
 import './SensorCard.scss';
-import {observer} from 'mobx-react-lite';
-import {SensorStoreContext} from 'stores/SensorStore';
-import {Sensor} from 'models/Sensor';
 
 
 export const SensorCard: React.FC<Sensor> = observer((props: Sensor) => {

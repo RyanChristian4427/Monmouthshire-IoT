@@ -4,11 +4,16 @@ import { Promise } from 'bluebird';
 import AppDAO from './database/appDao.js';
 import SensorRepository from './database/sensorRepository.js';
 import logger from './util/logger';
+import ServerSocket from "./sockets/serverSocket";
+import io from 'socket.io';
 
 export const pollSensors = () => {
     const appDao = new AppDAO('/home/pi/databases/iot_team_3/iot_team_3.sqlite');
     const sensorRepository = new SensorRepository(appDao);
     sensorRepository.createTable();
+    const socket = io.listen('3030');
+    const serverSocket = new ServerSocket(socket);
+    serverSocket.setUpSocketConnection();
 
     const nodes = [];
     const zwave = new ZWave({
@@ -19,7 +24,8 @@ export const pollSensors = () => {
         PollInterval: 500,
         SuppressValueRefresh: true,
     });
-
+    
+    sensorRepository.updateSensorLocation(3, 'Kitchen');
     zwave.on('driver ready', function(homeid) {
         logger.info(`scanning homeid=0x${homeid.toString(16)}...`)
     });
@@ -100,11 +106,17 @@ export const pollSensors = () => {
         nodes[nodeid]['loc'] = nodeinfo.loc;
         nodes[nodeid]['ready'] = true;
 
-        //sensorRepository.create({
-        //	type,
-        //location,
-        //node_id
-        //});
+        sensorRepository.create({
+			type,
+			location,
+            node_id
+        });
+
+        serverSocket.alertSensorAdded({
+            node_id,
+            type,
+            location
+        });
 
         for (let comclass in nodes[nodeid]['classes']) {
             logger.info(`node${nodeid}: class ${comclass}`);
@@ -143,4 +155,6 @@ export const pollSensors = () => {
         process.exit();
     });
 
-}
+};
+
+pollSensors();

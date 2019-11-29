@@ -1,9 +1,10 @@
 import React, {useContext, useState} from 'react';
+import {observer} from 'mobx-react-lite';
 
 import {SensorType} from 'models/Sensor';
-import './SensorConfiguration.scss';
-import {observer} from 'mobx-react-lite';
 import {SensorStoreContext} from 'stores/SensorStore';
+
+import './SensorConfiguration.scss';
 
 
 export const SensorConfiguration: React.FC = observer(() => {
@@ -12,6 +13,23 @@ export const SensorConfiguration: React.FC = observer(() => {
     const [inProgress, setInProgress] = useState(false);
     const [sensorType, setSensorType] = useState();
 
+    // TODO integrate in
+    // const [sensors, setSensors] = useState();
+    // const updateSensorLocation = (): void => {
+    //     const nodeId = 3;
+    //     const location = 'Living Room';
+    //     console.log('about to update sensor');
+    //     socket.emit('sensor_update', {nodeId, location});
+    // };
+    //
+    // useEffect(() => {
+    //     socket.on('sensor_joined_z_wave', (sensor: Sensor) => {
+    //         // Increase count for frog sighting
+    //         console.log('sensor received');
+    //         //setSensors(sensors.push(sensor));
+    //         console.log(sensor);
+    //     });
+    // }, []);
 
     if (sensorStore.indexSelectedSensor > -1) {
         return (

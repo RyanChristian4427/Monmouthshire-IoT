@@ -1,18 +1,18 @@
 import React, {useContext, useState} from 'react';
+import {observer} from 'mobx-react-lite';
 
-import {Sensor, SensorType} from 'models/Sensor';
-import socket from 'models/Socket';
 import {SensorCard} from 'components/SensorCard';
+import socket from 'models/Socket';
+import {SensorStoreContext} from 'stores/SensorStore';
 
 import './SensorList.scss';
-import {observer} from 'mobx-react-lite';
-import {SensorStoreContext} from 'stores/SensorStore';
 
 
 export const SensorList: React.FC = observer(() => {
     const sensorStore = useContext(SensorStoreContext);
     const [isLoading, setIsLoading] = useState(false);
 
+    // Probably will remove if I can't figure out a good way of implementing
     socket.on('initial_loading_finished', () => {
         setIsLoading(false);
     });
