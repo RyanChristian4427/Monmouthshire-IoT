@@ -1,7 +1,7 @@
 export interface Sensor {
     id: number;
     name: string;
-    type?: SensorType;
+    type: SensorType;
 }
 
 export enum SensorType {
@@ -9,5 +9,6 @@ export enum SensorType {
     bedroom,
     bathroom,
     livingRoom,
-    exteriorDoor
+    exteriorDoor,
+    none
 }
