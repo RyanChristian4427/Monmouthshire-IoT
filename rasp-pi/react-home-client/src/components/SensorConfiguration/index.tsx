@@ -10,24 +10,6 @@ import './SensorConfiguration.scss';
 export const SensorConfiguration: React.FC = observer(() => {
     const sensorStore = useContext(SensorStoreContext);
 
-    // TODO integrate in
-    // const [sensors, setSensors] = useState();
-    // const updateSensorLocation = (): void => {
-    //     const nodeId = 3;
-    //     const location = 'Living Room';
-    //     console.log('about to update sensor');
-    //     socket.emit('sensor_update', {nodeId, location});
-    // };
-    //
-    // useEffect(() => {
-    //     socket.on('sensor_joined_z_wave', (sensor: Sensor) => {
-    //         // Increase count for frog sighting
-    //         console.log('sensor received');
-    //         //setSensors(sensors.push(sensor));
-    //         console.log(sensor);
-    //     });
-    // }, []);
-
     if (sensorStore.indexSelectedSensor > -1) {
         const currentSensor = sensorStore.tempSensorList[sensorStore.indexSelectedSensor];
         return (
