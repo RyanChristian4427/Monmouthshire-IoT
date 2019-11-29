@@ -1,9 +1,11 @@
 import React from 'react';
+
 import {HeroHeader} from 'components/HeroHeader';
 import {SensorConfiguration} from 'components/SensorConfiguration';
 import {SensorList} from 'components/SensorList';
 
 import './App.scss';
+
 
 const App: React.FC = () => {
     return (
