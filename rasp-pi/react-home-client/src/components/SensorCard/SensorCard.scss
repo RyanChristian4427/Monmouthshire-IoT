@@ -1,0 +1,8 @@
+@import 'styles/variables';
+
+.sensor-card {
+  cursor: pointer;
+  background: $theme-silver;
+  border-radius: 20px;
+  padding: 4px 4px 4px 6px;
+}
