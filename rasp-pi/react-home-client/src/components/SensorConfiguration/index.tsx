@@ -1,4 +1,4 @@
-import React, {useContext, useState} from 'react';
+import React, {useContext} from 'react';
 import {observer} from 'mobx-react-lite';
 
 import {SensorType} from 'models/Sensor';
@@ -9,8 +9,6 @@ import './SensorConfiguration.scss';
 
 export const SensorConfiguration: React.FC = observer(() => {
     const sensorStore = useContext(SensorStoreContext);
-
-    const [inProgress, setInProgress] = useState(false);
 
     // TODO integrate in
     // const [sensors, setSensors] = useState();
@@ -49,7 +47,8 @@ export const SensorConfiguration: React.FC = observer(() => {
                     <label className="label">Please Choose a Sensor Type</label>
                     <div className="control has-text-centered">
                         <div className="select">
-                            <select onChange={(e): void => sensorStore.setSensorType(Number(e.target.value))}>
+                            <select value={currentSensor.type} onChange={(e): void => sensorStore.setSensorType(Number(e.target.value))}>
+                                <option value={SensorType.none}>N/A</option>
                                 <option value={SensorType.kitchen}>Kitchen</option>
                                 <option value={SensorType.bedroom}>Bedroom</option>
                                 <option value={SensorType.bathroom}>Bathroom</option>
@@ -59,20 +58,6 @@ export const SensorConfiguration: React.FC = observer(() => {
                         </div>
                     </div>
                 </div>
-                <div className="level">
-                    <div className="level-left"/>
-                    <div className="level-right">
-                        <button className={'button is-platinum-light level-item ' + (inProgress ? 'is-loading' : '') }>
-                            Submit
-                        </button>
-                    </div>
-                </div>
-                <h5 className="is-size-5">Temp and just for testing purposes:</h5>
-                <h5 className="is-size-5">
-                    Index: {sensorStore.indexSelectedSensor +
-                    ' Sensor Name:' + currentSensor.name +
-                    ' Sensor Type:' + currentSensor.type}
-                </h5>
             </React.Fragment>
         );
     } else {
