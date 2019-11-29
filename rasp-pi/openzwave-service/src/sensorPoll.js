@@ -101,42 +101,42 @@ export const pollSensors = () => {
     });
 
     zwave.on('node ready', function(nodeId, nodeinfo) {
-        const type = nodeinfo.product;
-        const location = nodeinfo.location;
+        const hardware = nodeinfo.product;
+        const name = `Sensor ${nodeId} (${nodeinfo.type})`;
 
-        nodes[nodeid]['manufacturer'] = nodeinfo.manufacturer;
-        nodes[nodeid]['manufacturerid'] = nodeinfo.manufacturerid;
-        nodes[nodeid]['product'] = nodeinfo.product;
-        nodes[nodeid]['producttype'] = nodeinfo.producttype;
-        nodes[nodeid]['productid'] = nodeinfo.productid;
-        nodes[nodeid]['type'] = nodeinfo.type;
-        nodes[nodeid]['name'] = nodeinfo.name;
-        nodes[nodeid]['loc'] = nodeinfo.loc;
-        nodes[nodeid]['ready'] = true;
+        nodes[nodeId]['manufacturer'] = nodeinfo.manufacturer;
+        nodes[nodeId]['manufacturerid'] = nodeinfo.manufacturerid;
+        nodes[nodeId]['product'] = nodeinfo.product;
+        nodes[nodeId]['producttype'] = nodeinfo.producttype;
+        nodes[nodeId]['productid'] = nodeinfo.productid;
+        nodes[nodeId]['type'] = nodeinfo.type;
+        nodes[nodeId]['name'] = nodeinfo.name;
+        nodes[nodeId]['loc'] = nodeinfo.loc;
+        nodes[nodeId]['ready'] = true;
 
         sensorRepository.create({
-			type,
-			location,
-            nodeId
+			nodeId,
+			hardware,
+			name
         });
 
         serverSocket.alertSensorAdded({
             nodeId,
-            type,
-            location
+            name,
+            hardware
         });
 
-        for (let comclass in nodes[nodeid]['classes']) {
-            logger.info(`node${nodeid}: class ${comclass}`);
+        for (let comclass in nodes[nodeId]['classes']) {
+            logger.info(`node${nodeId}: class ${comclass}`);
             switch (comclass) {
                 case 0x25: // COMMAND_CLASS_SWITCH_BINARY
                 case 0x26: // COMMAND_CLASS_SWITCH_MULTILEVEL
-                    var valueIds = nodes[nodeid]['classes'][comclass];
+                    var valueIds = nodes[nodeId]['classes'][comclass];
                     for (valueId in valueIds) {
                         zwave.enablePoll(valueId);
                         break;
                     }
-                    logger.info(`node${nodeid}:   ${values[idx]['label']}=${values[idx]['value']}`)
+                    logger.info(`node${nodeId}:   ${values[idx]['label']}=${values[idx]['value']}`)
             }
         }
     });

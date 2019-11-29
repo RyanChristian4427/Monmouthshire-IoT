@@ -15,18 +15,22 @@ export const SensorList: React.FC = observer(() => {
     socket.on('initial_loading_finished', () => {
         setIsLoading(false);
     });
+    
+    const getSensorIndexByNodeId = (nodeId: number) => {
+		const isTargetSensor = (sensor: any) => sensor.nodeId;
 
-    const sensors = sensorStore.tempSensorList.map((sensor, index) => {
-        return (
-            <SensorCard
-                key={`Sensor ${index}`}
-                nodeId={sensor.nodeId}
-                name={sensor.name}
-                type={sensor.type}
-                hardware={sensor.hardware}
-            />
-        );
-    });
+		return sensorStore.tempSensorList.findIndex(isTargetSensor);
+    };
+
+	const sensors = sensorStore.tempSensorList.map((sensor, index) => {
+			return (
+				<SensorCard
+					key={index}
+					sensor={sensor}
+					sensorKey={index}
+				/>
+			);
+		});
 
     if (isLoading) {
         return (

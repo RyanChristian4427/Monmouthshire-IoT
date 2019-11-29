@@ -25,8 +25,8 @@ class SensorRepository {
 		  }
 		   logger.debug('WE ARE adding node to network as it does not already exist in the database');
 		  return this.dao.run(
-		  'INSERT INTO sensors (node_id, hardware, type, name) VALUES (?,?,?,?)',
-		  [sensor.node_id, sensor.hardware, sensor.type, sensor.name]);
+		  'INSERT INTO sensors (node_id, hardware, name) VALUES (?,?,?)',
+		  [sensor.nodeId, sensor.hardware, sensor.name]);
 	   })
 	   .catch((err) => {
 		   logger.error(err);
@@ -39,8 +39,8 @@ class SensorRepository {
 
     updateSensor(sensorId, type, name) {
     return this.dao.run(
-      `UPDATE sensors SET type = ?, name = ? WHERE node_id = ?`,
-      [type, name, sensorId]
+      `UPDATE sensors SET type = ? WHERE node_id = ?`,
+      [type, sensorId]
     );
   }
 

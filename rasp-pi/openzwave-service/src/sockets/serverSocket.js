@@ -35,7 +35,7 @@ export default class ServerSocket {
     onSensorUpdate(socket){
         socket.on('sensor_update', (sensor) => {
             // Update in database
-            logger.info(`Updating node ${sensor.id}: type is ${sensor.type} and name is ${sensor.name}`);
+            logger.info(`Updating node ${sensor.nodeId}: type is ${sensor.type} and name is ${sensor.name}`);
             this.sensorRepository.updateSensor(sensor.nodeId, sensor.type, sensor.name);
         });
     };
