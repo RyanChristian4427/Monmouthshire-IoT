@@ -11,7 +11,6 @@ export const SensorConfiguration: React.FC = observer(() => {
     const sensorStore = useContext(SensorStoreContext);
 
     const [inProgress, setInProgress] = useState(false);
-    const [sensorType, setSensorType] = useState();
 
     // TODO integrate in
     // const [sensors, setSensors] = useState();
@@ -32,13 +31,25 @@ export const SensorConfiguration: React.FC = observer(() => {
     // }, []);
 
     if (sensorStore.indexSelectedSensor > -1) {
+        const currentSensor = sensorStore.tempSensorList[sensorStore.indexSelectedSensor];
         return (
             <React.Fragment>
+                <div className="field">
+                    <label className="label">Sensor Label</label>
+                    <div className="control">
+                        <input className="input"
+                               type="text"
+                               placeholder="Master Bedroom"
+                               value={currentSensor.name}
+                               onChange={(e): void => sensorStore.setSensorName(e.target.value)}
+                        />
+                    </div>
+                </div>
                 <div className="field">
                     <label className="label">Please Choose a Sensor Type</label>
                     <div className="control has-text-centered">
                         <div className="select">
-                            <select value={sensorType} onChange={(e): void => setSensorType(e.target.value)}>
+                            <select onChange={(e): void => sensorStore.setSensorType(Number(e.target.value))}>
                                 <option value={SensorType.kitchen}>Kitchen</option>
                                 <option value={SensorType.bedroom}>Bedroom</option>
                                 <option value={SensorType.bathroom}>Bathroom</option>
@@ -46,17 +57,6 @@ export const SensorConfiguration: React.FC = observer(() => {
                                 <option value={SensorType.exteriorDoor}>Front Door</option>
                             </select>
                         </div>
-                    </div>
-                </div>
-                <div className="field">
-                    <label className="label">Sensor Label</label>
-                    <div className="control">
-                        <input className="input"
-                               type="text"
-                               placeholder="Master Bedroom"
-                               value={sensorStore.tempSensorList[sensorStore.indexSelectedSensor].name}
-                               onChange={(e): void => sensorStore.setSensorName(e.target.value)}
-                        />
                     </div>
                 </div>
                 <div className="level">
@@ -67,14 +67,16 @@ export const SensorConfiguration: React.FC = observer(() => {
                         </button>
                     </div>
                 </div>
-                <h4 className="is-size-4">
-                    Temp and just for testing purposes:
-                    <h5 className="is-size-5">Index: {sensorStore.indexSelectedSensor + ' Sensor Name:' + sensorStore.tempSensorList[sensorStore.indexSelectedSensor].name}</h5>
-                </h4>
+                <h5 className="is-size-5">Temp and just for testing purposes:</h5>
+                <h5 className="is-size-5">
+                    Index: {sensorStore.indexSelectedSensor +
+                    ' Sensor Name:' + currentSensor.name +
+                    ' Sensor Type:' + currentSensor.type}
+                </h5>
             </React.Fragment>
         );
     } else {
-        return (<h1>Select a Sensor to begin</h1>)
+        return (<h1>Select a Sensor to begin</h1>);
     }
 
 });
