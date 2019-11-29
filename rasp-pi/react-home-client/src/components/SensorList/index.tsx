@@ -18,7 +18,13 @@ export const SensorList: React.FC = observer(() => {
 
     const sensors = sensorStore.tempSensorList.map((sensor, index) => {
         return (
-            <SensorCard key={`Sensor ${index}`} nodeId={sensor.nodeId} name={sensor.name} type={sensor.type}/>
+            <SensorCard
+                key={`Sensor ${index}`}
+                nodeId={sensor.nodeId}
+                name={sensor.name}
+                type={sensor.type}
+                hardware={sensor.hardware}
+            />
         );
     });
 
