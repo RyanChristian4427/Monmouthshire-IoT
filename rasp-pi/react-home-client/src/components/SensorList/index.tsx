@@ -25,17 +25,17 @@ export const SensorList: React.FC = observer(() => {
 
     if (isLoading) {
         return (
-            <div className='container has-text-centered is-loading' id="layered-background">
+            <div className='has-text-centered is-loading' id="layered-background">
                 <section className="sensor-list">
-                    <h3 className="is-size-4">Please connect a sensor to begin</h3>
+                    <h3 className="is-size-3">Please connect a sensor to begin</h3>
                 </section>
             </div>
         );
     } else {
         return (
-            <div className='container has-text-centered' id="layered-background">
+            <div className='has-text-centered' id="layered-background">
                 <section className="sensor-list">
-                    <h3 className="is-size-4">Currently Connected Sensors</h3>
+                    <h3 className="is-size-3">Currently Connected Sensors</h3>
                     <div className="container">
                         {sensors}
                     </div>

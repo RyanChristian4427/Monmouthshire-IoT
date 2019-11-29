@@ -31,7 +31,8 @@ export const SensorConfiguration: React.FC = observer(() => {
     if (sensorStore.indexSelectedSensor > -1) {
         const currentSensor = sensorStore.tempSensorList[sensorStore.indexSelectedSensor];
         return (
-            <React.Fragment>
+            <div className="sensor-configuration">
+                <h3 className="is-size-3">Sensor Configuration</h3>
                 <div className="field">
                     <label className="label">Sensor Label</label>
                     <div className="control">
@@ -58,10 +59,12 @@ export const SensorConfiguration: React.FC = observer(() => {
                         </div>
                     </div>
                 </div>
-            </React.Fragment>
+            </div>
         );
     } else {
-        return (<h1>Select a Sensor to begin</h1>);
+        return (
+            <h3 className="is-size-3">Please Select a Sensor to Begin</h3>
+        );
     }
 
 });
