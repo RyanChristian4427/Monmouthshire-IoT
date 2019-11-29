@@ -2,6 +2,8 @@ import {action, observable} from 'mobx';
 import {createContext} from 'react';
 
 import {Sensor, SensorType} from 'models/Sensor';
+import socket from 'models/Socket';
+
 
 class SensorStore {
     @observable
@@ -28,6 +30,7 @@ class SensorStore {
     @action
     setSensorType(newType: number): void {
         this.tempSensorList[this.indexSelectedSensor].type = newType;
+        socket.emit('sensor_update', {nodeId: this.indexSelectedSensor, sensorType: newType});
     }
 
     @action

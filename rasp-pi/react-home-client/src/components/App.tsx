@@ -31,7 +31,6 @@ const App: React.FC = () => {
                     </section>
                     <section className="card column">
                         <div className='container has-text-centered' id="layered-background">
-                            <h3 className="is-size-4">Please Select a Sensor to Begin</h3>
                             <SensorConfiguration/>
                         </div>
                     </section>

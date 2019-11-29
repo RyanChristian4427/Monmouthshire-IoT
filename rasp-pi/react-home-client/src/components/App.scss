@@ -12,8 +12,17 @@
   #layered-background {
     border-radius: 20px;
     background: $theme-coral;
-    padding: 5vh 15vw 5vh;
+    padding: 5vh 5vw 5vh;
     color: $theme-platinum;
     height: 100%;
+
+    h3 {
+      margin-bottom: 2vh;
+    }
+
+    .container {
+      height: 40vh;
+      overflow-y: auto;
+    }
   }
 }

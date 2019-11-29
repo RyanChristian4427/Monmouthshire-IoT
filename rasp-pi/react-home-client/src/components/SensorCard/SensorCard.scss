@@ -2,7 +2,16 @@
 
 .sensor-card {
   cursor: pointer;
-  background: $theme-silver;
-  border-radius: 20px;
-  padding: 4px 4px 4px 6px;
+  background: whitesmoke;
+  border-radius: 23px;
+  padding: 4px;
+
+  .layer {
+    background: $theme-coral;
+    color: $theme-deep-space-sparkle;
+    padding: 4px 10px;
+    border-radius: 20px;
+    width: 100%;
+    min-height: 30px;
+  }
 }
