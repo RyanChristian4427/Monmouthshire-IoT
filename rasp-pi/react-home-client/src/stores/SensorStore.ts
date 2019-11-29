@@ -23,6 +23,11 @@ class SensorStore {
     setSensorName(newName: string): void {
         this.tempSensorList[this.indexSelectedSensor].name = newName;
     }
+
+    @action
+    setSensorType(newType: number): void {
+        this.tempSensorList[this.indexSelectedSensor].type = newType;
+    }
 }
 
 export const SensorStoreContext = createContext(new SensorStore());
