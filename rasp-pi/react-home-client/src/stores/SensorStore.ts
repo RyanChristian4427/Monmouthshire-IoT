@@ -20,7 +20,7 @@ class SensorStore {
     indexSelectedSensor = -1;
 
     @action
-    setSensorName(newName: string) {
+    setSensorName(newName: string): void {
         this.tempSensorList[this.indexSelectedSensor].name = newName;
     }
 }
