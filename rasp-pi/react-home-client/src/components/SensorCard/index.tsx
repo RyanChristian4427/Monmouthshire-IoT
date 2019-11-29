@@ -10,7 +10,7 @@ export const SensorCard: React.FC<Sensor> = observer((props: Sensor) => {
     const sensorStore = useContext(SensorStoreContext);
 
     return (
-        <div className="sensor-card level is-clickable" onClick={(): number => sensorStore.indexSelectedSensor = props.id}>
+        <div className="sensor-card level is-clickable" onClick={(): number => sensorStore.indexSelectedSensor = props.nodeId}>
             <div className="level-left">
                 <h4 className="level-item is-size-4">
                     {props.name}

@@ -61,9 +61,15 @@ export const pollSensors = () => {
         }
     });
 
+    const sensorHasBeenShook = (notificationType) =>
+    {
+        return notificationType === 'Home Security';
+    };
+
     zwave.on('value changed', function(nodeid, comclass, value) {
         if (nodes[nodeid]['ready']) {
-            logger.info(`node${nodeid}: changed: 
+            logger.debug(`${comclass}`);
+            logger.info(`node${nodeid}: changed:
             ${comclass}:${value['label']}:${nodes[nodeid]['classes'][comclass][value.index]['value']}->${value['value']}`)
         }
         nodes[nodeid]['classes'][comclass][value.index] = value;
@@ -71,6 +77,10 @@ export const pollSensors = () => {
         label: ${value['unit']}, value: ${value['value']}, unit:${value['unit']}`);
         if (readingIsValid(value)) {
             postNewReading(value);
+        }
+        if(sensorHasBeenShook(value['value'])){
+            const sensor = sensorRepository.getById(nodeid);
+            serverSocket.alertSensorShake(sensor);
         }
     });
 
@@ -90,10 +100,9 @@ export const pollSensors = () => {
         zwave.healNetworkNode(nodeId, doReturnRoutes=false);
     });
 
-    zwave.on('node ready', function(nodeid, nodeinfo) {
+    zwave.on('node ready', function(nodeId, nodeinfo) {
         const type = nodeinfo.product;
         const location = nodeinfo.location;
-        const node_id = nodeid;
 
         nodes[nodeid]['manufacturer'] = nodeinfo.manufacturer;
         nodes[nodeid]['manufacturerid'] = nodeinfo.manufacturerid;
@@ -108,11 +117,11 @@ export const pollSensors = () => {
         sensorRepository.create({
 			type,
 			location,
-            node_id
+            nodeId
         });
 
         serverSocket.alertSensorAdded({
-            node_id,
+            nodeId,
             type,
             location
         });
@@ -145,7 +154,6 @@ export const pollSensors = () => {
         }
     });
 
-
     zwave.connect('/dev/ttyACM0');
 
     process.on('SIGINT', function() {
@@ -153,7 +161,6 @@ export const pollSensors = () => {
         zwave.disconnect('/dev/ttyACM0');
         process.exit();
     });
-
 };
 
 pollSensors();

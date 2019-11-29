@@ -39,7 +39,7 @@ class SensorRepository {
 
     updateSensor(sensorId, type, name) {
     return this.dao.run(
-      `UPDATE sensors SET type = ? SET name = ? WHERE node_id = ?`,
+      `UPDATE sensors SET type = ?, name = ? WHERE node_id = ?`,
       [type, name, sensorId]
     );
   }
@@ -50,6 +50,10 @@ class SensorRepository {
 
   getThoseNotConfigured() {
     return this.dao.get(`SELECT * FROM sensors WHERE configured = 0`)
+  }
+
+  getById(nodeId){
+      return this.dao.get(`SELECT * FROM sensors WHERE node_id = ?`, [nodeId])
   }
 }
 

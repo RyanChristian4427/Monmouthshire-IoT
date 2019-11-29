@@ -1,6 +1,6 @@
+import logger from '../util/logger.js';
 import AppDAO from '../database/appDao';
 import SensorRepository from '../database/sensorRepository';
-import logger from '../util/logger.js';
 
 export default class ServerSocket {
     io;
@@ -18,9 +18,16 @@ export default class ServerSocket {
         });
     };
 
-    alertSensorAdded = (sensor) => {
+    alertSensorAdded(sensor){
         this.io.emit(
             'sensor_joined_z_wave',
+            sensor
+        );
+    };
+
+    alertSensorShake(sensor){
+        this.io.emit(
+            'sensor_shake',
             sensor
         );
     };
