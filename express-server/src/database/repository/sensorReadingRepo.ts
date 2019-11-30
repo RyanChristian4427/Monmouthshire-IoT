@@ -39,9 +39,9 @@ export const getAllReadings = (): Promise<object> => {
 export const getTempReadingsByUser = (args: object): Promise<object> => {
     const objectKey = 'sensorReading';
     const query = `MATCH 
-                      (sensorReading:SensorReading)
-                          WHERE sensorReading.userId = {userId}  AND sensorReading.type = 'Temperature'
-                               RETURN sensorReading`;
+                      (sensorReading:SensorReading
+                          { userId: {userId}, type: 'Temperature', unit: 'C' })
+                              RETURN sensorReading`;
     return fetchBuilder(query, objectKey, args);
 };
 
@@ -53,8 +53,8 @@ export const getTempReadingsByUser = (args: object): Promise<object> => {
 export const getLuminanceReadingsByUser = (args: object): Promise<object> => {
     const objectKey = 'sensorReading';
     const query = `MATCH 
-                     (sensorReading:SensorReading) 
-                         WHERE sensorReading.userId = {userId}  AND sensorReading.type = 'Luminance'
+                     (sensorReading:SensorReading
+                         { userId: {userId}, type: 'Luminance' })
                              RETURN sensorReading`;
     return fetchBuilder(query, objectKey, args);
 };
@@ -67,8 +67,8 @@ export const getLuminanceReadingsByUser = (args: object): Promise<object> => {
 export const getUltraVioletReadingsByUser = (args: object): Promise<object> => {
     const objectKey = 'sensorReading';
     const query = `MATCH 
-                     (sensorReading:SensorReading) 
-                         WHERE sensorReading.userId = {userId}  AND sensorReading.type = 'Ultraviolet'
+                     (sensorReading:SensorReading 
+                         { userId = {userId}, type = 'Ultraviolet' })
                              RETURN sensorReading`;
     return fetchBuilder(query, objectKey, args);
 };
@@ -81,8 +81,8 @@ export const getUltraVioletReadingsByUser = (args: object): Promise<object> => {
 export const getHumidityReadingsByUser = (args: object): Promise<object> => {
     const objectKey = 'sensorReading';
     const query = `MATCH 
-                     (sensorReading:SensorReading) 
-                         WHERE sensorReading.userId = {userId}  AND sensorReading.type = 'Relative Humidity'
+                     (sensorReading:SensorReading
+                         { userId = {userId}, type = 'Relative Humidity' })
                              RETURN sensorReading`;
     return fetchBuilder(query, objectKey, args);
 };
@@ -95,8 +95,8 @@ export const getHumidityReadingsByUser = (args: object): Promise<object> => {
 export const getMotionReadingsByUser = (args: object): Promise<object> => {
     const objectKey = 'sensorReading';
     const query = `MATCH 
-                      (sensorReading:SensorReading) 
-                          WHERE sensorReading.userId = {userId}  AND sensorReading.type = 'Motion'
+                      (sensorReading:SensorReading
+                          { userId: {userId}, type: 'Motion' })
                               RETURN sensorReading`;
     return fetchBuilder(query, objectKey, args);
 };
