@@ -24,7 +24,7 @@ router.get('/sensorReadings/all', checkToken, (req: Request, res: Response, next
             })
         .catch((err) => {
             logger.error(err);
-            next(err);
+            res.send({message: err});
         });
 });
 
@@ -40,7 +40,7 @@ router.get('/sensorReadings/temperature/:userId', checkToken, (req: Request, res
             })
         .catch((err) => {
             logger.error(err);
-            next(err);
+            res.send({message: err});
         });
 });
 
@@ -56,7 +56,7 @@ router.get('/sensorReadings/motion/:userId', checkToken, (req: Request, res: Res
             })
         .catch((err) => {
             logger.error(err);
-            next(err);
+            res.send({message: err});
         });
 });
 
@@ -72,7 +72,7 @@ router.get('/sensorReadings/luminance/:userId', checkToken, (req: Request, res: 
             })
         .catch((err) => {
             logger.error(err);
-            next(err);
+            res.send({message: err});
         });
 });
 
@@ -88,7 +88,7 @@ router.get('/sensorReadings/ultra-vi/:userId', checkToken, (req: Request, res: R
             })
         .catch((err) => {
             logger.error(err);
-            next(err);
+            res.send({message: err});
         });
 });
 
@@ -104,7 +104,7 @@ router.get('/sensorReadings/humidity/:userId', checkToken, (req: Request, res: R
             })
         .catch((err) => {
             logger.error(err);
-            next(err);
+            res.send({message: err});
         });
 });
 
@@ -119,7 +119,7 @@ router.post('/sensorReadings/new', (req: Request, res: Response, next: NextFunct
         })
         .catch((err) => {
             logger.error(err);
-            next(err);
+            res.send({message: err});
         });
 });
 
