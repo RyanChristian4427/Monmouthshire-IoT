@@ -64,7 +64,7 @@ export const pollSensors = () => {
     });
 
     const sensorHasBeenShook = (notificationType) => {
-        return notificationType === 'Home Security';
+		return notificationType === 'Home Security';
     };
 
     zwave.on('value changed', function(nodeid, comclass, value) {
@@ -79,9 +79,13 @@ export const pollSensors = () => {
         if (readingIsValid(value)) {
             postNewReading(value);
         }
-        if(sensorHasBeenShook(value['value'])){
-            const sensor = sensorRepository.getById(nodeid);
-            serverSocket.alertSensorShake(sensor);
+        if(sensorHasBeenShook(value['label'])){
+            sensorRepository.getById(nodeid)
+            .then((sensor) => {
+				logger.debug('sensor shake');
+                logger.debug(sensor);
+				serverSocket.alertSensorShake(sensor);
+			});
         }
     });
 

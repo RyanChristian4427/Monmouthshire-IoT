@@ -9,7 +9,7 @@ class SensorRepository {
     const sql = `
 		CREATE TABLE IF NOT EXISTS sensors (
 		  id INTEGER PRIMARY KEY AUTOINCREMENT,
-		  node_id INTEGER,
+		  nodeId INTEGER,
 		  hardware TEXT,
 		  type TEXT,
 		  name TEXT,
@@ -27,7 +27,7 @@ class SensorRepository {
 		   logger.error('Thinks node not added to db');
 		   logger.error(result);
 		  return this.dao.run(
-		  'INSERT INTO sensors (node_id, hardware, name) VALUES (?,?,?)',
+		  'INSERT INTO sensors (nodeId, hardware, name) VALUES (?,?,?)',
 		  [sensor.nodeId, sensor.hardware, sensor.name]);
 	   })
 	   .catch((err) => {
@@ -36,12 +36,12 @@ class SensorRepository {
   }
 
   sensorAlreadyAddedToNetwork(nodeId){
-	  return this.dao.get(`SELECT * FROM sensors WHERE node_id = ?`, [nodeId]);
+	  return this.dao.get(`SELECT * FROM sensors WHERE nodeId = ?`, [nodeId]);
   }
 
     updateSensor(sensorId, type, name) {
     return this.dao.run(
-      `UPDATE sensors SET type = ?, name = ? WHERE node_id = ?`,
+      `UPDATE sensors SET type = ?, name = ? WHERE nodeId = ?`,
       [type, name, sensorId]
     );
   }
@@ -55,7 +55,7 @@ class SensorRepository {
   }
 
   getById(nodeId){
-      return this.dao.get(`SELECT * FROM sensors WHERE node_id = ?`, [nodeId])
+      return this.dao.get(`SELECT * FROM sensors WHERE nodeId = ?`, [nodeId])
   }
 }
 
