@@ -20,7 +20,7 @@ router.get('/sensorReadings/all', checkToken, (req: Request, res: Response, next
     getAllReadings()
         .then(
             (result) => {
-                res.send({data: result});
+                res.send(result);
             })
         .catch((err) => {
             logger.error(err);
@@ -36,7 +36,7 @@ router.get('/sensorReadings/temperature/:userId', checkToken, (req: Request, res
     getTempReadingsByUser(args)
         .then(
             (result) => {
-                res.send({data: result});
+                res.send(result);
             })
         .catch((err) => {
             logger.error(err);
@@ -52,7 +52,7 @@ router.get('/sensorReadings/motion/:userId', checkToken, (req: Request, res: Res
     getMotionReadingsByUser(args)
         .then(
             (result: object) => {
-                res.send({data: result});
+                res.send(result);
             })
         .catch((err) => {
             logger.error(err);
@@ -68,7 +68,7 @@ router.get('/sensorReadings/luminance/:userId', checkToken, (req: Request, res: 
     getLuminanceReadingsByUser(args)
         .then(
             (result: object) => {
-                res.send({data: result});
+                res.send(result);
             })
         .catch((err) => {
             logger.error(err);
@@ -84,7 +84,7 @@ router.get('/sensorReadings/ultra-vi/:userId', checkToken, (req: Request, res: R
     getUltraVioletReadingsByUser(args)
         .then(
             (result: object) => {
-                res.send({data: result});
+                res.send(result);
             })
         .catch((err) => {
             logger.error(err);
@@ -100,7 +100,7 @@ router.get('/sensorReadings/humidity/:userId', checkToken, (req: Request, res: R
     getHumidityReadingsByUser(args)
         .then(
             (result: object) => {
-                res.send({data: result});
+                res.send(result);
             })
         .catch((err) => {
             logger.error(err);
@@ -115,7 +115,7 @@ router.post('/sensorReadings/new', (req: Request, res: Response, next: NextFunct
     logger.info('New sensor reading received');
     insertNewReading(req.body.sensorReading)
         .then((result) => {
-            res.send({data: result});
+            res.send(result);
         })
         .catch((err) => {
             logger.error(err);

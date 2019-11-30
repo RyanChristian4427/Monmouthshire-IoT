@@ -41,7 +41,7 @@ export const getTempReadingsByUser = (args: object): Promise<object> => {
     const query = `MATCH 
                       (sensorReading:SensorReading
                           { userId: {userId}, type: 'Temperature', unit: 'C' })
-                              RETURN sensorReading`;
+                              RETURN properties(sensorReading) AS sensorReading`;
     return fetchBuilder(query, objectKey, args);
 };
 
@@ -55,7 +55,7 @@ export const getLuminanceReadingsByUser = (args: object): Promise<object> => {
     const query = `MATCH 
                      (sensorReading:SensorReading
                          { userId: {userId}, type: 'Luminance' })
-                             RETURN sensorReading`;
+                              RETURN properties(sensorReading) AS sensorReading`;
     return fetchBuilder(query, objectKey, args);
 };
 
@@ -69,7 +69,7 @@ export const getUltraVioletReadingsByUser = (args: object): Promise<object> => {
     const query = `MATCH 
                      (sensorReading:SensorReading 
                          { userId = {userId}, type = 'Ultraviolet' })
-                             RETURN sensorReading`;
+                              RETURN properties(sensorReading) AS sensorReading`;
     return fetchBuilder(query, objectKey, args);
 };
 
@@ -83,7 +83,7 @@ export const getHumidityReadingsByUser = (args: object): Promise<object> => {
     const query = `MATCH 
                      (sensorReading:SensorReading
                          { userId = {userId}, type = 'Relative Humidity' })
-                             RETURN sensorReading`;
+                             RETURN properties(sensorReading) AS sensorReading`;
     return fetchBuilder(query, objectKey, args);
 };
 
@@ -97,7 +97,7 @@ export const getMotionReadingsByUser = (args: object): Promise<object> => {
     const query = `MATCH 
                       (sensorReading:SensorReading
                           { userId: {userId}, type: 'Motion' })
-                              RETURN sensorReading`;
+                               RETURN properties(sensorReading) AS sensorReading`;
     return fetchBuilder(query, objectKey, args);
 };
 
@@ -111,7 +111,7 @@ export const insertNewReading = (sensorReading: string): Promise<SensorReading> 
     const query = `CREATE
                      (sensorReading:SensorReading 
                         { userId: {userId}, type: {type}, value: {value}, unit: {unit}, timestamp: datetime() }) 
-                            RETURN sensorReading`;
+                             RETURN properties(sensorReading) AS sensorReading`;
 
     return insert(query, objectKey, createSensorReading(sensorReading))
         .then((result) => {
