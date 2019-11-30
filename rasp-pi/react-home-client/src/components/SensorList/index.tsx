@@ -2,7 +2,6 @@ import React, {useContext, useState} from 'react';
 import {observer} from 'mobx-react-lite';
 
 import {SensorCard} from 'components/SensorCard';
-import {Sensor} from 'models/Sensor';
 import {SensorStoreContext} from 'stores/SensorStore';
 import socket from 'util/sockets';
 
@@ -19,9 +18,9 @@ export const SensorList: React.FC = observer(() => {
     });
 
 	const sensors = sensorStore.SensorList.map((sensor, index) => {
-			return (
-				<SensorCard	key={index}	sensor={sensor} sensorKey={index}/>
-			);
+        return (
+            <SensorCard	key={index}	sensor={sensor} sensorKey={index}/>
+        );
 	});
 
     if (isLoading) {
