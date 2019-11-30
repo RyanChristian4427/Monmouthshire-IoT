@@ -1,11 +1,13 @@
 import ZWave from 'openzwave-shared';
-import { postNewReading } from './client';
 import { Promise } from 'bluebird';
+import io from 'socket.io';
+
+import { postNewReading } from './client';
 import AppDAO from './database/appDao.js';
 import SensorRepository from './database/sensorRepository.js';
-import logger from './util/logger';
 import ServerSocket from "./sockets/serverSocket";
-import io from 'socket.io';
+import logger from './util/logger';
+
 
 export const pollSensors = () => {
     const appDao = new AppDAO('/home/pi/databases/iot_team_3/iot_team_3.sqlite');

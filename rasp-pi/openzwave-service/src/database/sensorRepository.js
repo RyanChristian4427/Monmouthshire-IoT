@@ -23,7 +23,7 @@ class SensorRepository {
 		  if(result){
 			  return;
 		  }
-		   logger.debug('WE ARE adding node to network as it does not already exist in the database');
+		   logger.debug('We are adding node to network as it does not already exist in the database');
 		  return this.dao.run(
 		  'INSERT INTO sensors (node_id, hardware, name) VALUES (?,?,?)',
 		  [sensor.nodeId, sensor.hardware, sensor.name]);
