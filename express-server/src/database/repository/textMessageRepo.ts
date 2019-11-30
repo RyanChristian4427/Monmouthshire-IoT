@@ -15,7 +15,7 @@ export const fetchBuilder = (query: string, objectKey: string, args: object): Pr
 
 export const insertNewTextMessage = (textMessage: object): Promise<TextMessage> => {
     const objectKey = 'message';
-    const query = `CREATE(message:Message {from: {from}, body: {body}, timestamp: datetime()})`;
+    const query = `CREATE(message:Message {id: {id}, from: {from}, body: {body}, timestamp: datetime()})`;
     return insert(query, objectKey, createTextMessage(textMessage))
         .then((result) => {
             return result
@@ -26,4 +26,10 @@ export const getAllMessages = (): Promise<object> => {
     const query = 'MATCH(message:Message) return properties(message) AS message'
     const objectKey = 'message'
     return fetchBuilder(query, objectKey, {})
+}
+
+export const deleteMessage = (id: string): Promise<object> => {
+    const query = 'MATCH(message:Message {id:{id}}) DELETE message';
+    const objectKey = 'message'
+    return fetchBuilder(query, objectKey, {id:id})
 }

@@ -1,5 +1,5 @@
 import { Response, Request, NextFunction, Router } from 'express';
-import { insertNewTextMessage, getAllMessages } from '../../database/repository/textMessageRepo'
+import { insertNewTextMessage, getAllMessages, deleteMessage } from '../../database/repository/textMessageRepo'
 
 const MessagingResponse = require('twilio').twiml.MessagingResponse;
 const router = Router();
@@ -25,6 +25,17 @@ router.get('/sms', (req: Request, res: Response, next: NextFunction) => {
         .catch((err) => {
             next(err)
         });
+});
+
+router.delete('/sms/:id', (req: Request, res: Response, next: NextFunction) => {
+    const id = req.params.id
+    deleteMessage(id)
+    .then((result) => {
+        res.send(result)
+    })
+    .catch((err) => {
+        next(err)
+    })
 });
 
 export default router
