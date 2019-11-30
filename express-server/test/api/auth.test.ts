@@ -4,7 +4,7 @@ import app from 'src/app';
 describe('POST /api/v1/users/login', () => {
     const data = {
         user: {
-            email: 'admin',
+            user: 'admin',
             password: 'came try steady fewer'
         }
     };
@@ -24,7 +24,7 @@ describe('POST /api/v1/users/login', () => {
 describe('POST /api/v1/users/login', () => {
     const data = {
         user: {
-            email: 'admin',
+            user: 'admin',
             password: 'wrong password'
         }
     };
@@ -42,7 +42,7 @@ describe('POST /api/v1/users/login', () => {
 describe('POST /api/v1/users/login', () => {
     const data = {
         user: {
-            email: 'wrong user',
+            user: 'wrong user',
             password: 'wrong password'
         }
     };
