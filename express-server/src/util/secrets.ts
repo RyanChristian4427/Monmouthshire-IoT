@@ -23,7 +23,7 @@ if (!NEO4JDB_URI) {
     process.exit(1);
 }
 
-export const USER = prod ? process.env['USER'] : process.env['USER_LOCAL'];
-export const PASS = prod ? process.env['PASS'] : process.env['PASS_LOCAL'];
+export const USER = process.env['LOGIN_USER'];
+export const PASS = process.env['LOGIN_PASS'];
 
-export const JWT_SECRET = prod ? process.env['JWT_SECRET'] : process.env['JWT_SECRET_LOCAL'];
+export const JWT_SECRET = process.env['JWT_SECRET'];
