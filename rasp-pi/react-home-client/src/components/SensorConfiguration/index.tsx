@@ -7,11 +7,12 @@ import socket from 'util/sockets';
 
 import './SensorConfiguration.scss';
 
+
 export const SensorConfiguration: React.FC = observer(() => {
     const sensorStore = useContext(SensorStoreContext);
 
     const updateSensor = (): void => {
-    const currentSensor = sensorStore.SensorList[sensorStore.indexSelectedSensor];
+        const currentSensor = sensorStore.SensorList[sensorStore.indexSelectedSensor];
         socket.emit('sensor_update', currentSensor);
     };
 
@@ -35,9 +36,7 @@ export const SensorConfiguration: React.FC = observer(() => {
                                type="text"
                                placeholder="Master Bedroom"
                                value={currentSensor.name}
-                               onChange={(e): void => {
-                                   sensorStore.setSensorName(e.target.value);
-                               }}
+                               onChange={(e): void => sensorStore.setSensorName(e.target.value)}
                         />
                     </div>
                 </div>
@@ -45,9 +44,9 @@ export const SensorConfiguration: React.FC = observer(() => {
                     <label className="label">Please Choose a Sensor Type</label>
                     <div className="control has-text-centered">
                         <div className="select">
-                            <select value={currentSensor.type} onChange={(e): void => {
-                                sensorStore.setSensorType(Number(e.target.value));
-                            }}>
+                            <select value={currentSensor.type} onChange={(e): void =>
+                                sensorStore.setSensorType(Number(e.target.value))
+                            }>
                                 <option value={SensorType.none}>N/A</option>
                                 <option value={SensorType.kitchen}>Kitchen</option>
                                 <option value={SensorType.bedroom}>Bedroom</option>
@@ -63,10 +62,7 @@ export const SensorConfiguration: React.FC = observer(() => {
                 <div className="level">
                     <div className="level-left"/>
                     <div className="level-right">
-                        <button
-                            className={'button is-platinum-light level-item'}
-                            onClick={(e): void => {updateSensor();}}
-                        >
+                        <button className={'button is-platinum-light level-item'} onClick={updateSensor}>
                             Submit
                         </button>
                     </div>
