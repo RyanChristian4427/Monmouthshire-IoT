@@ -5,13 +5,14 @@ import 'toasted-notes/src/styles.css';
 import {HeroHeader} from 'components/HeroHeader';
 import {SensorConfiguration} from 'components/SensorConfiguration';
 import {SensorList} from 'components/SensorList';
-import socket from '../sockets';
+import {Sensor} from 'models/Sensor';
+import socket from 'util/sockets';
 
 import './App.scss';
-import {Sensor} from '../models/Sensor';
 
 
 const App: React.FC = () => {
+    // Stick to yo half of the trello board ya thief
     useEffect(() => {
         socket.on('sensor_shake', (sensor: Sensor) => {
             const notification = `Sensor ${sensor.nodeId} has been shaken (${sensor.hardware}) `;

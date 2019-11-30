@@ -1,17 +1,16 @@
-import React, {useContext, useEffect, useState} from 'react';
+import React, {useContext, useEffect} from 'react';
 import {observer} from 'mobx-react-lite';
-import socket from 'sockets';
+
 import {Sensor, SensorType} from 'models/Sensor';
 import {SensorStoreContext} from 'stores/SensorStore';
+import socket from 'util/sockets';
 
 import './SensorConfiguration.scss';
 
 export const SensorConfiguration: React.FC = observer(() => {
     const sensorStore = useContext(SensorStoreContext);
-    const [inProgress, setInProgress] = useState(false);
 
-    const updateSensor = (): void => {
-        const sensor = sensorStore.tempSensorList[sensorStore.indexSelectedSensor];
+    const updateSensor = (sensor: Sensor): void => {
         socket.emit('sensor_update', sensor);
     };
 
@@ -21,10 +20,10 @@ export const SensorConfiguration: React.FC = observer(() => {
             sensorStore.addSensor(sensor);
             console.log(sensor);
         });
-    }, []);
+    }, [sensorStore]);
 
-    if (sensorStore.indexSelectedSensor > -1) {
-        const currentSensor = sensorStore.tempSensorList[sensorStore.indexSelectedSensor];
+    if (sensorStore.indexSelectedSensor >= 0) {
+        const currentSensor = sensorStore.SensorList[sensorStore.indexSelectedSensor];
         return (
             <div className="sensor-configuration">
                 <h3 className="is-size-3">Sensor Configuration</h3>
@@ -35,7 +34,10 @@ export const SensorConfiguration: React.FC = observer(() => {
                                type="text"
                                placeholder="Master Bedroom"
                                value={currentSensor.name}
-                               onChange={(e): void => sensorStore.setSensorName(e.target.value)}
+                               onChange={(e): void => {
+                                   sensorStore.setSensorName(e.target.value);
+                                   updateSensor(currentSensor);
+                               }}
                         />
                     </div>
                 </div>
@@ -43,7 +45,10 @@ export const SensorConfiguration: React.FC = observer(() => {
                     <label className="label">Please Choose a Sensor Type</label>
                     <div className="control has-text-centered">
                         <div className="select">
-                            <select value={currentSensor.type} onChange={(e): void => sensorStore.setSensorType(Number(e.target.value))}>
+                            <select value={currentSensor.type} onChange={(e): void => {
+                                sensorStore.setSensorType(Number(e.target.value));
+                                updateSensor(currentSensor);
+                            }}>
                                 <option value={SensorType.none}>N/A</option>
                                 <option value={SensorType.kitchen}>Kitchen</option>
                                 <option value={SensorType.bedroom}>Bedroom</option>
@@ -52,17 +57,6 @@ export const SensorConfiguration: React.FC = observer(() => {
                                 <option value={SensorType.exteriorDoor}>Front Door</option>
                             </select>
                         </div>
-                    </div>
-                </div>
-                <div className="level">
-                    <div className="level-left"/>
-                    <div className="level-right">
-                        <button
-                            className={'button is-platinum-light level-item ' + (inProgress ? 'is-loading' : '')}
-                            onClick={updateSensor}
-                        >
-                            Submit
-                        </button>
                     </div>
                 </div>
             </div>

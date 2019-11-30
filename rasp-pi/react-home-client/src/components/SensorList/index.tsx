@@ -2,10 +2,12 @@ import React, {useContext, useState} from 'react';
 import {observer} from 'mobx-react-lite';
 
 import {SensorCard} from 'components/SensorCard';
-import socket from 'sockets';
+import {Sensor} from 'models/Sensor';
 import {SensorStoreContext} from 'stores/SensorStore';
+import socket from 'util/sockets';
 
 import './SensorList.scss';
+
 
 export const SensorList: React.FC = observer(() => {
     const sensorStore = useContext(SensorStoreContext);
@@ -15,22 +17,18 @@ export const SensorList: React.FC = observer(() => {
     socket.on('initial_loading_finished', () => {
         setIsLoading(false);
     });
-    
-    const getSensorIndexByNodeId = (nodeId: number) => {
-		const isTargetSensor = (sensor: any) => sensor.nodeId;
 
-		return sensorStore.tempSensorList.findIndex(isTargetSensor);
+    // ??? What is this?
+    const getSensorIndexByNodeId = (nodeId: number) => {
+		const isTargetSensor = (sensor: Sensor): number => sensor.nodeId;
+		return sensorStore.SensorList.findIndex(isTargetSensor);
     };
 
-	const sensors = sensorStore.tempSensorList.map((sensor, index) => {
+	const sensors = sensorStore.SensorList.map((sensor, index) => {
 			return (
-				<SensorCard
-					key={index}
-					sensor={sensor}
-					sensorKey={index}
-				/>
+				<SensorCard	key={index}	sensor={sensor} sensorKey={index}/>
 			);
-		});
+	});
 
     if (isLoading) {
         return (

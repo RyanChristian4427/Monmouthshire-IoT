@@ -2,7 +2,7 @@ export interface Sensor {
     nodeId: number;
     name: string;
     type: SensorType;
-    hardware: string;
+    hardware: HardwareType;
 }
 
 export enum SensorType {
@@ -12,4 +12,9 @@ export enum SensorType {
     livingRoom,
     exteriorDoor,
     none
+}
+
+export enum HardwareType {
+    multiSensor,
+    smartSwitch,
 }
