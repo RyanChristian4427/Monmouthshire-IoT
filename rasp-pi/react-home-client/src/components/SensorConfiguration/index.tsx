@@ -59,6 +59,17 @@ export const SensorConfiguration: React.FC = observer(() => {
                         </div>
                     </div>
                 </div>
+                <div className="level">
+                    <div className="level-left"/>
+                    <div className="level-right">
+                        <button
+                            className={'button is-platinum-light level-item ' + (inProgress ? 'is-loading' : '')}
+                            onClick={updateSensor}
+                        >
+                            Submit
+                        </button>
+                    </div>
+                </div>
             </div>
         );
     } else {

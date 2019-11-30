@@ -18,12 +18,14 @@ class SensorRepository {
   }
 
   create(sensor) {
-	  this.sensorAlreadyAddedToNetwork(sensor.node_id)
+	  this.sensorAlreadyAddedToNetwork(sensor.nodeId)
 	  .then((result) => {
 		  if(result){
 			  return;
 		  }
-		   logger.debug('We are adding node to network as it does not already exist in the database');
+		   //logger.debug('We are adding node to network as it does not already exist in the database');
+		   logger.error('Thinks node not added to db');
+		   logger.error(result);
 		  return this.dao.run(
 		  'INSERT INTO sensors (node_id, hardware, name) VALUES (?,?,?)',
 		  [sensor.nodeId, sensor.hardware, sensor.name]);

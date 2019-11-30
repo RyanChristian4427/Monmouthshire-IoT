@@ -63,8 +63,7 @@ export const pollSensors = () => {
         }
     });
 
-    const sensorHasBeenShook = (notificationType) =>
-    {
+    const sensorHasBeenShook = (notificationType) => {
         return notificationType === 'Home Security';
     };
 
