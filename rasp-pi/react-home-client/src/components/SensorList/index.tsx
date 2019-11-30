@@ -18,12 +18,6 @@ export const SensorList: React.FC = observer(() => {
         setIsLoading(false);
     });
 
-    // ??? What is this?
-    const getSensorIndexByNodeId = (nodeId: number) => {
-		const isTargetSensor = (sensor: Sensor): number => sensor.nodeId;
-		return sensorStore.SensorList.findIndex(isTargetSensor);
-    };
-
 	const sensors = sensorStore.SensorList.map((sensor, index) => {
 			return (
 				<SensorCard	key={index}	sensor={sensor} sensorKey={index}/>
