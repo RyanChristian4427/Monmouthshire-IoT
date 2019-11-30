@@ -19,8 +19,8 @@ class SensorStore {
         { nodeId: 7, name: 'Sensor 8', type: SensorType.none, hardware: HardwareType.multiSensor},
     ];
 
-    // @observable
-    // SensorList: Array<Sensor> = [];
+    //@observable
+    //SensorList: Array<Sensor> = [];
 
 
     @observable
@@ -40,6 +40,11 @@ class SensorStore {
     @action
     addSensor(sensor: Sensor): void {
         this.SensorList.push(sensor);
+    }
+    
+    @action
+    addSensors(sensors: Sensor[]): void {
+		this.SensorList.push(...sensors);
     }
 }
 

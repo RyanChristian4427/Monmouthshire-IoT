@@ -47,7 +47,7 @@ class SensorRepository {
   }
 
   getAll() {
-    return this.dao.get(`SELECT * FROM sensors`)
+    return this.dao.all(`SELECT * FROM sensors`)
   }
 
   getThoseNotConfigured() {

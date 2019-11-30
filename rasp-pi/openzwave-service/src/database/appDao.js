@@ -32,11 +32,27 @@ class AppDAO {
 	  return new Promise((resolve, reject) => {
       this.db.get(sql, params, (err, row) => {
 	  if (err) {
-		  logger.error(err.message);
+		  logger.error(`db get error for ${sql}`);
+		  logger.error(err);
 		  reject(err);
 	  }
 	  logger.info(row);
 	  resolve(row);
+	  });
+    })
+  }
+  
+  all(sql, params = []) {
+	  return new Promise((resolve, reject) => {
+      this.db.all(sql, params, (err, rows) => {
+	  if (err) {
+		  logger.error(`db get error for ${sql}`);
+		  logger.error(err);
+		  reject(err);
+	  }
+	  logger.debug('We have ROWS');
+	  logger.info(rows);
+	  resolve(rows);
 	  });
     })
   }

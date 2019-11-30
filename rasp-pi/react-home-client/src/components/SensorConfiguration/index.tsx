@@ -16,10 +16,12 @@ export const SensorConfiguration: React.FC = observer(() => {
     };
 
     useEffect(() => {
+		socket.emit('looking_for_sensors');
         socket.on('sensor_joined_z_wave', (sensor: Sensor) => {
-            console.log('sensor received');
             sensorStore.addSensor(sensor);
-            console.log(sensor);
+        });
+        socket.on('all_connected_sensors', (sensors: Sensor[]) => {
+            sensorStore.addSensors(sensors);
         });
     }, [sensorStore]);
 

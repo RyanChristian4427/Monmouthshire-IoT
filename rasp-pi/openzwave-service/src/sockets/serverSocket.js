@@ -15,6 +15,7 @@ export default class ServerSocket {
     setUpSocketConnection(){
         this.io.on('connection',  (socket) => {
             this.onSensorUpdate(socket);
+            this.onClientLookingForSensors(socket);
         });
     };
 
@@ -31,6 +32,13 @@ export default class ServerSocket {
             sensor
         );
     };
+    
+    emitAllSensors(sensors){
+        this.io.emit(
+            'all_connected_sensors',
+            sensors
+        );
+    };
 
     onSensorUpdate(socket){
         socket.on('sensor_update', (sensor) => {
@@ -39,4 +47,15 @@ export default class ServerSocket {
             this.sensorRepository.updateSensor(sensor.nodeId, sensor.type, sensor.name);
         });
     };
+    
+    onClientLookingForSensors(socket){
+		socket.on('looking_for_sensors', () => {
+			this.sensorRepository.getAll()
+			.then((sensors) => {
+				logger.info('Emitting all sensors to client');
+				logger.debug(sensors);
+				this.emitAllSensors(sensors);
+			});
+		});
+	}
 }
