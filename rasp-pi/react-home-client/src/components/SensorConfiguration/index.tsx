@@ -10,8 +10,9 @@ import './SensorConfiguration.scss';
 export const SensorConfiguration: React.FC = observer(() => {
     const sensorStore = useContext(SensorStoreContext);
 
-    const updateSensor = (sensor: Sensor): void => {
-        socket.emit('sensor_update', sensor);
+    const updateSensor = (): void => {
+    const currentSensor = sensorStore.SensorList[sensorStore.indexSelectedSensor];
+        socket.emit('sensor_update', currentSensor);
     };
 
     useEffect(() => {
@@ -36,7 +37,6 @@ export const SensorConfiguration: React.FC = observer(() => {
                                value={currentSensor.name}
                                onChange={(e): void => {
                                    sensorStore.setSensorName(e.target.value);
-                                   updateSensor(currentSensor);
                                }}
                         />
                     </div>
@@ -47,7 +47,6 @@ export const SensorConfiguration: React.FC = observer(() => {
                         <div className="select">
                             <select value={currentSensor.type} onChange={(e): void => {
                                 sensorStore.setSensorType(Number(e.target.value));
-                                updateSensor(currentSensor);
                             }}>
                                 <option value={SensorType.none}>N/A</option>
                                 <option value={SensorType.kitchen}>Kitchen</option>
@@ -59,12 +58,14 @@ export const SensorConfiguration: React.FC = observer(() => {
                         </div>
                     </div>
                 </div>
+                {/* Ryun wants you to know that he doesn't like this button but I was sad 
+					without it so like an absolute hero he let me keep it */} 
                 <div className="level">
                     <div className="level-left"/>
                     <div className="level-right">
                         <button
-                            className={'button is-platinum-light level-item ' + (inProgress ? 'is-loading' : '')}
-                            onClick={updateSensor}
+                            className={'button is-platinum-light level-item'}
+                            onClick={(e): void => {updateSensor();}}
                         >
                             Submit
                         </button>
