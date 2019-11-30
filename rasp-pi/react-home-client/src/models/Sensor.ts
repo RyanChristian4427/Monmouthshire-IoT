@@ -15,6 +15,6 @@ export enum SensorType {
 }
 
 export enum HardwareType {
-    multiSensor,
-    smartSwitch,
+    multiSensor = 'multiSensor',
+    smartSwitch = 'smartSwitch',
 }
