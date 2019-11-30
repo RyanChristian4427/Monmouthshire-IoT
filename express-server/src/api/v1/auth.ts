@@ -9,11 +9,11 @@ const router = Router();
 
 router.post('/users/login', (req: Request, res: Response) => {
     const credentials: LoginUser = req.body.user;
-    if (credentials.email == USER) {
+    if (credentials.user == USER) {
         bcrypt.compare(credentials.password, PASS, function (err, success) {
             if (success) {
                 const token = jwt.sign(
-                    { email: credentials.email},
+                    { user: credentials.user},
                     JWT_SECRET,
                     { expiresIn: '2h' }
                 );
