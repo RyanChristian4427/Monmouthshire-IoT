@@ -23,7 +23,7 @@ export const insertNewTextMessage = (textMessage: object): Promise<TextMessage> 
 };
 
 export const getAllMessages = (): Promise<object> => {
-    const query = 'MATCH(message:Message) return message'
+    const query = 'MATCH(message:Message) return properties(message) AS message'
     const objectKey = 'message'
     return fetchBuilder(query, objectKey, {})
 }
