@@ -1,0 +1,30 @@
+@import 'styles/variables';
+$scheme-invert: $theme-platinum;
+$scheme-main: $theme-coral;
+
+@import "~bulma/sass/utilities/mixins";
+
+#layered-background {
+  .sensor-list {
+    .container {
+      background: $theme-platinum;
+      border-radius: 20px;
+    }
+  }
+
+  &.is-loading {
+    position: relative;
+    pointer-events: none;
+    opacity: 0.5;
+
+    &:after {
+      @include loader;
+      position: absolute;
+      top: calc(50% - 2.5em);
+      left: calc(50% - 2.5em);
+      width: 5em;
+      height: 5em;
+      border-width: 0.25em;
+    }
+  }
+}

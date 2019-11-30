@@ -1,13 +1,13 @@
 export interface LoginUser {
     user: {
-        email: string;
+        user: string;
         password: string;
     };
 }
 
 export const NewLoginUser: LoginUser = {
     user: {
-        email: '',
+        user: '',
         password: ''
     }
 };

@@ -1,5 +1,6 @@
 import SensorReading from 'src/database/models/sensorReading';
 import { fetch, insert } from 'src/database/databaseConnectors';
+import logger from 'src/util/logger';
 import { createSensorReading } from 'src/database/mappers/sensorReadingMapper';
 
 /**
@@ -16,6 +17,7 @@ export const fetchBuilder = (query: string, objectKey: string, args: object): Pr
                 return result;
             })
         .catch((err) => {
+            logger.error(err);
             throw err;
         });
 };

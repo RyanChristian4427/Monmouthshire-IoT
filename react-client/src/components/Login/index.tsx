@@ -4,11 +4,12 @@ import {apiService, jwtService} from 'ts-api-toolkit';
 
 import {HeroHeader} from 'components/HeroHeader';
 import {LoginUser} from 'models/User';
+
 import './Login.scss';
 
 
 export const Login: React.FC = (() => {
-    const [email, setEmail] = useState('');
+    const [user, setUser] = useState('');
     const [password, setPassword] = useState('');
     const [inProgress, setInProgress] = useState(false);
     const [errors, setErrors] = useState('');
@@ -36,8 +37,8 @@ export const Login: React.FC = (() => {
         });
     };
 
-    const setUser = (): void => {
-        const credentials = { user: { email, password }};
+    const submitDetails = (): void => {
+        const credentials = { user: { user, password }};
         login(credentials)
             .then(() => history.push('/'));
     };
@@ -48,13 +49,13 @@ export const Login: React.FC = (() => {
             <section className="card">
                 <div className="container" id="layered-background">
                     <div className="field">
-                        <label className="label">Email Address</label>
+                        <label className="label">User</label>
                         <div className="control">
                             <input className="input"
                                    type="text"
-                                   placeholder="Email Address"
-                                   value={email}
-                                   onChange={(e): void => setEmail(e.target.value)}
+                                   placeholder="Username"
+                                   value={user}
+                                   onChange={(e): void => setUser(e.target.value)}
                             />
                         </div>
                     </div>
@@ -73,7 +74,7 @@ export const Login: React.FC = (() => {
                         <div className="level-left"/>
                         <div className="level-right">
                             <button className={'button is-platinum-light level-item ' + (inProgress ? 'is-loading' : '') }
-                                    onClick={(): void => setUser()}>
+                                    onClick={(): void => submitDetails()}>
                                 Submit
                             </button>
                         </div>
