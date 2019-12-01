@@ -17,7 +17,7 @@ export const fetchBuilder = (query: string, objectKey: string, args: object): Pr
                 return result;
             })
         .catch((err) => {
-            logger.error(err);
+            logger.error(err.name + ' ' + err.code);
             throw err;
         });
 };

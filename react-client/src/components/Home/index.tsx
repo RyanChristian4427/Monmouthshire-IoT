@@ -1,11 +1,10 @@
 import React from 'react';
-import { ChartLabel, RadialChart } from 'react-vis';
 
+import {LineGraph} from 'components/graphs/LineGraph';
 import {HeroHeader} from 'components/HeroHeader';
+
 import './Home.scss';
 
-const myData = [{angle: 2, label: 'Hello World'}, {angle: 2, label: 'Bathroom'}, {angle: 2, label: 'Living Room'},
-    {angle: 2, label: 'Bedroom'}, {angle: 2, label: 'Front Door'}];
 
 export const Home: React.FC = () => {
     return (
@@ -13,15 +12,7 @@ export const Home: React.FC = () => {
             <HeroHeader title="Home" withSettingsMenu={true}/>
             <section className="card">
                 <div className="container" id="layered-background">
-                    <h3>Percent of Day Spent in Room</h3>
-                    <RadialChart
-                        data={myData}
-                        width={300}
-                        height={300}
-                        showLabels={true}
-                        labelsAboveChildren={true}>
-                        <ChartLabel text="Hello World!"/>
-                    </RadialChart>
+                    <LineGraph title="Example Title" xAxisTitle="Time" yAxisTitle="Temperature" height={500} width={500}/>
                 </div>
             </section>
         </div>
