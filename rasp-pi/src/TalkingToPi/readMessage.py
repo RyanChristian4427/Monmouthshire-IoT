@@ -11,6 +11,9 @@ engine.setProperty('rate', 150)
 
 while True:
     r = requests.get(url = URL)
+    print(r.status_code)
+    print(r.headers['content-type'])
+    print(r.encoding)
     data = r.json()
     print(data)
     if len(data) == 1:
@@ -19,7 +22,7 @@ while True:
         date = str(data[0]['timestamp']['hour']['low']) + ':' +str(data[0]['timestamp']['minute']['low'])
         engine.say('You have a new message from {} at {}. {}'.format(_from, date, body))
         engine.runAndWait()
-        # requests.delete(url= URL + '/' +  data[0]['id'])
+        requests.delete(url= URL + '/' +  data[0]['id'])
     elif len(data) > 1:
         engine.say('You have {} new messages'.format(len(data)))
         engine.runAndWait()
@@ -30,5 +33,5 @@ while True:
             date = str(message['timestamp']['hour']['low']) + ':' +str(message['timestamp']['minute']['low'])
             engine.say('Message {} from {} at {}. {}'.format(i+1, _from, date, body))
             engine.runAndWait()
-            # requests.delete(url= URL + '/' + message['id']) 
+            requests.delete(url= URL + '/' + message['id']) 
     time.sleep(5) # checks every minute
