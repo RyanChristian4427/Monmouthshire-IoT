@@ -107,7 +107,7 @@ export const pollSensors = () => {
 
     zwave.on('node ready', function(nodeId, nodeinfo) {
         const hardware = nodeinfo.product;
-        const name = `Sensor ${nodeId} (${nodeinfo.type})`;
+        const name = nodeinfo.type;
 
         nodes[nodeId]['manufacturer'] = nodeinfo.manufacturer;
         nodes[nodeId]['manufacturerid'] = nodeinfo.manufacturerid;

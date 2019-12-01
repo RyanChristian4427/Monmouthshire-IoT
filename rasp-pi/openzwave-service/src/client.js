@@ -16,7 +16,6 @@ const formatReading = (sensorReading) => {
 	const readingValue = sensorReading['value'];
 
 	if (sensorReading['label'] === 'Temperature' && sensorReading['units'] === 'F') {
-		logger.debug(`We are changing ${sensorReading['value']}  ${sensorReading['label']} unit to C from ${sensorReading['units']} `);
 		sensorReading['units'] = 'C';
 		logger.debug(`New reading is ${sensorReading['value']} ${sensorReading['units']}`);
 		sensorReading['value'] = fahrenheitToCelsius(readingValue);
