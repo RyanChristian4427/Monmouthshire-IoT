@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { API_URL } from './util/secrets';
-import { fahrenheitToCelsius } from "./util/readings";
+import { fahrenheitToCelsius } from './util/readings';
 import logger from './util/logger';
 
 const url = `${API_URL}/sensorReadings/new`;
@@ -15,8 +15,11 @@ export const postNewReading = (sensorReading) => {
 const formatReading = (sensorReading) => {
 	const readingValue = sensorReading['value'];
 
-	if (sensorReading['label'] === 'Temperature' && sensorReading['unit'] === 'F') {
+	if (sensorReading['label'] === 'Temperature' && sensorReading['units'] === 'F') {
+		logger.debug(`We are changing ${sensorReading['value']}  ${sensorReading['label']} unit to C from ${sensorReading['units']} `);
+		sensorReading['units'] = 'C';
+		logger.debug(`New reading is ${sensorReading['value']} ${sensorReading['units']}`);
 		sensorReading['value'] = fahrenheitToCelsius(readingValue);
-	}
+	} 
 	return sensorReading;
 };
