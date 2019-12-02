@@ -59,10 +59,6 @@ class SensorRepository {
     return this.dao.all(`SELECT * FROM sensors`)
   }
 
-  getThoseNotConfigured() {
-    return this.dao.get(`SELECT * FROM sensors WHERE configured = 0`)
-  }
-
   getById(nodeId){
       return this.dao.get(`SELECT * FROM sensors WHERE nodeId = ?`, [nodeId])
   }
