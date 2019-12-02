@@ -38,7 +38,7 @@ export const fetch = (query: string, objectKey: string, args: object): Promise<S
  * @param objectKey
  * @param args
  */
-export const insert = (query: string, objectKey: string, args: object): Promise<SensorReading> => {
+export const insert = (query: string, objectKey: string, args: object): Promise<any> => {
     const session = driver.session();
     return session
         .run(query,

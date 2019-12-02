@@ -5,4 +5,5 @@ export default interface SensorReading {
     type: string;
     unit: string;
     value: number;
+    sensorId: number;
 }

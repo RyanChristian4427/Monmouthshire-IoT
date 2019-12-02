@@ -7,6 +7,7 @@ export const createSensorReading = (newReading: any): SensorReading => {
         nodeId: newReading.node_id,
         type: newReading.label,
         value: newReading.value,
-        unit: newReading.units
+        unit: newReading.units,
+        sensorId: newReading.sensorId
     };
 };
