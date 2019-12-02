@@ -5,13 +5,15 @@ import io from 'socket.io';
 import { postNewReading } from './client';
 import AppDAO from './database/appDao.js';
 import SensorRepository from './database/sensorRepository.js';
-import ServerSocket from "./sockets/serverSocket";
+import ServerSocket from './sockets/serverSocket';
 import logger from './util/logger';
+import ReadingService from './service/readingService';
 
 
 export const pollSensors = () => {
     const appDao = new AppDAO('/home/pi/databases/iot_team_3/iot_team_3.sqlite');
     const sensorRepository = new SensorRepository(appDao);
+    const readingService = new ReadingService();
     sensorRepository.createTable();
     const socket = io.listen('3030');
     const serverSocket = new ServerSocket(socket);
@@ -57,9 +59,11 @@ export const pollSensors = () => {
         if (!nodes[nodeid]['classes'][comclass]) {
             nodes[nodeid]['classes'][comclass] = {};
             nodes[nodeid]['classes'][comclass][value.index] = value;
-            if (readingIsValid(value)) {
-                postNewReading(value);
-            }
+            
+            if(value){
+				value['sensorId'] = nodeid;
+				readingService.sendReading(value);
+			}
         }
     });
 
@@ -68,31 +72,22 @@ export const pollSensors = () => {
     };
 
     zwave.on('value changed', function(nodeid, comclass, value) {
-        if (nodes[nodeid]['ready']) {
-            logger.debug(`${comclass}`);
-            logger.info(`node${nodeid}: changed:
-            ${comclass}:${value['label']}:${nodes[nodeid]['classes'][comclass][value.index]['value']}->${value['value']}`)
-        }
-        nodes[nodeid]['classes'][comclass][value.index] = value;
-        logger.info(`value changed for node${nodeid}: 
-        label: ${value['unit']}, value: ${value['value']}, unit:${value['unit']}`);
-        if (readingIsValid(value)) {
-            postNewReading(value);
-        }
-        if(sensorHasBeenShook(value['label'])){
-            sensorRepository.getById(nodeid)
-            .then((sensor) => {
-				logger.debug('sensor shake');
-                logger.debug(sensor);
-				serverSocket.alertSensorShake(sensor);
-			});
-        }
+		if(value){
+			logger.info(`value changed for node${nodeid}: label: ${value['unit']}, value: ${value['value']}, unit:${value['unit']}`);
+			
+			value['sensorId'] = nodeid;
+			readingService.sendReading(value);
+			
+			if(sensorHasBeenShook(value['label'])){
+				sensorRepository.getById(nodeid)
+				.then((sensor) => {
+					logger.debug('sensor shake');
+					logger.debug(sensor);
+					serverSocket.alertSensorShake(sensor);
+				});
+			}
+		}
     });
-
-    const readingIsValid = (reading) => {
-        const validEvents = ['Temperature', 'Luminance', 'Relative Humidity', 'Ultraviolet', 'Home Security'];
-        return validEvents.indexOf(reading['label']) > -1;
-    };
 
     zwave.on('value removed', function(nodeid, comclass, index) {
         if (nodes[nodeid]['classes'][comclass] && nodes[nodeid]['classes'][comclass][index]) {
@@ -107,7 +102,7 @@ export const pollSensors = () => {
 
     zwave.on('node ready', function(nodeId, nodeinfo) {
         const hardware = nodeinfo.product;
-        const name = `Sensor ${nodeId} (${nodeinfo.type})`;
+        const name = nodeinfo.type;
 
         nodes[nodeId]['manufacturer'] = nodeinfo.manufacturer;
         nodes[nodeId]['manufacturerid'] = nodeinfo.manufacturerid;
