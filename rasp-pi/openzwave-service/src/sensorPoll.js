@@ -1,25 +1,16 @@
 import ZWave from 'openzwave-shared';
-import { Promise } from 'bluebird';
 import io from 'socket.io';
-
-import { postNewReading } from './client';
-import AppDAO from './database/appDao.js';
-import SensorRepository from './database/sensorRepository.js';
+import SensorService from "./service/sensorService";
 import ServerSocket from './sockets/serverSocket';
 import logger from './util/logger';
 import ReadingService from './service/readingService';
 
-
 export const pollSensors = () => {
-    const appDao = new AppDAO('/home/pi/databases/iot_team_3/iot_team_3.sqlite');
-    const sensorRepository = new SensorRepository(appDao);
+    const sensorService = new SensorService();
     const readingService = new ReadingService();
-    sensorRepository.createTable();
     const socket = io.listen('3030');
     const serverSocket = new ServerSocket(socket);
-    serverSocket.setUpSocketConnection();
 
-    const nodes = [];
     const zwave = new ZWave({
         ConsoleOutput: false,
         Logging: false,
@@ -29,8 +20,11 @@ export const pollSensors = () => {
         SuppressValueRefresh: true,
     });
 
+    serverSocket.setUpSocketConnection();
+    sensorService.createTable();
+
     zwave.on('driver ready', function(homeid) {
-        logger.info(`scanning homeid=0x${homeid.toString(16)}...`)
+        logger.info(`scanning homeid=0x${homeid.toString(16)}...`);
     });
 
     zwave.on('driver failed', function() {
@@ -39,47 +33,26 @@ export const pollSensors = () => {
         process.exit();
     });
 
-    zwave.on('node added', function(nodeid) {
-        nodes[nodeid] = {
-            manufacturer: '',
-            manufacturerid: '',
-            product: '',
-            producttype: '',
-            productid: '',
-            type: '',
-            name: '',
-            loc: '',
-            classes: {},
-            ready: false,
-        };
-        logger.info(`new node added, now ${nodes.length} nodes`);
+    zwave.on('node added', function(nodeId) {
+        logger.info(`Node ${nodeId} added to network`);
     });
 
-    zwave.on('value added', function(nodeid, comclass, value) {
-        if (!nodes[nodeid]['classes'][comclass]) {
-            nodes[nodeid]['classes'][comclass] = {};
-            nodes[nodeid]['classes'][comclass][value.index] = value;
-            
-            if(value){
-				value['sensorId'] = nodeid;
-				readingService.sendReading(value);
-			}
+    zwave.on('value added', function(nodeId, comclass, value) {
+        if(value){
+            value['sensorId'] = nodeId;
+            readingService.sendReading(value);
         }
     });
-
-    const sensorHasBeenShook = (notificationType) => {
-		return notificationType === 'Home Security';
-    };
 
     zwave.on('value changed', function(nodeid, comclass, value) {
 		if(value){
 			logger.info(`value changed for node${nodeid}: label: ${value['unit']}, value: ${value['value']}, unit:${value['unit']}`);
-			
+
 			value['sensorId'] = nodeid;
 			readingService.sendReading(value);
-			
-			if(sensorHasBeenShook(value['label'])){
-				sensorRepository.getById(nodeid)
+
+			if(sensorService.sensorHasBeenShook(value['label'])){
+                sensorService.getById(nodeid)
 				.then((sensor) => {
 					logger.debug('sensor shake');
 					logger.debug(sensor);
@@ -89,32 +62,16 @@ export const pollSensors = () => {
 		}
     });
 
-    zwave.on('value removed', function(nodeid, comclass, index) {
-        if (nodes[nodeid]['classes'][comclass] && nodes[nodeid]['classes'][comclass][index]) {
-            delete nodes[nodeid]['classes'][comclass][index];
-        }
-    });
-
     zwave.on('node removed', function(nodeId){
-        logger.info(`node ${nodeId} removed`);
-        zwave.healNetworkNode(nodeId, doReturnRoutes=false);
+        logger.debug(`Node ${nodeId} removed`);
+        //zwave.healNetworkNode(nodeId, doReturnRoutes=false);
     });
 
-    zwave.on('node ready', function(nodeId, nodeinfo) {
-        const hardware = nodeinfo.product;
-        const name = nodeinfo.type;
+    zwave.on('node ready', function(nodeId, nodeInfo) {
+        const hardware = nodeInfo.product;
+        const name = nodeInfo.type;
 
-        nodes[nodeId]['manufacturer'] = nodeinfo.manufacturer;
-        nodes[nodeId]['manufacturerid'] = nodeinfo.manufacturerid;
-        nodes[nodeId]['product'] = nodeinfo.product;
-        nodes[nodeId]['producttype'] = nodeinfo.producttype;
-        nodes[nodeId]['productid'] = nodeinfo.productid;
-        nodes[nodeId]['type'] = nodeinfo.type;
-        nodes[nodeId]['name'] = nodeinfo.name;
-        nodes[nodeId]['loc'] = nodeinfo.loc;
-        nodes[nodeId]['ready'] = true;
-
-        sensorRepository.create({
+        sensorService.create({
 			nodeId,
 			hardware,
 			name
@@ -125,33 +82,10 @@ export const pollSensors = () => {
             name,
             hardware
         });
-
-        for (let comclass in nodes[nodeId]['classes']) {
-            logger.info(`node${nodeId}: class ${comclass}`);
-            switch (comclass) {
-                case 0x25: // COMMAND_CLASS_SWITCH_BINARY
-                case 0x26: // COMMAND_CLASS_SWITCH_MULTILEVEL
-                    var valueIds = nodes[nodeId]['classes'][comclass];
-                    for (valueId in valueIds) {
-                        zwave.enablePoll(valueId);
-                        break;
-                    }
-                    logger.info(`node${nodeId}:   ${values[idx]['label']}=${values[idx]['value']}`)
-            }
-        }
     });
 
     zwave.on('scan complete', function() {
         logger.info('====> scan complete, hit CTRL-C to finish.');
-        // Add a new device to the ZWave controller
-        if (zwave.hasOwnProperty('beginControllerCommand')) {
-            // using legacy mode (OpenZWave version < 1.3) - no security
-            zwave.beginControllerCommand('AddDevice', true);
-        } else {
-            // using new security API
-            // set this to 'true' for secure devices eg. door locks
-            zwave.addNode(false);
-        }
     });
 
     zwave.connect('/dev/ttyACM0');
