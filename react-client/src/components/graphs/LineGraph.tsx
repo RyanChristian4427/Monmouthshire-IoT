@@ -1,6 +1,5 @@
-import React from 'react';
-import { XYPlot,
-    XAxis, YAxis, HorizontalGridLines, LineSeries,} from 'react-vis';
+import React, {useState} from 'react';
+import { HorizontalGridLines, Hint, LineMarkSeries, XYPlot, XAxis, YAxis,} from 'react-vis';
 
 
 interface IProps {
@@ -14,6 +13,8 @@ interface IProps {
 const defaultDate = '2019-11-27';
 
 export const LineGraph: React.FC<IProps> = (props: IProps) => {
+    const [hint, setHint] = useState('');
+
     return (
         <div>
             <h1>{props.title}</h1>
@@ -21,24 +22,29 @@ export const LineGraph: React.FC<IProps> = (props: IProps) => {
                 width={props.width}
                 height={props.height}>
                 <HorizontalGridLines />
-                <LineSeries
+                <LineMarkSeries
                     color="red"
                     data={[
                         {x: 1, y: 10},
                         {x: 2, y: 5},
                         {x: 3, y: 15}
                     ]}
+                    onValueMouseOver={(hint: string) => setHint(hint)}
+                    onSeriesMouseOut={() => setHint('')}
                 />
-                <LineSeries
+                <LineMarkSeries
                     color="blue"
                     data={[
                         {x: 1, y: 9},
                         {x: 2, y: 6},
                         {x: 3, y: 12}
                     ]}
+                    onValueMouseOver={(hint: string) => setHint(hint)}
+                    onSeriesMouseOut={() => setHint('')}
                 />
                 <XAxis title={props.xAxisTitle} />
                 <YAxis title={props.yAxisTitle} />
+                {hint ? <Hint value={hint}/> : null}
             </XYPlot>
         </div>
     );
