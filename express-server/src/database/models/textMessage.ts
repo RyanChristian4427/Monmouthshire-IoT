@@ -1,5 +1,5 @@
 export default interface TextMessage {
-    id: string
+    id: string;
     from: string;
     body: string;
 }
