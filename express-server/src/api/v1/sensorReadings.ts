@@ -39,9 +39,7 @@ router.get('/sensorReadings/temperature/:userId', checkToken, (req: Request, res
                 res.send(result);
             })
         .catch((err) => {
-            res.status(500).send({
-                message: err
-            });
+            res.status(500).json({ message: err});
         });
 });
 
