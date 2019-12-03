@@ -29,7 +29,16 @@ export const LineGraph: React.FC<IProps> = (props: IProps) => {
                         {x: 1, y: 10},
                         {x: 2, y: 5},
                         {x: 3, y: 15}
-                    ]}/>
+                    ]}
+                />
+                <LineSeries
+                    color="blue"
+                    data={[
+                        {x: 1, y: 9},
+                        {x: 2, y: 6},
+                        {x: 3, y: 12}
+                    ]}
+                />
                 <XAxis title="X" />
                 <YAxis />
             </XYPlot>
