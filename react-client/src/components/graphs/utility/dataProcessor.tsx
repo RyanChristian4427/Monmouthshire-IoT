@@ -7,7 +7,7 @@ import {RoomType} from 'models/Sensor';
 import {SensorDataStoreContext} from 'stores/SensorDataStore';
 
 interface IProps {
-    dataSet: any,
+    dataSet: any;
 }
 
 export const DataProcessor: React.FC<IProps> = observer((props: IProps) => {
@@ -37,5 +37,5 @@ export const DataProcessor: React.FC<IProps> = observer((props: IProps) => {
 
     return (
         <div/>
-    )
+    );
 });
