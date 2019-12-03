@@ -13,7 +13,7 @@ export const Home: React.FC = () => {
             <section className="card">
                 <div className="container" id="layered-background">
                     <LineGraph title="Temperature Over Time Per Room" xAxisTitle="Time"
-                               yAxisTitle="Temperature" height={300} width={300}/>
+                               yAxisTitle="Temperature" height={600} width={600}/>
                 </div>
             </section>
         </div>
