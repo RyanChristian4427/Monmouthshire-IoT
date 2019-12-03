@@ -1,8 +1,7 @@
-import React, {useContext} from 'react';
+import React from 'react';
 import { XYPlot,
     XAxis, YAxis, HorizontalGridLines, LineSeries,} from 'react-vis';
 
-import {UserStoreContext} from 'stores/UserStore';
 
 interface IProps {
     title: string;
@@ -15,13 +14,12 @@ interface IProps {
 const defaultDate = '2019-11-27';
 
 export const LineGraph: React.FC<IProps> = (props: IProps) => {
-    const sensorStore = useContext(UserStoreContext);
     return (
         <div>
-            <h1>Temperature</h1>
+            <h1>{props.title}</h1>
             <XYPlot
-                width={300}
-                height={300}>
+                width={props.width}
+                height={props.height}>
                 <HorizontalGridLines />
                 <LineSeries
                     color="red"
@@ -39,8 +37,8 @@ export const LineGraph: React.FC<IProps> = (props: IProps) => {
                         {x: 3, y: 12}
                     ]}
                 />
-                <XAxis title="X" />
-                <YAxis />
+                <XAxis title={props.xAxisTitle} />
+                <YAxis title={props.yAxisTitle} />
             </XYPlot>
         </div>
     );

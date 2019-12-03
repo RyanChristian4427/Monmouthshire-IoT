@@ -12,7 +12,8 @@ export const Home: React.FC = () => {
             <HeroHeader title="Home" withSettingsMenu={true}/>
             <section className="card">
                 <div className="container" id="layered-background">
-                    <LineGraph title="Example Title" xAxisTitle="Time" yAxisTitle="Temperature" height={500} width={500}/>
+                    <LineGraph title="Temperature Over Time Per Room" xAxisTitle="Time"
+                               yAxisTitle="Temperature" height={300} width={300}/>
                 </div>
             </section>
         </div>
