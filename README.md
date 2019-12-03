@@ -30,3 +30,7 @@ To start the script you won't have to do this soon, a service will be created to
 The script is now polling for sensor changes every two minutes. This is configured in sensorPolling.js. 
 The unit is in seconds and the script will divide the number of seconds to poll by the number of seconds
 i.e. if 4 minutes is configured, 2 sensors will be polled every 2 minutes.
+
+```
+Lauren is a big dum dum
+```
