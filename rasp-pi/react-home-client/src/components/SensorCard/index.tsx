@@ -13,7 +13,7 @@ interface IProps {
 
 export const SensorCard: React.FC<IProps> = observer((props: IProps) => {
     const sensorStore = useContext(SensorStoreContext);
-    const selected = sensorStore.indexSelectedSensor == props.sensorKey;
+    const selected = sensorStore.indexSelectedSensor === props.sensorKey;
 
     return (
         <div className={'sensor-card is-clickable ' + (selected ? 'selected' : '')} onClick={(): void => {

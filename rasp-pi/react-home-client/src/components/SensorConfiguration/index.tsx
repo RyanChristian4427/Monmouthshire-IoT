@@ -49,12 +49,12 @@ export const SensorConfiguration: React.FC = observer(() => {
                             <select value={currentSensor.type} onChange={(e): void =>
                                 sensorStore.setSensorType(Number(e.target.value))
                             }>
-                                <option value={SensorType.none}>N/A</option>
-                                <option value={SensorType.kitchen}>Kitchen</option>
-                                <option value={SensorType.bedroom}>Bedroom</option>
-                                <option value={SensorType.bathroom}>Bathroom</option>
-                                <option value={SensorType.livingRoom}>Living Room</option>
-                                <option value={SensorType.exteriorDoor}>Front Door</option>
+                                <option value={SensorType.None}>N/A</option>
+                                <option value={SensorType.Kitchen}>Kitchen</option>
+                                <option value={SensorType.Bedroom}>Bedroom</option>
+                                <option value={SensorType.Bathroom}>Bathroom</option>
+                                <option value={SensorType.LivingRoom}>Living Room</option>
+                                <option value={SensorType.ExteriorDoor}>Front Door</option>
                             </select>
                         </div>
                     </div>

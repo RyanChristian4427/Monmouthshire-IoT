@@ -6,15 +6,15 @@ export interface Sensor {
 }
 
 export enum SensorType {
-    kitchen,
-    bedroom,
-    bathroom,
-    livingRoom,
-    exteriorDoor,
-    none
+    Kitchen,
+    Bedroom,
+    Bathroom,
+    LivingRoom,
+    ExteriorDoor,
+    None
 }
 
 export enum HardwareType {
-    multiSensor = 'multiSensor',
-    smartSwitch = 'smartSwitch',
+    multiSensor,
+    smartSwitch,
 }
