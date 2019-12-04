@@ -25,11 +25,11 @@ export const HeroHeader: React.FC<IProps> = (props: IProps) => {
             <div className="navbar-end">
                 <div className="navbar-item dropdown is-hoverable">
                     <div className="dropdown-trigger">
-                        <div className="button is-coral-light" aria-haspopup="true" aria-controls="dropdown-menu">
-                            <span>Settings</span>
-                            <span className="icon is-small">
+                        <div className="button is-whitesmoke-dark" aria-haspopup="true" aria-controls="dropdown-menu">
+                            <p>Settings</p>
+                            <p className="icon is-small">
                                 <Settings/>
-                            </span>
+                            </p>
                         </div>
                     </div>
                     <div className="dropdown-menu" role="menu">

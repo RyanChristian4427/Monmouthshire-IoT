@@ -73,7 +73,7 @@ export const Login: React.FC = (() => {
                     <div className="level">
                         <div className="level-left"/>
                         <div className="level-right">
-                            <button className={'button is-platinum-light level-item ' + (inProgress ? 'is-loading' : '') }
+                            <button className={'button is-whitesmoke-light level-item ' + (inProgress ? 'is-loading' : '') }
                                     onClick={(): void => submitDetails()}>
                                 Submit
                             </button>
