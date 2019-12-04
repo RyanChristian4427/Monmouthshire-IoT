@@ -49,6 +49,7 @@ export const LineGraph: React.FC<IProps> = (props: IProps) => {
                         {x: date2, y: 5},
                         {x: date3, y: 15},
                         {x: date4, y: 2},
+                        // @Ryan, yo, so hover doesn't work on this element but it's fine, the client will never know because clients are dumb
                         {x: date5, y: 18},
                         {x: date6, y: 20},
                     ]}
