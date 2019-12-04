@@ -14,14 +14,16 @@ export const SensorConfiguration: React.FC = observer(() => {
     const updateSensor = (): void => {
         const currentSensor = sensorStore.SensorList[sensorStore.indexSelectedSensor];
         socket.emit('sensor_update', currentSensor);
+        //sensorStore.removeSensor(currentSensor);
     };
-
+    
     useEffect(() => {
 		socket.emit('looking_for_sensors');
         socket.on('sensor_joined_z_wave', (sensor: Sensor) => {
             sensorStore.addSensor(sensor);
         });
         socket.on('all_connected_sensors', (sensors: Sensor[]) => {
+        console.log(sensors);
             sensorStore.addSensors(sensors);
         });
     }, [sensorStore]);

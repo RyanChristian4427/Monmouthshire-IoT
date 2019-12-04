@@ -2,7 +2,7 @@ import logger from '../util/logger.js';
 
 class SensorRepository {
 	constructor(dao) {
-    this.dao = dao
+		this.dao = dao
   }
 
   createTable() {
@@ -56,7 +56,11 @@ class SensorRepository {
   }
 
   getAll() {
-	    return this.dao.all(`SELECT * FROM sensors`)
+	  return this.dao.all(`SELECT * FROM sensors`)
+	}
+	
+	getAllNotConfigured() {
+	  return this.dao.all(`SELECT * FROM sensors where isConfigured = 0`)
 	}
 
 	getById(nodeId){

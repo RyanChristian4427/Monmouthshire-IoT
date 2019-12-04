@@ -5,7 +5,7 @@ import 'toasted-notes/src/styles.css';
 import {HeroHeader} from 'components/HeroHeader';
 import {SensorConfiguration} from 'components/SensorConfiguration';
 import {SensorList} from 'components/SensorList';
-import {Sensor} from 'models/Sensor';
+import {Sensor, HardwareType} from 'models/Sensor';
 import socket from 'util/sockets';
 
 import './App.scss';
@@ -16,7 +16,7 @@ const App: React.FC = () => {
     // Sorry Ry Ry, won't happen again :p. Although the response I was looking for was 'Thank you'...
     useEffect(() => {
         socket.on('sensor_shake', (sensor: Sensor) => {
-            const notification = `Sensor ${sensor.nodeId} has been shaken (${sensor.hardware}) `;
+            const notification = `Sensor ${sensor.nodeId} has been shaken (${HardwareType[sensor.hardware]}) `;
             toaster.notify(notification, {
                 duration: 5000
             });

@@ -6,7 +6,7 @@ export const readingIsValid = (reading) => {
 };
 
 export const fahrenheitToCelsius = (temp) => {
-	const tempInC = (temp - 32) * 5 / 9;
+	const tempInC = Math.floor((temp - 32) * 5 / 9);
 	logger.debug(`Have converted ${temp} F to ${tempInC} C`);
     return tempInC;
 };
