@@ -10,10 +10,16 @@ export const Home: React.FC = () => {
     return (
         <div className="home-page">
             <HeroHeader title="Home" withSettingsMenu={true}/>
-            <section className="card">
+            <section className="section card">
                 <div className="container" id="layered-background">
-                    <LineGraph title="Temperature Over Time Per Room" xAxisTitle="Time"
-                               yAxisTitle="Temperature" height={600} width={600}/>
+                    <section className="section chart-card">
+                        <LineGraph title="Temperature Over Time Per Room" xAxisTitle="Time"
+                                   yAxisTitle="Temperature" height={600} width={600}/>
+                    </section>
+                    <section className="section chart-card">
+                        <LineGraph title="Temperature Over Time Per Room" xAxisTitle="Time"
+                                   yAxisTitle="Temperature" height={600} width={600}/>
+                    </section>
                 </div>
             </section>
         </div>
