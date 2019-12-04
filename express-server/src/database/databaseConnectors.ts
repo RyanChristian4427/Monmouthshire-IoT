@@ -1,6 +1,7 @@
 import neo4j from 'neo4j-driver';
 import SensorReading from 'src/database/models/sensorReading';
 import {NEO4JDB_URI, NEO4JDB_USER, NEO4JDB_PASS} from 'src/util/secrets';
+import logger from 'src/util/logger';
 
 // Init driver
 export const driver = neo4j.driver(
@@ -39,6 +40,7 @@ export const fetch = (query: string, objectKey: string, args: object): Promise<S
  * @param args
  */
 export const insert = (query: string, objectKey: string, args: object): Promise<any> => {
+    logger.info('inserting shiz');
     const session = driver.session();
     return session
         .run(query,

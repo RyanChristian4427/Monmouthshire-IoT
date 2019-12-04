@@ -2,7 +2,6 @@ import SensorReading from 'src/database/models/sensorReading';
 import { fetch, insert } from 'src/database/databaseConnectors';
 import logger from 'src/util/logger';
 import { createSensorReading } from 'src/database/mappers/sensorReadingMapper';
-import Sensor from 'src/database/models/sensor';
 
 /**
  * Takes arguments to create a cypher query and returns a Promise
@@ -103,36 +102,18 @@ export const getMotionReadingsByUser = (args: object): Promise<object> => {
 };
 
 /**
- * Add new SensorReading node
+ * Add new Reading node
  *
  * @param sensorReading
  */
 export const insertNewReading = (sensorReading: string): Promise<SensorReading> => {
-    const objectKey = 'sensorReading';
-    const query = `CREATE
-                     (sensorReading:SensorReading 
-                        { userId: {userId}, type: {type}, value: {value}, sensorId: {sensorId}, unit: {unit}, timestamp: datetime() }) 
-                            RETURN sensorReading`;
+    const objectKey = 'reading';
+    const query = `MATCH (user:User)--(room:Room)--(sensor:Sensor)
+                        WHERE user.id = {userId} AND room.type={roomType} AND sensor.nodeId={nodeId} AND sensor.type = {sensorType}
+                            CREATE (reading:Reading {value: {value}, timestamp: datetime()})-[r:belongsTo]->(sensor)
+                                RETURN reading`;
 
     return insert(query, objectKey, createSensorReading(sensorReading))
-        .then((result) => {
-            return result;
-        });
-};
-
-/**
- * Add new SensorReading node
- *
- * @param sensor
- */
-export const insertNewSensor = (sensor: Sensor): Promise<Sensor> => {
-    const objectKey = 'sensor';
-    const query = `CREATE
-                     (sensor:Sensor
-                        { id: {id}, type: {type}, name: {name} }) 
-                            RETURN sensor`;
-
-    return insert(query, objectKey, sensor)
         .then((result) => {
             return result;
         });
