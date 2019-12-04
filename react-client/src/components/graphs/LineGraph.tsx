@@ -1,6 +1,9 @@
 import React, {useState} from 'react';
-import { HorizontalGridLines, Hint, LineMarkSeries, XYPlot, XAxis, YAxis,} from 'react-vis';
+import { HorizontalGridLines, LineMarkSeries, XYPlot, XAxis, YAxis,} from 'react-vis';
 import {dateFormatter, HintFormatter} from 'components/graphs/utility/HintFormatter';
+import {Hint, blankHint} from 'models/Hint';
+
+import './Graphs.scss';
 
 
 interface IProps {
@@ -13,7 +16,7 @@ interface IProps {
 
 const defaultDate = '2019-11-27';
 
-const formatter: React.FC<Date> = (time: Date) => {
+const xAxisFormat: React.FC<Date> = (time: Date) => {
     time = new Date(time);
     return (
         <tspan>
@@ -21,17 +24,6 @@ const formatter: React.FC<Date> = (time: Date) => {
         </tspan>
     );
 };
-
-interface Hint {
-    x: Date;
-    y: number;
-}
-
-const blankHint: Hint = {
-    x: new Date(),
-    y: 0
-};
-
 
 export const LineGraph: React.FC<IProps> = (props: IProps) => {
     const [hint, setHint] = useState(blankHint);
@@ -76,7 +68,7 @@ export const LineGraph: React.FC<IProps> = (props: IProps) => {
                     onValueMouseOver={(hint: Hint): void => setHint(hint)}
                     onSeriesMouseOut={(): void => setHint(blankHint)}
                 />
-                <XAxis title={props.xAxisTitle} tickFormat={formatter} />
+                <XAxis title={props.xAxisTitle} tickFormat={xAxisFormat}/>
                 <YAxis title={props.yAxisTitle} />
                 {hint != blankHint ? HintFormatter(hint) : null}
             </XYPlot>
