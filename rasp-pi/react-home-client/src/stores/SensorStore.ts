@@ -2,12 +2,13 @@ import {action, observable} from 'mobx';
 import {createContext} from 'react';
 
 import {HardwareType, Sensor, SensorType} from 'models/Sensor';
+
 import socket from 'util/sockets';
 
 
 class SensorStore {
     // Plz don't remove, I do need this if I want to test at all. Just swap the two
-    @observable
+   /*@observable
     SensorList: Array<Sensor> = [
        { nodeId: 0, name: 'Sensor 1', type: SensorType.None, hardware: HardwareType.multiSensor},
        { nodeId: 1, name: 'Sensor 2', type: SensorType.None, hardware: HardwareType.smartSwitch},
@@ -17,11 +18,10 @@ class SensorStore {
        { nodeId: 5, name: 'Sensor 6', type: SensorType.None, hardware: HardwareType.multiSensor},
        { nodeId: 6, name: 'Sensor 7', type: SensorType.None, hardware: HardwareType.multiSensor},
        { nodeId: 7, name: 'Sensor 8', type: SensorType.None, hardware: HardwareType.multiSensor},
-    ];
+    ];*/
 
-    // @observable
-    // SensorList: Array<Sensor> = [];
-
+    @observable
+    SensorList: Array<Sensor> = [];
 
     @observable
     indexSelectedSensor = -1;
@@ -40,6 +40,11 @@ class SensorStore {
     @action
     addSensor(sensor: Sensor): void {
         this.SensorList.push(sensor);
+    }
+    
+    @action
+    removeSensor(sensor: Sensor): void {
+        //this.SensorList.remove(sensor);
     }
     
     @action

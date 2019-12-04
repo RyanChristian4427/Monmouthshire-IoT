@@ -16,44 +16,44 @@ class AppDAO {
   
   run(sql, params = []) {
     return new Promise((resolve, reject) => {
-      this.db.run(sql, params, (err) => {
-        if (err) {
-          logger.error(`Error running sql ${sql}`);
-          logger.error(err);
-          reject(err);
-        } else {
-          resolve({ id: this.lastID });
-        }
-      })
+		  this.db.run(sql, params, (err) => {
+				if (err) {
+				  logger.error(`Error running sql ${sql}`);
+				  logger.error(err);
+				  reject(err);
+				} else {
+				  resolve({ id: this.lastID });
+				}
+		  })
     })
   }
   
   get(sql, params = []) {
 	  return new Promise((resolve, reject) => {
-      this.db.get(sql, params, (err, row) => {
-	  if (err) {
-		  logger.error(`db get error for ${sql}`);
-		  logger.error(err);
-		  reject(err);
-	  }
-	  logger.info(row);
-	  resolve(row);
-	  });
-    })
+		  this.db.get(sql, params, (err, row) => {
+			  if (err) {
+				  logger.error(`db get error for ${sql}`);
+				  logger.error(err);
+				  reject(err);
+			  }
+			  logger.info(row);
+			  resolve(row);
+		  });
+		})
   }
   
   all(sql, params = []) {
 	  return new Promise((resolve, reject) => {
-      this.db.all(sql, params, (err, rows) => {
-	  if (err) {
-		  logger.error(`db get error for ${sql}`);
-		  logger.error(err);
-		  reject(err);
-	  }
-	  logger.debug('We have ROWS');
-	  logger.info(rows);
-	  resolve(rows);
-	  });
+		  this.db.all(sql, params, (err, rows) => {
+			  if (err) {
+				  logger.error(`db get error for ${sql}`);
+				  logger.error(err);
+				  reject(err);
+			  }
+			  logger.debug('We have ROWS');
+			  logger.info(rows);
+			  resolve(rows);
+		  });
     })
   }
 }

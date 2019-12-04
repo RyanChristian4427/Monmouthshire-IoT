@@ -1,9 +1,10 @@
 import ZWave from 'openzwave-shared';
 import io from 'socket.io';
-import SensorService from "./service/sensorService";
+import SensorService from './service/sensorService';
 import ServerSocket from './sockets/serverSocket';
 import logger from './util/logger';
 import ReadingService from './service/readingService';
+import {USER_ID} from './util/secrets';
 
 export const pollSensors = () => {
     const sensorService = new SensorService();
@@ -37,29 +38,54 @@ export const pollSensors = () => {
         logger.info(`Node ${nodeId} added to network`);
     });
 
-    zwave.on('value added', function(nodeId, comclass, value) {
-        if(value){
-            value['sensorId'] = nodeId;
-            readingService.sendReading(value);
-        }
+    zwave.on('value added', function(nodeId, comclass, sensorReading) {
+       /* if(sensorReading){
+            sensorService.getById(nodeId)
+				.then((sensor) => {
+					logger.debug(sensor);
+					logger.debug(sensor);
+					const data = {
+						nodeId,
+						value: sensorReading.value,
+						roomType: sensor.type,
+						sensorType: sensorReading.label,
+						userId: USER_ID
+					};
+					logger.error(data);
+					readingService.sendReading(data);
+				});
+        }*/
     });
 
-    zwave.on('value changed', function(nodeid, comclass, value) {
-		if(value){
-			logger.info(`value changed for node${nodeid}: label: ${value['unit']}, value: ${value['value']}, unit:${value['unit']}`);
-
-			value['sensorId'] = nodeid;
-			readingService.sendReading(value);
-
-			if(sensorService.sensorHasBeenShook(value['label'])){
-                sensorService.getById(nodeid)
+    zwave.on('value changed', function(nodeId, comclass, sensorReading) {
+		/*if(sensorReading){
+			//logger.info(`value changed for node${nodeId}: label: ${sensorReading['unit']}, value: ${sensorReading['value']}, unit:${sensorReading['unit']}`);
+			
+			sensorService.getById(nodeId)
 				.then((sensor) => {
-					logger.debug('sensor shake');
+					logger.debug(sensor);
+					logger.debug(sensor);
+					const data = {
+						nodeId,
+						value: sensorReading.value,
+						roomType: sensor.type,
+						sensorType: sensorReading.label,
+						userId: USER_ID,
+						units: sensorReading.units
+					};
+					logger.error(data);
+					readingService.sendReading(data);
+				});
+
+			if(sensorService.sensorHasBeenShook(sensorReading.label)){
+                sensorService.getById(nodeId)
+				.then((sensor) => {
+					logger.debug(`Sensor shake detected from sensor ${nodeId}`);
 					logger.debug(sensor);
 					serverSocket.alertSensorShake(sensor);
 				});
 			}
-		}
+		}*/
     });
 
     zwave.on('node removed', function(nodeId){
@@ -68,7 +94,8 @@ export const pollSensors = () => {
     });
 
     zwave.on('node ready', function(nodeId, nodeInfo) {
-        const hardware = nodeInfo.product;
+		logger.error(nodeInfo.product);
+        const hardware = sensorService.determineSensorType(nodeInfo.product);
         const name = nodeInfo.type;
 
         sensorService.create({

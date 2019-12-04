@@ -1,14 +1,15 @@
 import logger from '../util/logger.js';
 import AppDAO from '../database/appDao';
-import SensorRepository from '../database/sensorRepository';
+import SensorService from '../service/sensorService';
+import { postNewRoom } from '../client';
 
 export default class ServerSocket {
+	
     io;
-    sensorRepository;
+    sensorService;
 
     constructor(io) {
-        const appDao = new AppDAO('/home/pi/databases/iot_team_3/iot_team_3.sqlite');
-        this.sensorRepository = new SensorRepository(appDao);
+        this.sensorService = new SensorService();
         this.io = io;
     }
 
@@ -16,6 +17,7 @@ export default class ServerSocket {
         this.io.on('connection',  (socket) => {
             this.onSensorUpdate(socket);
             this.onClientLookingForSensors(socket);
+            this.onRoomAdded(socket);
         });
     };
 
@@ -43,19 +45,28 @@ export default class ServerSocket {
     onSensorUpdate(socket){
         socket.on('sensor_update', (sensor) => {
             // Update in database
+            logger.debug('Configuring sensor....');
+            logger.debug(sensor);
             logger.info(`Updating node ${sensor.nodeId}: type is ${sensor.type} and name is ${sensor.name}`);
-            this.sensorRepository.updateSensor(sensor.nodeId, sensor.type, sensor.name);
+            this.sensorService.updateSensor(sensor.nodeId, sensor.type, sensor.name);
+            this.sensorService.configure(sensor);
         });
     };
     
     onClientLookingForSensors(socket){
 		socket.on('looking_for_sensors', () => {
-			this.sensorRepository.getAll()
+			this.sensorService.getAll()
 			.then((sensors) => {
 				logger.info('Emitting all sensors to client');
 				logger.debug(sensors);
 				this.emitAllSensors(sensors);
 			});
+		});
+	}
+	
+	onRoomAdded(socket){
+		socket.on('room_added', (room) => {
+			postNewRoom(room);
 		});
 	}
 }

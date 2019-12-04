@@ -31,15 +31,16 @@ class ReadingService {
 	correctTemperature(sensorReading){
 		const readingValue = sensorReading['value'];
 		
-		sensorReading['units'] = 'C';
+		//sensorReading['units'] = 'C';
 		sensorReading['value'] = fahrenheitToCelsius(readingValue);
 		logger.debug(`New reading is ${sensorReading['value']} ${sensorReading['units']}`);
 		return sensorReading;
 	}
 	
 	readingIsValid(reading){
-        const validEvents = ['Temperature', 'Luminance', 'Relative Humidity', 'Ultraviolet', 'Home Security'];
-        return validEvents.indexOf(reading['label']) > -1;
+		logger.debug(`REading type is ${reading.sensorType}`);
+        const validEvents = ['Temperature', 'Luminance', 'Relative Humidity', 'Ultraviolet'];
+        return validEvents.indexOf(reading['sensorType']) > -1;
     }
 }
 

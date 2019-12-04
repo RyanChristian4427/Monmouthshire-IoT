@@ -1,6 +1,7 @@
 import logger from '../util/logger.js';
-import SensorRepository from "../database/sensorRepository";
-import AppDAO from "../database/appDao";
+import SensorRepository from '../database/sensorRepository';
+import AppDAO from '../database/appDao';
+import { postNewSensor } from '../client';
 
 class SensorService {
 
@@ -16,11 +17,18 @@ class SensorService {
     }
 
     create(sensor) {
-        return this.sensorRepository.create(sensor);
+		logger.info(sensor.hardware);
+		sensor.hardware = this.determineSensorType(sensor.hardware);
+        this.sensorRepository.create(sensor);
     }
+    
+    configure(sensor){
+		delete sensor.id;
+		postNewSensor(sensor);
+	}
 
     updateSensor(sensorId, type, name) {
-        return this.sensorRepository.update(sensorId, type, name);
+        return this.sensorRepository.updateSensor(sensorId, type, name);
     }
 
     getAll() {
@@ -28,11 +36,22 @@ class SensorService {
     }
 
     getById(nodeId){
-        return this.sensorRepository.getById(nodeId)[0];
+        return this.sensorRepository.getById(nodeId);
     }
 
     sensorHasBeenShook(notificationType) {
         return notificationType === 'Burglar';
+    };
+    
+    determineSensorType(hardware) {
+        switch(hardware){
+			case 'MultiSensor 6':
+				return 'Multi Sensor';
+			case 'Smart Switch 6':
+				return 'Smart Switch';
+			default:
+				return 'None';
+		}
     };
 }
 

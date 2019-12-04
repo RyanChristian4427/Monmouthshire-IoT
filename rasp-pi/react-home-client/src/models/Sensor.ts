@@ -1,4 +1,5 @@
 export interface Sensor {
+	id: number;
     nodeId: number;
     name: string;
     type: SensorType;
@@ -16,5 +17,5 @@ export enum SensorType {
 
 export enum HardwareType {
     multiSensor,
-    smartSwitch,
+    smartSwitch
 }
