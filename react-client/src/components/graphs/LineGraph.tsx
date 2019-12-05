@@ -1,7 +1,6 @@
 import React, {useState} from 'react';
-import { HorizontalGridLines, LineMarkSeries, XYPlot, XAxis, YAxis,} from 'react-vis';
-import {dateFormatter, HintFormatter} from 'components/graphs/utility/HintFormatter';
-import {Hint, blankHint} from 'models/Hint';
+import {HorizontalGridLines, LineMarkSeries, XAxis, XYPlot, YAxis,} from 'react-vis';
+import {timeFormat, HintFormatter, HintType} from 'components/graphs/utility/HintFormatter';
 
 import './Graphs.scss';
 
@@ -14,19 +13,24 @@ interface IProps {
     width: number;
 }
 
+export interface Hint {
+    x: Date;
+    y: number;
+}
+
 const defaultDate = '2019-11-27';
 
 const xAxisFormat: React.FC<Date> = (time: Date) => {
     time = new Date(time);
     return (
         <tspan>
-            <tspan x="0" dy="1em">{dateFormatter(time)}</tspan>
+            <tspan x="0" dy="1em">{timeFormat(time)}</tspan>
         </tspan>
     );
 };
 
 export const LineGraph: React.FC<IProps> = (props: IProps) => {
-    const [hint, setHint] = useState(blankHint);
+    const [hint, setHint] = useState();
     const date1 = new Date('2019-11-27T14:30:00+00:00');
     const date2 = new Date('2019-11-27T15:00:00+00:00');
     const date3 = new Date('2019-11-27T15:30:00+00:00');
@@ -53,7 +57,7 @@ export const LineGraph: React.FC<IProps> = (props: IProps) => {
                         {x: date6, y: 20},
                     ]}
                     onValueMouseOver={(hint: Hint): void => setHint(hint)}
-                    onSeriesMouseOut={(): void => setHint(blankHint)}
+                    onSeriesMouseOut={(): void => setHint('')}
                 />
                 <LineMarkSeries
                     color="blue"
@@ -66,11 +70,11 @@ export const LineGraph: React.FC<IProps> = (props: IProps) => {
                         {x: date6, y: 24},
                     ]}
                     onValueMouseOver={(hint: Hint): void => setHint(hint)}
-                    onSeriesMouseOut={(): void => setHint(blankHint)}
+                    onSeriesMouseOut={(): void => setHint('')}
                 />
                 <XAxis title={props.xAxisTitle} tickFormat={xAxisFormat}/>
                 <YAxis title={props.yAxisTitle} />
-                {hint != blankHint ? HintFormatter(hint) : null}
+                {hint ? HintFormatter({values: hint, type: HintType.LineGraphDate}) : null}
             </XYPlot>
         </div>
     );
