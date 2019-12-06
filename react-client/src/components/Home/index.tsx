@@ -1,13 +1,26 @@
-import React from 'react';
+import React, {useContext, useEffect, useState} from 'react';
+import {observer} from 'mobx-react-lite';
 
 import {LineGraph} from 'components/graphs/LineGraph';
+import {PieChart} from 'components/graphs/PieChart';
 import {HeroHeader} from 'components/HeroHeader';
+import {UserStoreContext} from 'stores/UserStore';
 
 import './Home.scss';
-import {PieChart} from 'components/graphs/PieChart';
+import {getTemperatures} from 'services/requests';
 
 
-export const Home: React.FC = () => {
+export const Home: React.FC = observer(() => {
+    const sensorStore = useContext(UserStoreContext);
+    const [data, setData] = useState();
+
+    useEffect(() => {
+        // This actually needs to get all data within a time period, but whatever. Fix tomorrow
+        getTemperatures(sensorStore.currentObservedUser)
+            .then((data) => setData(data));
+        console.log(data);
+    });
+
     return (
         <div className="home-page">
             <HeroHeader title="Home" withSettingsMenu={true}/>
@@ -24,4 +37,4 @@ export const Home: React.FC = () => {
             </section>
         </div>
     );
-};
+});
