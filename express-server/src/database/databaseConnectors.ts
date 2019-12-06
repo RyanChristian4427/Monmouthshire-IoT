@@ -48,7 +48,7 @@ export const insert = (query: string, objectKey: string, args: object): Promise<
         )
         .then((result) => {
             session.close();
-            return result.records[0].get(objectKey);
+            return result.records;
         })
         .catch((error) => {
             session.close();
