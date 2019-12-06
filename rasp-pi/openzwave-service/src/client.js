@@ -1,7 +1,10 @@
 import axios from 'axios';
-import { API_URL, USER_ID} from './util/secrets';
+//import { API_URL, USER_ID} from './util/secrets';
 import { fahrenheitToCelsius } from './util/readings';
 import logger from './util/logger';
+
+const API_URL = 'http://192.168.1.48:8000/api/v1';
+const USER_ID = 'b8:27:eb:25:bf:f5';
 
 export const postNewReading = (sensorReading) => {
 	const url = `${API_URL}/sensorReadings/new`;

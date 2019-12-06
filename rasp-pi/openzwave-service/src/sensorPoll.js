@@ -4,7 +4,9 @@ import SensorService from './service/sensorService';
 import ServerSocket from './sockets/serverSocket';
 import logger from './util/logger';
 import ReadingService from './service/readingService';
-import {USER_ID} from './util/secrets';
+//import {USER_ID} from './util/secrets';
+
+const USER_ID = 'b8:27:eb:25:bf:f5';
 
 export const pollSensors = () => {
     const sensorService = new SensorService();
@@ -17,7 +19,7 @@ export const pollSensors = () => {
         Logging: false,
         SaveConfiguration: false,
         DriverMaxAttempts: 5,
-        PollInterval: 500,
+        PollInterval: 200,
         SuppressValueRefresh: true,
     });
 
@@ -37,28 +39,34 @@ export const pollSensors = () => {
     zwave.on('node added', function(nodeId) {
         logger.info(`Node ${nodeId} added to network`);
     });
+    
+    const getRoomType = (nodeId) => {
+		switch(nodeId){
+			case 3:
+				return "Bedroom";
+			case 4:
+				return "Kitchen";
+			default:
+				return "Bedroom";
+		}
+	};
 
     zwave.on('value added', function(nodeId, comclass, sensorReading) {
-       /* if(sensorReading){
-            sensorService.getById(nodeId)
-				.then((sensor) => {
-					logger.debug(sensor);
-					logger.debug(sensor);
-					const data = {
+        if(sensorReading){
+			const data = {
 						nodeId,
 						value: sensorReading.value,
-						roomType: sensor.type,
+						roomType: getRoomType(nodeId),
 						sensorType: sensorReading.label,
 						userId: USER_ID
 					};
 					logger.error(data);
 					readingService.sendReading(data);
-				});
-        }*/
+        }
     });
 
     zwave.on('value changed', function(nodeId, comclass, sensorReading) {
-		/*if(sensorReading){
+		if(sensorReading){
 			//logger.info(`value changed for node${nodeId}: label: ${sensorReading['unit']}, value: ${sensorReading['value']}, unit:${sensorReading['unit']}`);
 			
 			sensorService.getById(nodeId)
@@ -85,7 +93,7 @@ export const pollSensors = () => {
 					serverSocket.alertSensorShake(sensor);
 				});
 			}
-		}*/
+		}
     });
 
     zwave.on('node removed', function(nodeId){

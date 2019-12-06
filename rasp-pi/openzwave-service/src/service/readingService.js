@@ -25,6 +25,9 @@ class ReadingService {
 		if (sensorReading['label'] === 'Temperature' && sensorReading['units'] === 'F') {
 			sensorReading = this.correctTemperature(sensorReading);
 		}
+		if(sensorReading['label'] === 'Movement Detected' ){
+			sensorReading['label'] = 'Motion';
+		}
 		return sensorReading;
 	}
 	
@@ -39,7 +42,7 @@ class ReadingService {
 	
 	readingIsValid(reading){
 		logger.debug(`REading type is ${reading.sensorType}`);
-        const validEvents = ['Temperature', 'Luminance', 'Relative Humidity', 'Ultraviolet'];
+        const validEvents = ['Temperature', 'Luminance', 'Relative Humidity', 'Ultraviolet', 'Motion'];
         return validEvents.indexOf(reading['sensorType']) > -1;
     }
 }
