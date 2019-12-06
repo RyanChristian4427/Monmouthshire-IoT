@@ -40,10 +40,10 @@ export const getTempReadingsByUser = async (args: object): Promise<object> => {
     const objectKey = 'sensorReading';
     const query = `MATCH (:User {id: {userId}})-[]-(rooms)-[]-(:Sensor {type: 'Temperature'})-[]-(sensorReadings)
                   WITH rooms.name as roomName, {
-                      value: properties(sensorReadings).value,
+                      value: toInteger(properties(sensorReadings).value),
                       timestamp: toInteger(datetime(properties(sensorReadings).timestamp).epochSeconds)
                   } as data
-                  RETURN roomName, COLLECT(data)`;
+                  RETURN { name: roomName, data: COLLECT(data) } AS sensorReading`;
     return await fetchBuilder(query, objectKey, args);
 };
 

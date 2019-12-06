@@ -1,17 +1,30 @@
 import React, {useContext} from 'react';
 import {observer} from 'mobx-react-lite';
 
-
 import {Node} from 'models/Neo4J';
 import {RoomType} from 'models/Sensor';
 import {SensorDataStoreContext} from 'stores/SensorDataStore';
 
+interface NodeData {
+    value: { high: number, low: number},
+    timestamp: { high: number, low: number }
+}
+
+interface RoomData {
+    data: NodeData[],
+    name: string
+}
+
 interface IProps {
-    dataSet: any;
+    dataSet: RoomData[];
 }
 
 export const DataProcessor: React.FC<IProps> = observer((props: IProps) => {
     const sensorDataStoreContext = useContext(SensorDataStoreContext);
+
+    props.dataSet.forEach((nodeData: NodeData) => {
+
+    })
 
     const process = () => {
         props.dataSet.forEach((node: Node) => {

@@ -2,7 +2,7 @@ import {apiService} from 'ts-api-toolkit';
 
 export const getTemperatures = (currentUser: string): Promise<string> => {
     return new Promise((resolve, reject) => {
-        apiService.get('/sensorReadings/temperature/', String(currentUser))
+        apiService.get('/sensorReadings/temperature', encodeURIComponent(currentUser))
             .then(({ data }) => {
                 resolve(data);
             })

@@ -32,14 +32,14 @@ router.get('/sensorReadings/all', checkToken, (req: Request, res: Response) => {
  * Return all temperature readings by user id
  */
 router.get('/sensorReadings/temperature/:userId', checkToken, (req: Request, res: Response) => {
-    const args = {userId: parseInt(req.params.userId)};
+    const args = {userId:decodeURI(req.params.userId)};
     getTempReadingsByUser(args)
         .then(
             (result) => {
                 res.send(result);
             })
         .catch((err) => {
-            res.status(500).json({ message: err});
+            res.status(500).json({ message: String(err.code)});
         });
 });
 

@@ -4,10 +4,10 @@ import {observer} from 'mobx-react-lite';
 import {LineGraph} from 'components/graphs/LineGraph';
 import {PieChart} from 'components/graphs/PieChart';
 import {HeroHeader} from 'components/HeroHeader';
+import {getTemperatures} from 'services/requests';
 import {UserStoreContext} from 'stores/UserStore';
 
 import './Home.scss';
-import {getTemperatures} from 'services/requests';
 
 
 export const Home: React.FC = observer(() => {
@@ -15,11 +15,12 @@ export const Home: React.FC = observer(() => {
     const [data, setData] = useState();
 
     useEffect(() => {
-        // This actually needs to get all data within a time period, but whatever. Fix tomorrow
         getTemperatures(sensorStore.currentObservedUser)
-            .then((data) => setData(data));
-        console.log(data);
-    });
+            .then((data) => {
+                setData(data);
+                console.log(data);
+            });
+    }, []);
 
     return (
         <div className="home-page">
