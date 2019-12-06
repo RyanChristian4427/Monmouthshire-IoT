@@ -1,6 +1,6 @@
 import {apiService} from 'ts-api-toolkit';
 
-export const getTemperatures = (currentUser: number): Promise<string> => {
+export const getTemperatures = (currentUser: string): Promise<string> => {
     return new Promise((resolve, reject) => {
         apiService.get('/sensorReadings/temperature/', String(currentUser))
             .then(({ data }) => {
@@ -13,6 +13,6 @@ export const getTemperatures = (currentUser: number): Promise<string> => {
                 } else {
                     reject('Unknown Error');
                 }
-            })
+            });
     });
 };
