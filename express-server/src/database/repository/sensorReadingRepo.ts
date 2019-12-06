@@ -38,10 +38,12 @@ export const getAllReadings = async (): Promise<object> => {
  */
 export const getTempReadingsByUser = async (args: object): Promise<object> => {
     const objectKey = 'sensorReading';
-    const query = `MATCH 
-                      (sensorReading:SensorReading
-                          { userId: {userId}, type: 'Temperature', unit: 'C' })
-                              RETURN properties(sensorReading) AS sensorReading`;
+    const query = `MATCH (:User {id: {userId}})-[]-(rooms)-[]-(:Sensor {type: 'Temperature'})-[]-(sensorReadings)
+                  WITH rooms.name as roomName, {
+                      value: properties(sensorReadings).value,
+                      timestamp: toInteger(datetime(properties(sensorReadings).timestamp).epochSeconds)
+                  } as data
+                  RETURN roomName, COLLECT(data)`;
     return await fetchBuilder(query, objectKey, args);
 };
 
@@ -52,10 +54,12 @@ export const getTempReadingsByUser = async (args: object): Promise<object> => {
  */
 export const getLuminanceReadingsByUser = async (args: object): Promise<object> => {
     const objectKey = 'sensorReading';
-    const query = `MATCH 
-                     (sensorReading:SensorReading
-                         { userId: {userId}, type: 'Luminance' })
-                              RETURN properties(sensorReading) AS sensorReading`;
+    const query = `MATCH (:User {id: {userId}})-[]-(rooms)-[]-(:Sensor {type: 'Luminance'})-[]-(sensorReadings)
+                  WITH rooms.name as roomName, {
+                      value: properties(sensorReadings).value,
+                      timestamp: toInteger(datetime(properties(sensorReadings).timestamp).epochSeconds)
+                  } as data
+                  RETURN roomName, COLLECT(data)`;
     return await fetchBuilder(query, objectKey, args);
 };
 
@@ -66,10 +70,12 @@ export const getLuminanceReadingsByUser = async (args: object): Promise<object> 
  */
 export const getUltraVioletReadingsByUser = async (args: object): Promise<object> => {
     const objectKey = 'sensorReading';
-    const query = `MATCH 
-                     (sensorReading:SensorReading 
-                         { userId = {userId}, type = 'Ultraviolet' })
-                              RETURN properties(sensorReading) AS sensorReading`;
+    const query = `MATCH (:User {id: {userId}})-[]-(rooms)-[]-(:Sensor {type: 'Ultraviolet'})-[]-(sensorReadings)
+                  WITH rooms.name as roomName, {
+                      value: properties(sensorReadings).value,
+                      timestamp: toInteger(datetime(properties(sensorReadings).timestamp).epochSeconds)
+                  } as data
+                  RETURN roomName, COLLECT(data)`;
     return await fetchBuilder(query, objectKey, args);
 };
 
@@ -80,10 +86,12 @@ export const getUltraVioletReadingsByUser = async (args: object): Promise<object
  */
 export const getHumidityReadingsByUser = async (args: object): Promise<object> => {
     const objectKey = 'sensorReading';
-    const query = `MATCH 
-                     (sensorReading:SensorReading
-                         { userId = {userId}, type = 'Relative Humidity' })
-                             RETURN properties(sensorReading) AS sensorReading`;
+    const query = `MATCH (:User {id: {userId}})-[]-(rooms)-[]-(:Sensor {type: 'Relative Humidity'})-[]-(sensorReadings)
+                  WITH rooms.name as roomName, {
+                      value: properties(sensorReadings).value,
+                      timestamp: toInteger(datetime(properties(sensorReadings).timestamp).epochSeconds)
+                  } as data
+                  RETURN roomName, COLLECT(data)`;
     return await fetchBuilder(query, objectKey, args);
 };
 
@@ -94,10 +102,12 @@ export const getHumidityReadingsByUser = async (args: object): Promise<object> =
  */
 export const getMotionReadingsByUser = async (args: object): Promise<object> => {
     const objectKey = 'sensorReading';
-    const query = `MATCH 
-                      (sensorReading:SensorReading
-                          { userId: {userId}, type: 'Motion' })
-                               RETURN properties(sensorReading) AS sensorReading`;
+    const query = `MATCH (:User {id: {userId}})-[]-(rooms)-[]-(:Sensor {type: 'Motion'})-[]-(sensorReadings)
+                  WITH rooms.name as roomName, {
+                      value: properties(sensorReadings).value,
+                      timestamp: toInteger(datetime(properties(sensorReadings).timestamp).epochSeconds)
+                  } as data
+                  RETURN roomName, COLLECT(data)`;
     return await fetchBuilder(query, objectKey, args);
 };
 
