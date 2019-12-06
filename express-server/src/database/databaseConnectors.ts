@@ -15,7 +15,7 @@ export const driver = neo4j.driver(
  * @param objectKey - the reference to the objects being fetched n the query
  * @param args - any arguments you would like to pass to the query
  */
-export const fetch = (query: string, objectKey: string, args: object): Promise<SensorReading[]> => {
+export const fetch = (query: string, objectKey: string, args: object): Promise<any[]> => {
     const session = driver.session();
     return session
         .run(query,

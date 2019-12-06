@@ -3,7 +3,7 @@ import axios from 'axios';
 import { fahrenheitToCelsius } from './util/readings';
 import logger from './util/logger';
 
-const API_URL = 'http://192.168.1.48:8000/api/v1';
+const API_URL = 'http://10.247.39.134:8000/api/v1';
 const USER_ID = 'b8:27:eb:25:bf:f5';
 
 export const postNewReading = (sensorReading) => {
