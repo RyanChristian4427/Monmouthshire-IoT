@@ -1,9 +1,14 @@
-import {MeasureType, RoomType} from 'models/Sensor';
+export interface NodeData {
+    value: number;
+    timestamp: { high: number; low: number };
+}
 
-export interface Node {
-    userId: number;
-    value: number | string;
-    measures: MeasureType;
-    roomType: RoomType;
-    timestamp: string;
+export interface ProcessedNodeData {
+    value: number;
+    timestamp: Date;
+}
+
+export interface RoomData {
+    data: NodeData[];
+    name: string;
 }
