@@ -1,6 +1,6 @@
-import logger from 'src/util/logger';
-import { checkToken } from 'src/api/middleware';
 import { Response, Request, Router } from 'express';
+
+import { checkToken } from 'src/api/middleware';
 import {
     insertNewReading,
     getAllReadings,
@@ -10,14 +10,24 @@ import {
     getTempReadingsByUser,
     getUltraVioletReadingsByUser
 } from 'src/database/repository/sensorReadingRepo';
+import {QueryArguments} from 'src/models/QueryArguments';
+import logger from 'src/util/logger';
 
 const router = Router();
+
+const argsBuilder = (params: any): QueryArguments => {
+    return {
+        userId: decodeURI(params.userId),
+        startDateTime: params.startDateTime,
+        endDateTime: params.endDateTime
+    };
+};
 
 /**
  * Return all sensor readings
  */
-router.get('/sensorReadings/all/:userId', checkToken, (req: Request, res: Response) => {
-    const args = {userId:decodeURI(req.params.userId)};
+router.get('/sensorReadings/all/:userId/:startDateTime/:endDateTime', checkToken, (req: Request, res: Response) => {
+    const args = argsBuilder(req.params);
     getAllReadings(args)
         .then(
             (result) => {
@@ -32,8 +42,8 @@ router.get('/sensorReadings/all/:userId', checkToken, (req: Request, res: Respon
 /**
  * Return all temperature readings by user id
  */
-router.get('/sensorReadings/temperature/:userId', checkToken, (req: Request, res: Response) => {
-    const args = { userId: decodeURI(req.params.userId) };
+router.get('/sensorReadings/temperature/:userId/:startDateTime/:endDateTime', checkToken, (req: Request, res: Response) => {
+    const args = argsBuilder(req.params);
     getTempReadingsByUser(args)
         .then(
             (result) => {
@@ -47,8 +57,8 @@ router.get('/sensorReadings/temperature/:userId', checkToken, (req: Request, res
 /**
  * Return all motion readings by user id
  */
-router.get('/sensorReadings/motion/:userId', checkToken, (req: Request, res: Response) => {
-    const args = { userId: decodeURI(req.params.userId) };
+router.get('/sensorReadings/motion/:userId/:startDateTime/:endDateTime', checkToken, (req: Request, res: Response) => {
+    const args = argsBuilder(req.params);
     getMotionReadingsByUser(args)
         .then(
             (result: object) => {
@@ -63,8 +73,8 @@ router.get('/sensorReadings/motion/:userId', checkToken, (req: Request, res: Res
 /**
  * Return all luminance readings by user id
  */
-router.get('/sensorReadings/luminance/:userId', checkToken, (req: Request, res: Response)=> {
-    const args = { userId: decodeURI(req.params.userId) };
+router.get('/sensorReadings/luminance/:userId/:startDateTime/:endDateTime', checkToken, (req: Request, res: Response)=> {
+    const args = argsBuilder(req.params);
     getLuminanceReadingsByUser(args)
         .then(
             (result: object) => {
@@ -79,8 +89,8 @@ router.get('/sensorReadings/luminance/:userId', checkToken, (req: Request, res: 
 /**
  * Return all ultraviolet readings by user id
  */
-router.get('/sensorReadings/ultra-vi/:userId', checkToken, (req: Request, res: Response) => {
-    const args = { userId: decodeURI(req.params.userId) };
+router.get('/sensorReadings/ultra-vi/:userId/:startDateTime/:endDateTime', checkToken, (req: Request, res: Response) => {
+    const args = argsBuilder(req.params);
     getUltraVioletReadingsByUser(args)
         .then(
             (result: object) => {
@@ -95,8 +105,8 @@ router.get('/sensorReadings/ultra-vi/:userId', checkToken, (req: Request, res: R
 /**
  * Return humidity sensor readings by user id
  */
-router.get('/sensorReadings/humidity/:userId', checkToken, (req: Request, res: Response) => {
-    const args = { userId: decodeURI(req.params.userId) };
+router.get('/sensorReadings/humidity/:userId/:startDateTime/:endDateTime', checkToken, (req: Request, res: Response) => {
+    const args = argsBuilder(req.params);
     getHumidityReadingsByUser(args)
         .then(
             (result: object) => {
