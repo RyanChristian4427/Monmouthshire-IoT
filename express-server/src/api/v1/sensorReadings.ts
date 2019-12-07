@@ -16,8 +16,9 @@ const router = Router();
 /**
  * Return all sensor readings
  */
-router.get('/sensorReadings/all', checkToken, (req: Request, res: Response) => {
-    getAllReadings()
+router.get('/sensorReadings/all/:userId', checkToken, (req: Request, res: Response) => {
+    const args = {userId:decodeURI(req.params.userId)};
+    getAllReadings(args)
         .then(
             (result) => {
                 res.send(result);
@@ -32,7 +33,7 @@ router.get('/sensorReadings/all', checkToken, (req: Request, res: Response) => {
  * Return all temperature readings by user id
  */
 router.get('/sensorReadings/temperature/:userId', checkToken, (req: Request, res: Response) => {
-    const args = {userId:decodeURI(req.params.userId)};
+    const args = { userId: decodeURI(req.params.userId) };
     getTempReadingsByUser(args)
         .then(
             (result) => {
@@ -47,7 +48,7 @@ router.get('/sensorReadings/temperature/:userId', checkToken, (req: Request, res
  * Return all motion readings by user id
  */
 router.get('/sensorReadings/motion/:userId', checkToken, (req: Request, res: Response) => {
-    const args = {userId: parseInt(req.params.userId)};
+    const args = { userId: decodeURI(req.params.userId) };
     getMotionReadingsByUser(args)
         .then(
             (result: object) => {
@@ -63,7 +64,7 @@ router.get('/sensorReadings/motion/:userId', checkToken, (req: Request, res: Res
  * Return all luminance readings by user id
  */
 router.get('/sensorReadings/luminance/:userId', checkToken, (req: Request, res: Response)=> {
-    const args = {userId: parseInt(req.params.userId)};
+    const args = { userId: decodeURI(req.params.userId) };
     getLuminanceReadingsByUser(args)
         .then(
             (result: object) => {
@@ -79,7 +80,7 @@ router.get('/sensorReadings/luminance/:userId', checkToken, (req: Request, res: 
  * Return all ultraviolet readings by user id
  */
 router.get('/sensorReadings/ultra-vi/:userId', checkToken, (req: Request, res: Response) => {
-    const args = {userId: parseInt(req.params.userId)};
+    const args = { userId: decodeURI(req.params.userId) };
     getUltraVioletReadingsByUser(args)
         .then(
             (result: object) => {
@@ -95,7 +96,7 @@ router.get('/sensorReadings/ultra-vi/:userId', checkToken, (req: Request, res: R
  * Return humidity sensor readings by user id
  */
 router.get('/sensorReadings/humidity/:userId', checkToken, (req: Request, res: Response) => {
-    const args = {userId: parseInt(req.params.userId)};
+    const args = { userId: decodeURI(req.params.userId) };
     getHumidityReadingsByUser(args)
         .then(
             (result: object) => {
