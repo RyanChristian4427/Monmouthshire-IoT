@@ -24,7 +24,7 @@ router.get('/sensorReadings/all', checkToken, (req: Request, res: Response) => {
             })
         .catch((err) => {
             logger.error(err);
-            res.send({message: err});
+            res.status(500).json({message: err});
         });
 });
 
