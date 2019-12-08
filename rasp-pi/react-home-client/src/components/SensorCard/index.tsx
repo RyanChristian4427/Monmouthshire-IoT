@@ -25,11 +25,6 @@ export const SensorCard: React.FC<IProps> = observer((props: IProps) => {
                         Name: {props.sensor.name}
                     </h5>
                 </div>
-                <div className="level-right">
-                    <h5 className="level-item is-size-5">
-                        Room Type: {SensorType[props.sensor.type]}
-                    </h5>
-                </div>
             </div>
         </div>
     );

@@ -15,7 +15,7 @@ const App: React.FC = () => {
 
     useEffect(() => {
         socket.on('sensor_shake', (sensor: Sensor) => {
-            const notification = `Sensor ${sensor.nodeId} has been shaken`;
+            const notification = `${sensor.name} has been shaken`;
             toaster.notify(notification, {
                 duration: 5000
             });

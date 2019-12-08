@@ -10,25 +10,15 @@ class SensorRepository {
 		CREATE TABLE IF NOT EXISTS sensors (
 		  id INTEGER PRIMARY KEY AUTOINCREMENT,
 		  nodeId INTEGER,
-		  hardware TEXT,
-		  type TEXT,
+		  type TEXT DEFAULT 'None',
 		  name TEXT,
 		  configured INTEGER DEFAULT 0)`;
     return this.dao.run(sql);
   }
 
-  isControllerNode(hardwareType){
-	  return hardwareType === 'Static PC Controller';
-  }
-
   create(sensor) {
-	  const name = `Sensor ${sensor.nodeId} (${sensor.name})`;
-	  logger.debug(`Adding ${name} to the database`);
-
-	  if(this.isControllerNode(sensor.name)){
-		  return;
-	  }
-
+	  logger.debug(`Adding ${sensor.name} to the database`);
+	  
 	  this.sensorAlreadyAddedToNetwork(sensor.nodeId)
           .then((result) => {
               if(result){
@@ -38,7 +28,7 @@ class SensorRepository {
               
               return this.dao.run(
                   'INSERT INTO sensors (nodeId, hardware, name) VALUES (?,?,?)',
-                  [sensor.nodeId, sensor.hardware, name]);
+                  [sensor.nodeId, sensor.hardware, sensor.name]);
           })
           .catch((err) => {
               logger.error(err);
@@ -49,10 +39,10 @@ class SensorRepository {
 	  return this.dao.get(`SELECT * FROM sensors WHERE nodeId = ?`, [nodeId]);
   }
 
-    updateSensor(sensorId, type, name) {
+    updateSensor(nodeId, roomType, name) {
 	    return this.dao.run(
-	        `UPDATE sensors SET type = ?, name = ? WHERE nodeId = ?`,
-            [type, name, sensorId]
+	        `UPDATE sensors SET roomType = ?, name = ? WHERE nodeId = ?`,
+            [roomType, name, nodeId]
         );
   }
   

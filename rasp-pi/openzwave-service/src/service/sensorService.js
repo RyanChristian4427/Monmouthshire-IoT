@@ -17,8 +17,7 @@ class SensorService {
         return this.sensorRepository.createTable();
     }
 
-    create(sensor) {
-		sensor.hardware = this.determineSensorType(sensor.hardware);
+    create(sensor){
         this.sensorRepository.create(sensor);
     }
     
@@ -30,7 +29,7 @@ class SensorService {
 		const userId = 'b8:27:eb:25:bf:f5';
 		this.getById(nodeId)
 			.then((sensor) => {
-				if(sensor.hardware === 'Multi Sensor'){
+				if(sensor.hardware === 'MultiSensor 6'){
 					const types = ['Temperature', 'Relative Humidity', 'Motion', 'Luminance', 'Ultraviolet'];
 					postNewMultiSensor({
 						nodeId: 10,
@@ -44,8 +43,8 @@ class SensorService {
 			});
 	}
 
-    updateSensor(sensorId, roomType, name) {
-        //return this.sensorRepository.updateSensor(sensorId, type, name);
+    updateSensor(nodeId, roomType, name) {
+        return this.sensorRepository.updateSensor(nodeId, roomType, name);
     }
 
     getAll() {
@@ -62,25 +61,20 @@ class SensorService {
     
      getRoomType(nodeId){
 		switch(nodeId){
-			case 3:
-				return "Bedroom";
-			case 4:
+			case 0:
 				return "Kitchen";
-			default:
+			case 1:
 				return "Bedroom";
+			case 2:
+				return "Bathroom";
+			case 3:
+				return "Living Room";
+			case 4:
+				return "Front Door";
+			default:
+				return "None";
 		}
 	};
-	
-    determineSensorType(hardware) {
-        switch(hardware){
-			case 'MultiSensor 6':
-				return 'Multi Sensor';
-			case 'Smart Switch 6':
-				return 'Smart Switch';
-			default:
-				return 'None';
-		}
-    };
 }
 
 export default SensorService;

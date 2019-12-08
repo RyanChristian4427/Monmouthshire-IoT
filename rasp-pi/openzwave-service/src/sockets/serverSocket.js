@@ -22,6 +22,7 @@ export default class ServerSocket {
     };
 
     alertSensorAdded(sensor){
+		logger.info('Alerting client that new sensor added to z-wave network');
         this.io.emit(
             'sensor_joined_z_wave',
             sensor
@@ -29,6 +30,7 @@ export default class ServerSocket {
     };
 
     alertSensorShake(sensor){
+		logger.info(`Emitting sensor shake event for sensor -> name: ${sensor.name} nodeId: ${sensor.nodeId}`);
         this.io.emit(
             'sensor_shake',
             sensor
@@ -36,6 +38,7 @@ export default class ServerSocket {
     };
     
     emitAllSensors(sensors){
+		logger.info('Emitting all sensors in database to client');
         this.io.emit(
             'all_connected_sensors',
             sensors
@@ -48,8 +51,10 @@ export default class ServerSocket {
             logger.debug('Configuring sensor....');
             logger.debug(sensor);
             logger.info(`Updating node ${sensor.nodeId}: type is ${sensor.type} and name is ${sensor.name}`);
-            this.sensorService.updateSensor(sensor.nodeId, sensor.type, sensor.name);
-            this.sensorService.configure(sensor.nodeId);
+            this.sensorService.updateSensor(sensor.nodeId, sensor.type, sensor.name)
+				.then(() => {
+					this.sensorService.configure(sensor.nodeId);
+			});
         });
     };
     

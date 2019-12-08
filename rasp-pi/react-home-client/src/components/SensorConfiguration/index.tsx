@@ -14,7 +14,6 @@ export const SensorConfiguration: React.FC = observer(() => {
     const updateSensor = (): void => {
         const currentSensor = sensorStore.SensorList[sensorStore.indexSelectedSensor];
         socket.emit('sensor_update', currentSensor);
-        //sensorStore.removeSensor(currentSensor);
     };
     
     useEffect(() => {
@@ -45,11 +44,11 @@ export const SensorConfiguration: React.FC = observer(() => {
                     </div>
                 </div>
                 <div className="field">
-                    <label className="label">Please Choose a Sensor Type</label>
+                    <label className="label">Please Choose a Room Type for this Sensor</label>
                     <div className="control has-text-centered">
                         <div className="select">
                             <select value={currentSensor.type} onChange={(e): void =>
-                                sensorStore.setSensorType(Number(e.target.value))
+                                sensorStore.setSensorType(e.target.value)
                             }>
                                 <option value={SensorType.None}>N/A</option>
                                 <option value={SensorType.Kitchen}>Kitchen</option>

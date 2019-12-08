@@ -32,7 +32,7 @@ class SensorStore {
     }
 
     @action
-    setSensorType(newType: SensorType): void {
+    setSensorType(newType: string): void {
         this.SensorList[this.indexSelectedSensor].type = newType;
         socket.emit('sensor_update', {nodeId: this.SensorList[this.indexSelectedSensor].nodeId, type: newType, name: this.SensorList[this.indexSelectedSensor].name});
     }

@@ -93,7 +93,7 @@ zwave.on('value changed', function(nodeId, comclass, value) {
 					const data = {
 						nodeId,
 						value: value.value,
-						roomType: sensor.type,
+						roomType: sensor.roomType,
 						sensorType: value.label,
 						userId: USER_ID,
 						units: value.units
@@ -119,21 +119,24 @@ zwave.on('value removed', function(nodeId, comclass, index) {
     delete nodes[nodeId]['classes'][comclass][index];
 });
 
-zwave.on('node ready', function(nodeId, nodeinfo) {
-	  const hardware = sensorService.determineSensorType(nodeinfo.product);
-	  const name = nodeinfo.type;
+const isControllerNode = (hardwareType) => {
+	return hardwareType === 'Z-Stick Gen5';
+}
 
-	  sensorService.create({
-		  nodeId,
-		  hardware,
-		  name
-	  });
+zwave.on('node ready', function(nodeId, nodeinfo) {
+	  const name = nodeinfo.type;
 	  
-	  serverSocket.alertSensorAdded({
+	  const sensor = {
 		  nodeId,
-		  name,
-		  hardware
-	  });
+		  hardware: nodeinfo.product,
+		  name: `Sensor ${nodeId} (${nodeinfo.product})`,
+	  };
+	  
+	  if(!isControllerNode(sensor.hardware)){
+		  sensorService.create(sensor);
+		  serverSocket.alertSensorAdded(sensor);
+	}
+	  
   
 	  nodes[nodeId]['manufacturer'] = nodeinfo.manufacturer;
 	  nodes[nodeId]['manufacturerid'] = nodeinfo.manufacturerid;
