@@ -1,9 +1,9 @@
 import {apiService} from 'ts-api-toolkit';
 import {RoomData} from 'models/Neo4J';
 
-export const getTemperatures = (currentUser: string): Promise<RoomData[]> => {
+export const getAllData = (currentUser: string, startDateTime: string, endDateTime: string): Promise<RoomData[]> => {
     return new Promise((resolve, reject) => {
-        apiService.get('/sensorReadings/temperature', encodeURIComponent(currentUser))
+        apiService.get(`/sensorReadings/all/${encodeURIComponent(currentUser)}/${startDateTime}/${endDateTime}`)
             .then(({ data }) => {
                 resolve(data);
             })
