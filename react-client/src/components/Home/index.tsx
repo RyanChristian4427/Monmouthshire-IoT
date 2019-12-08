@@ -1,26 +1,33 @@
 import React, {useContext, useEffect, useState} from 'react';
+import {toJS} from 'mobx';
 import {observer} from 'mobx-react-lite';
 
 import {LineGraph} from 'components/graphs/LineGraph';
 import {PieChart} from 'components/graphs/PieChart';
+import {dataProcessor} from 'components/graphs/utility/dataProcessor';
 import {HeroHeader} from 'components/HeroHeader';
-import {getTemperatures} from 'services/requests';
+import {getAllData} from 'services/requests';
+import {SensorDataStoreContext} from 'stores/SensorDataStore';
 import {UserStoreContext} from 'stores/UserStore';
 
 import './Home.scss';
 
 
 export const Home: React.FC = observer(() => {
-    const sensorStore = useContext(UserStoreContext);
-    const [data, setData] = useState();
+    const sensorDataStore = useContext(SensorDataStoreContext);
+    const userStore = useContext(UserStoreContext);
+
+    const [temperatureData, setTemperatureData] = useState();
+    const [humidityData, setHumidityData] = useState();
 
     useEffect(() => {
-        getTemperatures(sensorStore.currentObservedUser)
+        getAllData(userStore.currentObservedUser, sensorDataStore.startDateTime, sensorDataStore.endDateTime)
             .then((data) => {
-                setData(data);
-                console.log(data);
+                dataProcessor(data, sensorDataStore);
+                setTemperatureData(toJS(sensorDataStore.getAllTemperatureData()));
+                setHumidityData(toJS(sensorDataStore.getAllHumidityData()));
             });
-    }, []);
+    }, [userStore, sensorDataStore]);
 
     return (
         <div className="home-page">
@@ -29,7 +36,11 @@ export const Home: React.FC = observer(() => {
                 <div className="container" id="layered-background">
                     <section className="section chart-card">
                         <LineGraph title="Temperature Over Time Per Room" xAxisTitle="Time"
-                                   yAxisTitle="Temperature" height={600} width={600}/>
+                                   yAxisTitle="Temperature" height={600} width={600} data={temperatureData}/>
+                    </section>
+                    <section className="section chart-card">
+                        <LineGraph title="Humidity Over Time Per Room" xAxisTitle="Time"
+                                   yAxisTitle="Humidity" height={600} width={600} data={humidityData}/>
                     </section>
                     <section className="section chart-card">
                         <PieChart title="Percent of Time Spent in Room" height={600} width={600}/>
