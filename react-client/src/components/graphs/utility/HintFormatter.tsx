@@ -47,7 +47,7 @@ const calculatePercentage = (props: RadialType): string => {
     const {radius, angle0, angle} = props;
     const arcLength = Math.abs(Math.pow(radius, 2) * (angle0 - angle));
     const circleLength = Math.PI * 2 * radius;
-    return (arcLength/circleLength * 100).toString();
+    return (Math.round((arcLength/circleLength * 100) * 10) / 10).toFixed(1).toString() + '%';
 };
 
 const stringHint: React.FC<RadialType> = (props: RadialType) => {
