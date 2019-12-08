@@ -60,7 +60,7 @@ export const pollSensors = () => {
 						sensorType: sensorReading.label,
 						userId: USER_ID
 					};
-					logger.error(data);
+					//logger.error(data);
 					readingService.sendReading(data);
         }
     });
@@ -81,7 +81,7 @@ export const pollSensors = () => {
 						userId: USER_ID,
 						units: sensorReading.units
 					};
-					logger.error(data);
+					//logger.error(data);
 					readingService.sendReading(data);
 				});
 
@@ -102,7 +102,7 @@ export const pollSensors = () => {
     });
 
     zwave.on('node ready', function(nodeId, nodeInfo) {
-		logger.error(nodeInfo.product);
+		logger.info(nodeInfo.product);
         const hardware = sensorService.determineSensorType(nodeInfo.product);
         const name = nodeInfo.type;
 

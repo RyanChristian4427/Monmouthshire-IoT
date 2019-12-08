@@ -2,7 +2,7 @@ import requests
 import time
 from subprocess import call
 # api-endpoint 
-URL = 'http://81c52388.ngrok.io/api/v1/sms' # change this to actual prod server when using in porduction
+URL = 'http://1c222f26.ngrok.io/api/v1/sms' # change this to actual prod server when using in porduction
 cmd_beg= 'espeak '
 cmd_end= ' 2>/dev/null &' # To play back the stored .wav file and to dump the std errors to /dev/null
 

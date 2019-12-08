@@ -22,11 +22,11 @@ class ReadingService {
 	}
 	
 	formatReading(sensorReading){
-		if (sensorReading['label'] === 'Temperature' && sensorReading['units'] === 'F') {
+		if (sensorReading['sensorType'] === 'Temperature' && sensorReading['units'] === 'F') {
 			sensorReading = this.correctTemperature(sensorReading);
 		}
-		if(sensorReading['label'] === 'Movement Detected' ){
-			sensorReading['label'] = 'Motion';
+		if(sensorReading['sensorType'] === 'Movement Detected' || sensorReading['sensorType'] === 'Burglar'){
+			sensorReading['sensorType'] = 'Motion';
 		}
 		return sensorReading;
 	}
@@ -34,15 +34,14 @@ class ReadingService {
 	correctTemperature(sensorReading){
 		const readingValue = sensorReading['value'];
 		
-		//sensorReading['units'] = 'C';
 		sensorReading['value'] = fahrenheitToCelsius(readingValue);
 		logger.debug(`New reading is ${sensorReading['value']} ${sensorReading['units']}`);
 		return sensorReading;
 	}
 	
 	readingIsValid(reading){
-		logger.debug(`REading type is ${reading.sensorType}`);
-        const validEvents = ['Temperature', 'Luminance', 'Relative Humidity', 'Ultraviolet', 'Motion'];
+		logger.debug(`Reading type is ${reading.sensorType}`);
+        const validEvents = ['Temperature', 'Luminance', 'Relative Humidity', 'Ultraviolet', 'Motion', 'Burglar'];
         return validEvents.indexOf(reading['sensorType']) > -1;
     }
 }

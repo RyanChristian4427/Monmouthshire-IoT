@@ -12,11 +12,10 @@ import './App.scss';
 
 
 const App: React.FC = () => {
-    // Stick to yo half of the trello board ya thief
-    // Sorry Ry Ry, won't happen again :p. Although the response I was looking for was 'Thank you'...
+
     useEffect(() => {
         socket.on('sensor_shake', (sensor: Sensor) => {
-            const notification = `Sensor ${sensor.nodeId} has been shaken (${HardwareType[sensor.hardware]}) `;
+            const notification = `Sensor ${sensor.nodeId} has been shaken`;
             toaster.notify(notification, {
                 duration: 5000
             });

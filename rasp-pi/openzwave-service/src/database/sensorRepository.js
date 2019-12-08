@@ -35,6 +35,7 @@ class SensorRepository {
                   return;
               }
               logger.debug('We are adding node to network as it does not already exist in the database');
+              
               return this.dao.run(
                   'INSERT INTO sensors (nodeId, hardware, name) VALUES (?,?,?)',
                   [sensor.nodeId, sensor.hardware, name]);
@@ -54,7 +55,7 @@ class SensorRepository {
             [type, name, sensorId]
         );
   }
-
+  
   getAll() {
 	  return this.dao.all(`SELECT * FROM sensors`)
 	}
@@ -65,6 +66,10 @@ class SensorRepository {
 
 	getById(nodeId){
 	    return this.dao.get(`SELECT * FROM sensors WHERE nodeId = ?`, [nodeId]);
+	}
+	
+	getSensorType(nodeId){
+		return this.dao.get(`SELECT hardware FROM sensors WHERE nodeId = ?`, [nodeId]);
 	}
 }
 

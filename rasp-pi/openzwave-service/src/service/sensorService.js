@@ -4,6 +4,7 @@ import AppDAO from '../database/appDao';
 import { postNewSensor } from '../client';
 
 class SensorService {
+	
 
     sensorRepository;
 
@@ -17,18 +18,31 @@ class SensorService {
     }
 
     create(sensor) {
-		logger.info(sensor.hardware);
 		sensor.hardware = this.determineSensorType(sensor.hardware);
         this.sensorRepository.create(sensor);
     }
     
-    configure(sensor){
-		delete sensor.id;
-		postNewSensor(sensor);
+    getSensorType(nodeId){
+		return this.sensorRepository.getSensorType(nodeId);
+	}
+    
+    configure(nodeId){
+		logger.debug(`NODE ID IS ${nodeId}`);
+		const userId = 'b8:27:eb:25:bf:f5';
+		this.getById(nodeId)
+			.then((sensor) => {
+				if(sensor.hardware === 'Multi Sensor'){
+					postNewSensor({nodeId: 10, userId, roomType: sensor.roomType, name: sensor.name, type1: 'Temperature', type2: 'Motion', type3: 'Relative Humidity', type4: 'Luminance', type5: 'Ultraviolet'});
+					/*postNewSensor({nodeId: 10, userId, roomType: sensor.roomType, name: sensor.name, type: 'Motion'});
+					postNewSensor({nodeId: 10, userId, roomType: sensor.roomType, name: sensor.name, type: 'Relative Humidity'});
+					postNewSensor({nodeId: 10, userId, roomType: sensor.roomType, name: sensor.name, type: 'Luminance'});
+					postNewSensor({nodeId: 10, userId, roomType: sensor.roomType, name: sensor.name, type: 'Ultraviolet'}); */
+				}
+			});
 	}
 
-    updateSensor(sensorId, type, name) {
-        return this.sensorRepository.updateSensor(sensorId, type, name);
+    updateSensor(sensorId, roomType, name) {
+        //return this.sensorRepository.updateSensor(sensorId, type, name);
     }
 
     getAll() {
@@ -43,6 +57,17 @@ class SensorService {
         return notificationType === 'Burglar';
     };
     
+     getRoomType(nodeId){
+		switch(nodeId){
+			case 3:
+				return "Bedroom";
+			case 4:
+				return "Kitchen";
+			default:
+				return "Bedroom";
+		}
+	};
+	
     determineSensorType(hardware) {
         switch(hardware){
 			case 'MultiSensor 6':

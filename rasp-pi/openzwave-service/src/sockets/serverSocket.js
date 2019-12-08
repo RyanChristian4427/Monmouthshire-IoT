@@ -49,7 +49,7 @@ export default class ServerSocket {
             logger.debug(sensor);
             logger.info(`Updating node ${sensor.nodeId}: type is ${sensor.type} and name is ${sensor.name}`);
             this.sensorService.updateSensor(sensor.nodeId, sensor.type, sensor.name);
-            this.sensorService.configure(sensor);
+            this.sensorService.configure(sensor.nodeId);
         });
     };
     
