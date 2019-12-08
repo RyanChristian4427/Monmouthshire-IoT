@@ -1,7 +1,7 @@
 import logger from '../util/logger.js';
 import SensorRepository from '../database/sensorRepository';
 import AppDAO from '../database/appDao';
-import { postNewSensor } from '../client';
+import { postNewMultiSensor } from '../client';
 
 class SensorService {
 	
@@ -27,16 +27,19 @@ class SensorService {
 	}
     
     configure(nodeId){
-		logger.debug(`NODE ID IS ${nodeId}`);
 		const userId = 'b8:27:eb:25:bf:f5';
 		this.getById(nodeId)
 			.then((sensor) => {
 				if(sensor.hardware === 'Multi Sensor'){
-					postNewSensor({nodeId: 10, userId, roomType: sensor.roomType, name: sensor.name, type1: 'Temperature', type2: 'Motion', type3: 'Relative Humidity', type4: 'Luminance', type5: 'Ultraviolet'});
-					/*postNewSensor({nodeId: 10, userId, roomType: sensor.roomType, name: sensor.name, type: 'Motion'});
-					postNewSensor({nodeId: 10, userId, roomType: sensor.roomType, name: sensor.name, type: 'Relative Humidity'});
-					postNewSensor({nodeId: 10, userId, roomType: sensor.roomType, name: sensor.name, type: 'Luminance'});
-					postNewSensor({nodeId: 10, userId, roomType: sensor.roomType, name: sensor.name, type: 'Ultraviolet'}); */
+					const types = ['Temperature', 'Relative Humidity', 'Motion', 'Luminance', 'Ultraviolet'];
+					postNewMultiSensor({
+						nodeId: 10,
+						userId,
+						roomType: sensor.roomType,
+						name: sensor.name, 
+						types
+					});
+
 				}
 			});
 	}

@@ -6,7 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "babel src -d lib",
-    "dev": "npm run build && node lib/test.js"
+    "dev": "npm run build && node lib/pollSensors.js"
   },
   "dependencies": {
     "@babel/preset-env": "^7.7.4",
