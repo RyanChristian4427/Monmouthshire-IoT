@@ -1,38 +1,60 @@
 import {action, observable} from 'mobx';
 import {createContext} from 'react';
 
-import {ProcessedNodeData} from 'models/Neo4J';
+import {ProcessedData, ProcessedNodeData, ProcessedSensorData} from 'models/Neo4J';
+
+
+export interface SensorData {
+    roomName: string;
+    data: ProcessedNodeData[];
+}
+
+const sensorDataStructure: ProcessedSensorData = {
+    motion: [],
+    temperature: [],
+    humidity: [],
+    luminance: [],
+};
+
+const dataStructure: ProcessedData = {
+    kitchen: sensorDataStructure,
+    bedroom: sensorDataStructure,
+    bathroom: sensorDataStructure,
+    livingRoom: sensorDataStructure,
+    exteriorDoor: sensorDataStructure,
+};
 
 export class SensorDataStore {
-    @observable kitchenDataList: ProcessedNodeData[] = [];
-    @observable bedroomDataList: ProcessedNodeData[] = [];
-    @observable bathroomDataList: ProcessedNodeData[] = [];
-    @observable livingRoomDataList: ProcessedNodeData[] = [];
-    @observable exteriorDoorDataList: ProcessedNodeData[] = [];
+    @observable dataList: ProcessedData = dataStructure;
+
+    @observable startDateTime = '2019-12-06T00:00:00';
+    @observable endDateTime = '2019-12-06T23:59:59';
 
     @action
-    setKitchenData(dataList: ProcessedNodeData[]): void {
-        this.kitchenDataList = dataList;
+    setData(dataList: ProcessedData): void {
+        this.dataList = dataList;
     }
 
     @action
-    setBedroomData(dataList: ProcessedNodeData[]): void {
-        this.bedroomDataList = dataList;
+    getAllTemperatureData(): SensorData[] {
+        return [
+            { roomName: 'Kitchen', data: this.dataList.kitchen.temperature },
+            { roomName: 'Bedroom', data: this.dataList.bedroom.temperature },
+            { roomName: 'Bathroom', data: this.dataList.bathroom.temperature },
+            { roomName: 'Living Room', data: this.dataList.livingRoom.temperature },
+            { roomName: 'Exterior Door', data: this.dataList.exteriorDoor.temperature },
+       ];
     }
 
     @action
-    setBathroomData(dataList: ProcessedNodeData[]): void {
-        this.bathroomDataList = dataList;
-    }
-
-    @action
-    setLivingRoomData(dataList: ProcessedNodeData[]): void {
-        this.livingRoomDataList = dataList;
-    }
-
-    @action
-    setExteriorDoorData(dataList: ProcessedNodeData[]): void {
-        this.exteriorDoorDataList = dataList;
+    getAllHumidityData(): SensorData[] {
+        return [
+            { roomName: 'Kitchen', data: this.dataList.kitchen.humidity },
+            { roomName: 'Bedroom', data: this.dataList.bedroom.humidity },
+            { roomName: 'Bathroom', data: this.dataList.bathroom.humidity },
+            { roomName: 'Living Room', data: this.dataList.livingRoom.humidity },
+            { roomName: 'Exterior Door', data: this.dataList.exteriorDoor.humidity },
+        ];
     }
 }
 
