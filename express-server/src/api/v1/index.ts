@@ -9,7 +9,7 @@ const routes = [
     authRoutes,
     homeRoutes,
     sensorReadingRoutes,
-    sensorRoutes
+    sensorRoutes,
     smsRoutes
 ];
 
