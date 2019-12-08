@@ -36,7 +36,6 @@ export const PieChart: React.FC<IProps> = (props: IProps) => {
                 width={props.width}
                 height={props.height}
                 showLabels
-                showLabelsAboveChildren={false}
                 onValueMouseOver={(hint: Hint): void => setHint(hint)}
                 onSeriesMouseOut={(): void => setHint('')}
             >
