@@ -5,17 +5,17 @@ import 'toasted-notes/src/styles.css';
 import {HeroHeader} from 'components/HeroHeader';
 import {SensorConfiguration} from 'components/SensorConfiguration';
 import {SensorList} from 'components/SensorList';
-import {Sensor} from 'models/Sensor';
+import {Sensor, HardwareType} from 'models/Sensor';
 import socket from 'util/sockets';
 
 import './App.scss';
 
 
 const App: React.FC = () => {
-    // Stick to yo half of the trello board ya thief
+
     useEffect(() => {
         socket.on('sensor_shake', (sensor: Sensor) => {
-            const notification = `Sensor ${sensor.nodeId} has been shaken (${sensor.hardware}) `;
+            const notification = `${sensor.name} has been shaken`;
             toaster.notify(notification, {
                 duration: 5000
             });

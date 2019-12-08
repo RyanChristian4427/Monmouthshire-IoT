@@ -102,16 +102,16 @@ export const getMotionReadingsByUser = (args: object): Promise<object> => {
 };
 
 /**
- * Add new SensorReading node
+ * Add new Reading node
  *
  * @param sensorReading
  */
 export const insertNewReading = (sensorReading: string): Promise<SensorReading> => {
-    const objectKey = 'sensorReading';
-    const query = `CREATE
-                     (sensorReading:SensorReading 
-                        { userId: {userId}, type: {type}, value: {value}, unit: {unit}, timestamp: datetime() }) 
-                            RETURN sensorReading`;
+    const objectKey = 'reading';
+    const query = `MATCH (user:User)--(room:Room)--(sensor:Sensor)
+                        WHERE user.id = {userId} AND room.type={roomType} AND sensor.nodeId={nodeId} AND sensor.type = {sensorType}
+                            CREATE (reading:Reading {value: {value}, timestamp: datetime()})-[r:belongsTo]->(sensor)
+                                RETURN reading`;
 
     return insert(query, objectKey, createSensorReading(sensorReading))
         .then((result) => {

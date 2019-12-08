@@ -2,59 +2,61 @@ import logger from '../util/logger.js';
 
 class SensorRepository {
 	constructor(dao) {
-    this.dao = dao
+		this.dao = dao
   }
 
   createTable() {
-    const sql = `
-		CREATE TABLE IF NOT EXISTS sensors (
-		  id INTEGER PRIMARY KEY AUTOINCREMENT,
-		  node_id INTEGER,
-		  hardware TEXT,
-		  type TEXT,
-		  name TEXT,
-		  configured INTEGER DEFAULT 0)`;
+	    const sql = `
+	        CREATE TABLE IF NOT EXISTS sensors (
+		        id INTEGER PRIMARY KEY AUTOINCREMENT,
+		        nodeId INTEGER,
+		        type TEXT DEFAULT 'None',
+		        name TEXT,
+		        configured INTEGER DEFAULT 0)`;
     return this.dao.run(sql);
   }
 
   create(sensor) {
-	  this.sensorAlreadyAddedToNetwork(sensor.node_id)
-	  .then((result) => {
-		  if(result){
-			  return;
-		  }
-		   logger.debug('We are adding node to network as it does not already exist in the database');
-		  return this.dao.run(
-		  'INSERT INTO sensors (node_id, hardware, name) VALUES (?,?,?)',
-		  [sensor.nodeId, sensor.hardware, sensor.name]);
-	   })
-	   .catch((err) => {
-		   logger.error(err);
-		});
-  }
+	    logger.debug(`Adding ${sensor.name} to the database`);
 
-  sensorAlreadyAddedToNetwork(nodeId){
-	  return this.dao.get(`SELECT * FROM sensors WHERE node_id = ?`, [nodeId]);
-  }
+	    this.sensorAlreadyAddedToNetwork(sensor.nodeId)
+            .then((result) => {
+                if(result){
+                    return;
+                }
+                logger.debug('We are adding node to network as it does not already exist in the database');
 
-    updateSensor(sensorId, type, name) {
-    return this.dao.run(
-      `UPDATE sensors SET type = ?, name = ? WHERE node_id = ?`,
-      [type, name, sensorId]
-    );
+                return this.dao.run(
+                    'INSERT INTO sensors (nodeId, hardware, name) VALUES (?,?,?)',
+                    [sensor.nodeId, sensor.hardware, sensor.name]);
+            })
+            .catch((err) => {
+                logger.error(err);
+            });
+	}
+
+	sensorAlreadyAddedToNetwork(nodeId){
+	    return this.dao.get(`SELECT * FROM sensors WHERE nodeId = ?`, [nodeId]);
+	}
+
+	updateSensor(nodeId, roomType, name) {
+	    return this.dao.run(
+	        `UPDATE sensors SET roomType = ?, name = ? WHERE nodeId = ?`,
+            [roomType, name, nodeId]
+        );
   }
 
   getAll() {
-    return this.dao.get(`SELECT * FROM sensors`)
-  }
+	    return this.dao.all(`SELECT * FROM sensors`)
+	}
 
-  getThoseNotConfigured() {
-    return this.dao.get(`SELECT * FROM sensors WHERE configured = 0`)
-  }
+	getById(nodeId){
+	    return this.dao.get(`SELECT * FROM sensors WHERE nodeId = ?`, [nodeId]);
+	}
 
-  getById(nodeId){
-      return this.dao.get(`SELECT * FROM sensors WHERE node_id = ?`, [nodeId])
-  }
+	getSensorType(nodeId){
+	    return this.dao.get(`SELECT hardware FROM sensors WHERE nodeId = ?`, [nodeId]);
+	}
 }
 
 export default SensorRepository;

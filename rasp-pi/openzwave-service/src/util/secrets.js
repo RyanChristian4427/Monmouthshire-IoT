@@ -8,3 +8,5 @@ if (fs.existsSync('.env')) {
 }
 
 export const API_URL = process.env['API_URL'];
+export const DATABASE_LOCATION = process.env['DATABASE_LOCATION'];
+export const USER_ID = process.env['USER_ID'];

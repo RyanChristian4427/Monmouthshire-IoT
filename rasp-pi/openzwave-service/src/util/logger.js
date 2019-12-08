@@ -10,6 +10,12 @@ const options = {
             level: 'debug',
             format: winston.format.combine(winston.format.colorize(), logFormat)
         }),
+        new winston.transports.File({
+			filename: '/home/pi/logs/iot/app.log',
+            level: 'info',
+            format: winston.format.combine(winston.format.colorize(), logFormat),
+            timestamp: true
+        }),
     ]
 };
 

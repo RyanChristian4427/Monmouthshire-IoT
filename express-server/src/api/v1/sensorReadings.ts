@@ -9,7 +9,7 @@ import {
     getMotionReadingsByUser,
     getTempReadingsByUser,
     getUltraVioletReadingsByUser
-} from 'src/database/repository/sensorReadingRepo';
+} from 'src/database/repository/sensorReadingRepository';
 
 const router = Router();
 
@@ -19,10 +19,10 @@ const router = Router();
 router.get('/sensorReadings/all', checkToken, (req: Request, res: Response, next: NextFunction) => {
     getAllReadings()
         .then(
-            (result) => {
+            (result: any) => {
                 res.send({data: result});
             })
-        .catch((err) => {
+        .catch((err: any) => {
             logger.error(err);
             next(err);
         });
@@ -35,10 +35,10 @@ router.get('/sensorReadings/temperature/:userId', checkToken, (req: Request, res
     const args = {userId: parseInt(req.params.userId)};
     getTempReadingsByUser(args)
         .then(
-            (result) => {
+            (result: any) => {
                 res.send({data: result});
             })
-        .catch((err) => {
+        .catch((err: any) => {
             logger.error(err);
             next(err);
         });
@@ -54,7 +54,7 @@ router.get('/sensorReadings/motion/:userId', checkToken, (req: Request, res: Res
             (result: object) => {
                 res.send({data: result});
             })
-        .catch((err) => {
+        .catch((err: any) => {
             logger.error(err);
             next(err);
         });
@@ -70,11 +70,13 @@ router.get('/sensorReadings/luminance/:userId', checkToken, (req: Request, res: 
             (result: object) => {
                 res.send({data: result});
             })
-        .catch((err) => {
+        .catch((err: any) => {
             logger.error(err);
+
             next(err);
         });
 });
+
 
 /**
  * Return all ultraviolet readings by user id
@@ -86,7 +88,7 @@ router.get('/sensorReadings/ultra-vi/:userId', checkToken, (req: Request, res: R
             (result: object) => {
                 res.send({data: result});
             })
-        .catch((err) => {
+        .catch((err: any) => {
             logger.error(err);
             next(err);
         });
@@ -102,7 +104,7 @@ router.get('/sensorReadings/humidity/:userId', checkToken, (req: Request, res: R
             (result: object) => {
                 res.send({data: result});
             })
-        .catch((err) => {
+        .catch((err: any) => {
             logger.error(err);
             next(err);
         });
@@ -112,12 +114,13 @@ router.get('/sensorReadings/humidity/:userId', checkToken, (req: Request, res: R
  * Add a new sensor reading
  */
 router.post('/sensorReadings/new', (req: Request, res: Response, next: NextFunction) => {
-    logger.info('New sensor reading received');
+    // logger.info('New sensor reading received');
     insertNewReading(req.body.sensorReading)
-        .then((result) => {
+        .then((result: any) => {
+            //logger.info(result);
             res.send({data: result});
         })
-        .catch((err) => {
+        .catch((err: any) => {
             logger.error(err);
             next(err);
         });

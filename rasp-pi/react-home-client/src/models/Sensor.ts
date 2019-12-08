@@ -1,20 +1,21 @@
 export interface Sensor {
+	id: number;
     nodeId: number;
     name: string;
-    type: SensorType;
-    hardware: HardwareType;
+    type: string;
+    hardware: string;
 }
 
 export enum SensorType {
-    kitchen,
-    bedroom,
-    bathroom,
-    livingRoom,
-    exteriorDoor,
-    none
+    Kitchen = 'Kitchen',
+    Bedroom = 'Bedroom',
+    Bathroom = 'Bathroom',
+    LivingRoom = 'Living Room',
+    ExteriorDoor = 'Front Door',
+    None = 'None'
 }
 
 export enum HardwareType {
-    multiSensor = 'multiSensor',
-    smartSwitch = 'smartSwitch',
+    multiSensor,
+    smartSwitch
 }
