@@ -9,6 +9,7 @@ import {
 import {SensorDataStore} from 'stores/SensorDataStore';
 
 
+// Lasciate ogne speranza, voi ch'intrate
 export const dataProcessor = (data: RoomData[] | null, sensorStore: SensorDataStore): void => {
     const processedDataObject: ProcessedData = sensorStore.dataList;
     if (data !== null) {
