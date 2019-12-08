@@ -57,7 +57,7 @@ export const LineGraph: React.FC<IProps> = (props: IProps) => {
 
     return (
         <div>
-            <h1>{props.title}</h1>
+            <h3 className="is-size-3">{props.title}</h3>
             <XYPlot
                 width={props.width}
                 height={props.height}

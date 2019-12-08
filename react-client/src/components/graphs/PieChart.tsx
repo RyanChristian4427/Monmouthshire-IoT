@@ -30,7 +30,7 @@ export const PieChart: React.FC<IProps> = (props: IProps) => {
 
     return (
         <div>
-            <h1>{props.title}</h1>
+            <h3 className="is-size-3">{props.title}</h3>
             <RadialChart
                 data={myData}
                 width={props.width}
