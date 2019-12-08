@@ -1,54 +1,46 @@
-import React, {useContext} from 'react';
-import {observer} from 'mobx-react-lite';
+import {
+    NodeData,
+    ProcessedData,
+    ProcessedNodeData,
+    ProcessedSensorData,
+    RoomData,
+    SensorData
+} from 'models/Neo4J';
+import {SensorDataStore} from 'stores/SensorDataStore';
 
-import {Node} from 'models/Neo4J';
-import {RoomType} from 'models/Sensor';
-import {SensorDataStoreContext} from 'stores/SensorDataStore';
 
-interface NodeData {
-    value: { high: number, low: number},
-    timestamp: { high: number, low: number }
-}
-
-interface RoomData {
-    data: NodeData[],
-    name: string
-}
-
-interface IProps {
-    dataSet: RoomData[];
-}
-
-export const DataProcessor: React.FC<IProps> = observer((props: IProps) => {
-    const sensorDataStoreContext = useContext(SensorDataStoreContext);
-
-    props.dataSet.forEach((nodeData: NodeData) => {
-
-    })
-
-    const process = () => {
-        props.dataSet.forEach((node: Node) => {
-            switch (node.roomType) {
-                case(RoomType.kitchen):
-                    sensorDataStoreContext.kitchenDataList.push(node);
-                    break;
-                case(RoomType.bedroom):
-                    sensorDataStoreContext.bedroomDataList.push(node);
-                    break;
-                case(RoomType.bathroom):
-                    sensorDataStoreContext.bathroomDataList.push(node);
-                    break;
-                case(RoomType.livingRoom):
-                    sensorDataStoreContext.livingRoomDataList.push(node);
-                    break;
-                case(RoomType.exteriorDoor):
-                    sensorDataStoreContext.exteriorDoorDataList.push(node);
-                    break;
-            }
+export const dataProcessor = (data: RoomData[] | null, sensorStore: SensorDataStore): void => {
+    const processedDataObject: ProcessedData = sensorStore.dataList;
+    if (data !== null) {
+        data.forEach((roomData: RoomData) => {
+            const roomObject: ProcessedSensorData = {
+                motion: [],
+                temperature: [],
+                humidity: [],
+                luminance: [],
+            };
+            roomData.sensorData.forEach((sensorData: SensorData) => {
+                const tempNodeDataList: ProcessedNodeData[] = [];
+                sensorData.nodeData.forEach((nodeData: NodeData) => {
+                    const date = new Date(0);
+                    date.setUTCSeconds(nodeData.timestamp.low);
+                    const processedNodeData: ProcessedNodeData = {
+                        value: nodeData.value,
+                        timestamp: date
+                    };
+                    tempNodeDataList.push(processedNodeData);
+                });
+                if (sensorData.type === 'Motion') roomObject.motion = tempNodeDataList;
+                else if (sensorData.type === 'Temperature') roomObject.temperature = tempNodeDataList;
+                else if (sensorData.type === 'Relative Humidity') roomObject.humidity = tempNodeDataList;
+                else if (sensorData.type === 'Luminance') roomObject.luminance = tempNodeDataList;
+            });
+            if (roomData.name === 'Kitchen') processedDataObject.kitchen = roomObject;
+            else if (roomData.name === 'Bedroom') processedDataObject.bedroom = roomObject;
+            else if (roomData.name === 'Bathroom') processedDataObject.bathroom = roomObject;
+            else if (roomData.name === 'Living Room') processedDataObject.livingRoom = roomObject;
+            else if (roomData.name === 'Exterior Door') processedDataObject.exteriorDoor = roomObject;
         });
-    };
-
-    return (
-        <div/>
-    );
-});
+        sensorStore.setData(processedDataObject);
+    }
+};
