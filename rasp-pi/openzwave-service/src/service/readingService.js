@@ -25,6 +25,9 @@ class ReadingService {
 		if (sensorReading['sensorType'] === 'Temperature' && sensorReading['units'] === 'F') {
 			sensorReading = this.correctTemperature(sensorReading);
 		}
+		// Couldn't get Motion to work, For the sake of demoing what the graphs could look like,
+		// vibration readings were labelled as motion since vibration readings were not going to be
+		// stored anyway. And at least it is maybe somewhat linked to motion
 		if(sensorReading['sensorType'] === 'Movement Detected' || sensorReading['sensorType'] === 'Burglar'){
 			sensorReading['sensorType'] = 'Motion';
 		}

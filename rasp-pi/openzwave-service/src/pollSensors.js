@@ -4,9 +4,8 @@ import SensorService from './service/sensorService';
 import ServerSocket from './sockets/serverSocket';
 import logger from './util/logger';
 import ReadingService from './service/readingService';
-//import {USER_ID} from './util/secrets';
+import {USER_ID} from './util/secrets';
 
-const USER_ID = 'b8:27:eb:25:bf:f5';
 
 const sensorService = new SensorService();
 const readingService = new ReadingService();
@@ -58,7 +57,7 @@ zwave.on('value added', function(nodeId, comclass, value) {
 	
 	if('112' in classes){
 		if('2' in classes['112']){
-			logger.debug('we are setting a binary value');
+			logger.debug(`Setting values to poll for motion on node ${nodeId}`);
 			const onTime = getNodePath(classes['112']['2'].value_id);
 			zwave.setValue(...onTime, 200);
 			const motionType = getNodePath(classes['112']['2'].value_id);
@@ -74,7 +73,6 @@ zwave.on('value added', function(nodeId, comclass, value) {
 						sensorType: value.label,
 						userId: USER_ID
 					};
-					
 			readingService.sendReading(data);
 			
 			if (!nodes[nodeId]['classes'][comclass]) {
@@ -124,6 +122,7 @@ const isControllerNode = (hardwareType) => {
 }
 
 zwave.on('node ready', function(nodeId, nodeinfo) {
+	logger.debug(`Node ${nodeId} ready`);
 	  const name = nodeinfo.type;
 	  
 	  const sensor = {
@@ -163,7 +162,7 @@ zwave.on('node ready', function(nodeId, nodeinfo) {
 });
 
 zwave.on('scan complete', function() {
-  console.log('====> scan complete');
+  logger.info('====> scan complete');
   zwave.requestAllConfigParams(3);
 
 });
