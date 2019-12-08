@@ -19,6 +19,8 @@ export const Home: React.FC = observer(() => {
 
     const [temperatureData, setTemperatureData] = useState();
     const [humidityData, setHumidityData] = useState();
+    const [luminanceData, setLuminanceData] = useState();
+    const [motionData, setMotionData] = useState();
 
     useEffect(() => {
         getAllData(userStore.currentObservedUser, sensorDataStore.startDateTime, sensorDataStore.endDateTime)
@@ -26,6 +28,8 @@ export const Home: React.FC = observer(() => {
                 dataProcessor(data, sensorDataStore);
                 setTemperatureData(toJS(sensorDataStore.getAllTemperatureData()));
                 setHumidityData(toJS(sensorDataStore.getAllHumidityData()));
+                setLuminanceData(toJS(sensorDataStore.getAllLuminanceData()));
+                setMotionData(toJS(sensorDataStore.getAllMotionData()));
             });
     }, [userStore, sensorDataStore]);
 
