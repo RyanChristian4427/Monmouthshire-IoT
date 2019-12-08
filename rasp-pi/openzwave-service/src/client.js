@@ -18,7 +18,7 @@ export const postNewMultiSensor = (sensor) => {
 	const url = `${API_URL}/sensors/multi/new`;
 	sensor['userId'] = USER_ID;
 	
-	logger.debug(`Sending a new multi sensor to ${url}`);
+	logger.debug(`Sending a new sensor to ${url}`);
 	axios.post(url, {sensor: sensor})
 		.then((res) => {})
 		.catch((err) => logger.error(err));

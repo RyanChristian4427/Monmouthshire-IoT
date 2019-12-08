@@ -14,7 +14,6 @@ export default class ServerSocket {
         this.io.on('connection',  (socket) => {
             this.onSensorUpdate(socket);
             this.onClientLookingForSensors(socket);
-            this.onRoomAdded(socket);
         });
     };
 
