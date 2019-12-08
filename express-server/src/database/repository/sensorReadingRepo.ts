@@ -26,10 +26,21 @@ export const fetchBuilder = async (query: string, objectKey: string, args: objec
 /**
  * Return all SensorReading nodes #
  */
-export const getAllReadings = async (): Promise<object> => {
-    const query = 'MATCH (sensorReading:SensorReading) RETURN sensorReading';
+export const getAllReadings = async (args: QueryArguments): Promise<object> => {
+    const query = `MATCH (:User {id: {userId}})-[]-(rooms)-[]-(sensors)-[]-(sensorReadings)
+                   WHERE sensors.type IN ["Motion", "Temperature", "Relative Humidity", "Luminance"] AND
+                   sensorReadings.timestamp >= dateTime({startDateTime}) AND sensorReadings.timestamp <= dateTime({endDateTime})
+                   WITH rooms.name as roomName,
+                        sensors.type as sensorType,
+                        {
+                            value: toFloat(sensorReadings.value),
+                            timestamp: ToInteger(datetime(sensorReadings.timestamp).epochSeconds)
+                        } as data
+                   ORDER BY data.timestamp
+                   WITH roomName, sensorType, COLLECT(data) AS nodeData
+                   RETURN { name: roomName, sensorData: COLLECT({ type: sensorType, nodeData: nodeData })} AS sensorReading`;
     const objectKey = 'sensorReading';
-    return await fetchBuilder(query, objectKey, {});
+    return await fetchBuilder(query, objectKey, args);
 };
 
 /**
