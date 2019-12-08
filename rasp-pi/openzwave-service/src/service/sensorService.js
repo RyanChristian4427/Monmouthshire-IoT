@@ -1,9 +1,10 @@
 import logger from '../util/logger.js';
 import SensorRepository from '../database/sensorRepository';
 import AppDAO from '../database/appDao';
-import { postNewSensor } from '../client';
+import { postNewMultiSensor } from '../client';
 
 class SensorService {
+	
 
     sensorRepository;
 
@@ -17,18 +18,34 @@ class SensorService {
     }
 
     create(sensor) {
-		logger.info(sensor.hardware);
 		sensor.hardware = this.determineSensorType(sensor.hardware);
         this.sensorRepository.create(sensor);
     }
     
-    configure(sensor){
-		delete sensor.id;
-		postNewSensor(sensor);
+    getSensorType(nodeId){
+		return this.sensorRepository.getSensorType(nodeId);
+	}
+    
+    configure(nodeId){
+		const userId = 'b8:27:eb:25:bf:f5';
+		this.getById(nodeId)
+			.then((sensor) => {
+				if(sensor.hardware === 'Multi Sensor'){
+					const types = ['Temperature', 'Relative Humidity', 'Motion', 'Luminance', 'Ultraviolet'];
+					postNewMultiSensor({
+						nodeId: 10,
+						userId,
+						roomType: sensor.roomType,
+						name: sensor.name, 
+						types
+					});
+
+				}
+			});
 	}
 
-    updateSensor(sensorId, type, name) {
-        return this.sensorRepository.updateSensor(sensorId, type, name);
+    updateSensor(sensorId, roomType, name) {
+        //return this.sensorRepository.updateSensor(sensorId, type, name);
     }
 
     getAll() {
@@ -43,6 +60,17 @@ class SensorService {
         return notificationType === 'Burglar';
     };
     
+     getRoomType(nodeId){
+		switch(nodeId){
+			case 3:
+				return "Bedroom";
+			case 4:
+				return "Kitchen";
+			default:
+				return "Bedroom";
+		}
+	};
+	
     determineSensorType(hardware) {
         switch(hardware){
 			case 'MultiSensor 6':

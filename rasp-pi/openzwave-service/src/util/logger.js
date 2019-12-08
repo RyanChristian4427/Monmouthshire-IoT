@@ -5,10 +5,19 @@ const logFormat = winston.format.printf((log) => {
 });
 
 const options = {
+	file: {
+		filename: '~/logs/iot/app.log'
+	},
     transports: [
         new winston.transports.Console({
             level: 'debug',
             format: winston.format.combine(winston.format.colorize(), logFormat)
+        }),
+        new winston.transports.File({
+			filename: '/home/pi/logs/iot/app.log',
+            level: 'info',
+            format: winston.format.combine(winston.format.colorize(), logFormat),
+            timestamp: true
         }),
     ]
 };
