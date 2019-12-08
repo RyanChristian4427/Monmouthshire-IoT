@@ -114,9 +114,10 @@ router.get('/sensorReadings/humidity/:userId', checkToken, (req: Request, res: R
  * Add a new sensor reading
  */
 router.post('/sensorReadings/new', (req: Request, res: Response, next: NextFunction) => {
-    logger.info('New sensor reading received');
+    // logger.info('New sensor reading received');
     insertNewReading(req.body.sensorReading)
         .then((result: any) => {
+            //logger.info(result);
             res.send({data: result});
         })
         .catch((err: any) => {

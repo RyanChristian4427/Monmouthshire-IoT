@@ -107,7 +107,6 @@ export const getMotionReadingsByUser = (args: object): Promise<object> => {
  * @param sensorReading
  */
 export const insertNewReading = (sensorReading: string): Promise<SensorReading> => {
-    logger.debug(sensorReading);
     const objectKey = 'reading';
     const query = `MATCH (user:User)--(room:Room)--(sensor:Sensor)
                         WHERE user.id = {userId} AND room.type={roomType} AND sensor.nodeId={nodeId} AND sensor.type = {sensorType}
