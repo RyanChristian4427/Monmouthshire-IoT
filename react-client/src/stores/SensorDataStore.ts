@@ -56,6 +56,28 @@ export class SensorDataStore {
             { roomName: 'Exterior Door', data: this.dataList.exteriorDoor.humidity },
         ];
     }
+
+    @action
+    getAllLuminanceData(): SensorData[] {
+        return [
+            { roomName: 'Kitchen', data: this.dataList.kitchen.luminance },
+            { roomName: 'Bedroom', data: this.dataList.bedroom.luminance },
+            { roomName: 'Bathroom', data: this.dataList.bathroom.luminance },
+            { roomName: 'Living Room', data: this.dataList.livingRoom.luminance },
+            { roomName: 'Exterior Door', data: this.dataList.exteriorDoor.luminance },
+        ];
+    }
+
+    @action
+    getAllMotionData(): SensorData[] {
+        return [
+            { roomName: 'Kitchen', data: this.dataList.kitchen.motion },
+            { roomName: 'Bedroom', data: this.dataList.bedroom.motion },
+            { roomName: 'Bathroom', data: this.dataList.bathroom.motion },
+            { roomName: 'Living Room', data: this.dataList.livingRoom.motion },
+            { roomName: 'Exterior Door', data: this.dataList.exteriorDoor.motion },
+        ];
+    }
 }
 
 export const SensorDataStoreContext = createContext(new SensorDataStore());
