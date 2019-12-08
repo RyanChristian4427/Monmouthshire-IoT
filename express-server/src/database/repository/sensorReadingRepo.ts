@@ -2,6 +2,7 @@ import SensorReading from 'src/database/models/sensorReading';
 import { fetch, insert } from 'src/database/databaseConnectors';
 import logger from 'src/util/logger';
 import { createSensorReading } from 'src/database/mappers/sensorReadingMapper';
+import {QueryArguments} from 'src/models/QueryArguments';
 
 /**
  * Takes arguments to create a cypher query and returns a Promise
@@ -36,7 +37,7 @@ export const getAllReadings = async (): Promise<object> => {
  *
  * @param args
  */
-export const getTempReadingsByUser = async (args: {userId: string}): Promise<object> => {
+export const getTempReadingsByUser = async (args: QueryArguments): Promise<object> => {
     const objectKey = 'sensorReading';
     const query = `MATCH (:User {id: {userId}})-[]-(rooms)-[]-(:Sensor {type: 'Temperature'})-[]-(sensorReadings)
                   WITH rooms.name as roomName, {
@@ -52,7 +53,7 @@ export const getTempReadingsByUser = async (args: {userId: string}): Promise<obj
  *
  * @param args
  */
-export const getLuminanceReadingsByUser = async (args: {userId: string}): Promise<object> => {
+export const getLuminanceReadingsByUser = async (args: QueryArguments): Promise<object> => {
     const objectKey = 'sensorReading';
     const query = `MATCH (:User {id: {userId}})-[]-(rooms)-[]-(:Sensor {type: 'Luminance'})-[]-(sensorReadings)
                   WITH rooms.name as roomName, {
@@ -68,7 +69,7 @@ export const getLuminanceReadingsByUser = async (args: {userId: string}): Promis
  *
  * @param args
  */
-export const getUltraVioletReadingsByUser = async (args: {userId: string}): Promise<object> => {
+export const getUltraVioletReadingsByUser = async (args: QueryArguments): Promise<object> => {
     const objectKey = 'sensorReading';
     const query = `MATCH (:User {id: {userId}})-[]-(rooms)-[]-(:Sensor {type: 'Ultraviolet'})-[]-(sensorReadings)
                   WITH rooms.name as roomName, {
@@ -84,7 +85,7 @@ export const getUltraVioletReadingsByUser = async (args: {userId: string}): Prom
  *
  * @param args
  */
-export const getHumidityReadingsByUser = async (args: {userId: string}): Promise<object> => {
+export const getHumidityReadingsByUser = async (args: QueryArguments): Promise<object> => {
     const objectKey = 'sensorReading';
     const query = `MATCH (:User {id: {userId}})-[]-(rooms)-[]-(:Sensor {type: 'Relative Humidity'})-[]-(sensorReadings)
                   WITH rooms.name as roomName, {
@@ -100,7 +101,7 @@ export const getHumidityReadingsByUser = async (args: {userId: string}): Promise
  *
  * @param args
  */
-export const getMotionReadingsByUser = async (args: {userId: string}): Promise<object> => {
+export const getMotionReadingsByUser = async (args: QueryArguments): Promise<object> => {
     const objectKey = 'sensorReading';
     const query = `MATCH (:User {id: {userId}})-[]-(rooms)-[]-(:Sensor {type: 'Motion'})-[]-(sensorReadings)
                   WITH rooms.name as roomName, {
