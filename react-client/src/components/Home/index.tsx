@@ -4,7 +4,7 @@ import {observer} from 'mobx-react-lite';
 
 import {LineGraph} from 'components/graphs/LineGraph';
 import {PieChart} from 'components/graphs/PieChart';
-import {dataProcessor} from 'components/graphs/utility/dataProcessor';
+import {dataProcessor} from 'components/graphs/utility/DataProcessor';
 import {HeroHeader} from 'components/HeroHeader';
 import {getAllData} from 'services/requests';
 import {SensorDataStoreContext} from 'stores/SensorDataStore';
