@@ -16,9 +16,10 @@ export const SensorCard: React.FC<IProps> = observer((props: IProps) => {
     const selected = sensorStore.indexSelectedSensor === props.sensorKey;
 
     return (
-        <div className={'sensor-card is-clickable ' + (selected ? 'selected' : '')} onClick={(): void => {
-            sensorStore.indexSelectedSensor = props.sensorKey;
-        }}>
+        <div
+            className={'sensor-card is-clickable ' + (selected ? 'selected' : '')}
+            onClick={(): number => sensorStore.indexSelectedSensor = props.sensorKey}
+        >
             <div className="layer level">
                 <div className="level-left">
                     <h5 className="level-item is-size-5">
