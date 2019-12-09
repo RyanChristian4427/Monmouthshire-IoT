@@ -101,6 +101,15 @@ sudo systemctl enable z-wave
 sudo systemctl enable z-wave-app
 ```
 
+#### SQLite Databse on the Pi
+
+Install Sqlite3 with the command:
+
+```
+sudo apt-get install sqlite3
+```
+Create a sqlite3 database file iot_team_3.sqlite in the folder path ~/databases/iot_team_3.
+
 Reboot the Raspberry Pi.
 
 The z-wave service will now be polling for sensor changes every two minutes on boot. You will be able to access the React client at http://localhost:3000. 
