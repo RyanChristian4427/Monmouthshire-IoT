@@ -44,7 +44,7 @@ export const Home: React.FC = observer(() => {
         setHumidityData(toJS(sensorDataStore.getAllHumidityData()));
         setLuminanceData(toJS(sensorDataStore.getAllLuminanceData()));
         setMotionData(toJS(sensorDataStore.getAllMotionData()));
-    }, [sensorDataStore.dataList.bedroom]);
+    }, [sensorDataStore.dataList.kitchen.temperature]);
 
     // console.log('Temp State: ', temperatureData);
 
