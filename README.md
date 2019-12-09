@@ -1,8 +1,8 @@
 # IoT-Team-3
 
-##Raspberry Pi Setup
+## Raspberry Pi Setup
 
-###Installing the Software
+### Installing the Software
 
 We are assuming you have the Raspbian Stretch image installed on your Raspberry Pi. Please install git with the command:
 
@@ -32,9 +32,9 @@ https://gitlab.cs.cf.ac.uk/c1717381/iot-team-3.git;''
 
 When prompted, enter your credentials for gitlab.
 
-###Instructions to Set Up the Sensor Poll and Data Collection
+### Instructions to Set Up the Sensor Poll and Data Collection
 
-####Database
+#### Database
 Please install Neo4j on your machine if it is not already installed. To avoid directly installing Neo4j, we recommend using the Neo4j Docker container for this. There is a docker-compose.yaml file located in express-server that you can use. Or you might like to see the official documentation to install the container according to your system’s requirements. This is located at https://hub.docker.com/_/neo4j. When the docker container is started, Neo4j will automatically be started. Ensure that neo4j.conf has the following lines:
 
 dbms.connectors.default_listen_address=0.0.0.0
@@ -53,7 +53,7 @@ npm run serve:dev
 
 You should now have the server running locally on port 8000.
 
-####Sensor Pairing
+#### Sensor Pairing
 
 Plug in the Z-Wave stick into the Raspberry Pi along with a HDMI connection to a display and a mouse and keyboard before giving the Raspberry Pi a power supply. Make sure the Z-Wave USB controller is in pairing mode by pressing it’s center button once. When you plug the MultiSensors into a power source, a light will appear and it will change colour. This means it is not in pairing mode. On the back of the Multi Sensor, there is a discrete concave button in the corner that you can press to put the sensor into pairing mode. A green light will show for about two seconds. This means that they have successfully connected to the Z-Wave network. If there is a flash of orange after the green light however, connection has not been successful. In the outcome of an orange light, repeat the process.
 
