@@ -3,6 +3,7 @@ import {RadialChart} from 'react-vis';
 
 import {colors} from 'components/graphs/utility/colors';
 import {HintFormatter, HintType} from 'components/graphs/utility/HintFormatter';
+import {Index} from 'components/graphs/utility/Legend';
 
 import './Graphs.scss';
 
@@ -50,6 +51,7 @@ export const PieChart: React.FC<IProps> = (props: IProps) => {
             >
                 {hint ? HintFormatter({values: hint, type: HintType.PieChart}) : null}
             </RadialChart>
+            <Index/>
         </div>
     );
 };
