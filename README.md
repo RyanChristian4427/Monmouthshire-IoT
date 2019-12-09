@@ -101,7 +101,7 @@ sudo systemctl enable z-wave
 sudo systemctl enable z-wave-app
 ```
 
-#### SQLite Databse on the Pi
+#### SQLite Database on the Pi
 
 Install Sqlite3 with the command:
 
