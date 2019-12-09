@@ -13,6 +13,7 @@ const socket = io.listen('3030');
 const serverSocket = new ServerSocket(socket);
 
 serverSocket.setUpSocketConnection();
+sensorService.createTable();
 
 const zwave = new ZWave({
 	ConsoleOutput: false,
