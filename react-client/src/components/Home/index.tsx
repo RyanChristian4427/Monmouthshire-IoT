@@ -29,7 +29,10 @@ export const Home: React.FC = observer(() => {
     }, [userStore, sensorDataStore]);
 
     useEffect(() => {
-    }, [sensorDataStore.dataList.kitchen.temperature]);
+    }, [sensorDataStore.dataList.kitchen.temperature, sensorDataStore.dataList.kitchen.humidity, sensorDataStore.dataList.kitchen.luminance,
+        sensorDataStore.dataList.bedroom.temperature, sensorDataStore.dataList.bedroom.humidity, sensorDataStore.dataList.bedroom.luminance,
+        sensorDataStore.dataList.livingRoom.temperature, sensorDataStore.dataList.livingRoom.humidity, sensorDataStore.dataList.livingRoom.luminance,
+    ]);
 
     return (
         <div className="home-page">

@@ -53,10 +53,10 @@ export class SensorDataStore {
             lightDataProcessor(temperatureData, this);
         } else if (dataType === 'Humidity') {
             const humidityData = await getHumidityData(currentUser, this.getStartDateTime(), this.getEndDateTime());
-            dataProcessor(humidityData, this);
+            lightDataProcessor(humidityData, this);
         } else if (dataType === 'Luminance') {
             const luminanceData = await getLuminanceData(currentUser, this.getStartDateTime(), this.getEndDateTime());
-            dataProcessor(luminanceData, this);
+            lightDataProcessor(luminanceData, this);
         }
     }
 
@@ -83,13 +83,15 @@ export class SensorDataStore {
 
     @action
     setAllTemperatureData(sensorData: SensorDatax[]): void {
-        console.log('Before: ', this.dataList.kitchen.temperature);
         sensorData.forEach((data) => {
             if (data.roomName === 'Kitchen') {
                 this.dataList.kitchen.temperature = data.data;
+            } else if (data.roomName === 'Living Room') {
+                this.dataList.livingRoom.temperature = data.data;
+            } else if (data.roomName === 'Bedroom') {
+                this.dataList.bedroom.temperature = data.data;
             }
         });
-        console.log('After: ', this.dataList.kitchen.temperature);
     }
 
     @action
@@ -104,6 +106,19 @@ export class SensorDataStore {
     }
 
     @action
+    setAllTemperatureData(sensorData: SensorDatax[]): void {
+        sensorData.forEach((data) => {
+            if (data.roomName === 'Kitchen') {
+                this.dataList.kitchen.temperature = data.data;
+            } else if (data.roomName === 'Living Room') {
+                this.dataList.livingRoom.temperature = data.data;
+            } else if (data.roomName === 'Bedroom') {
+                this.dataList.bedroom.temperature = data.data;
+            }
+        });
+    }
+
+    @action
     getAllLuminanceData(): SensorDatax[] {
         return [
             { roomName: 'Kitchen', data: this.getData().kitchen.luminance },
@@ -112,6 +127,19 @@ export class SensorDataStore {
             { roomName: 'Living Room', data: this.getData().livingRoom.luminance },
             { roomName: 'Exterior Door', data: this.getData().exteriorDoor.luminance },
         ];
+    }
+
+    @action
+    setAllLuminanceData(sensorData: SensorDatax[]): void {
+        sensorData.forEach((data) => {
+            if (data.roomName === 'Kitchen') {
+                this.dataList.kitchen.luminance = data.data;
+            } else if (data.roomName === 'Living Room') {
+                this.dataList.livingRoom.luminance = data.data;
+            } else if (data.roomName === 'Bedroom') {
+                this.dataList.bedroom.luminance = data.data;
+            }
+        });
     }
 
     @action
