@@ -23,7 +23,7 @@ export const Home: React.FC = observer(() => {
     const [motionData, setMotionData] = useState();
 
     useEffect(() => {
-        getAllData(userStore.currentObservedUser, sensorDataStore.startDateTime, sensorDataStore.endDateTime)
+        getAllData(userStore.currentObservedUser, sensorDataStore.getStartDateTime(), sensorDataStore.getEndDateTime())
             .then((data) => {
                 dataProcessor(data, sensorDataStore);
                 setTemperatureData(toJS(sensorDataStore.getAllTemperatureData()));

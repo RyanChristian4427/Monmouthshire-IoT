@@ -27,8 +27,23 @@ const dataStructure: ProcessedData = {
 export class SensorDataStore {
     @observable dataList: ProcessedData = dataStructure;
 
-    @observable startDateTime = '2019-12-06T00:00:00';
-    @observable endDateTime = '2019-12-06T23:59:59';
+    @observable startDate = '2019-12-06';
+    @observable endDate = '2019-12-07';
+
+    @action
+    getStartDateTime(): string {
+        return this.startDate + 'T00:00:00';
+    }
+
+    @action
+    getEndDateTime(): string {
+        return this.startDate + 'T23:59:59';
+    }
+
+    @action
+    updateData(): void {
+
+    }
 
     @action
     setData(dataList: ProcessedData): void {
