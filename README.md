@@ -57,8 +57,18 @@ You should now have the server running locally on port 8000.
 
 Plug in the Z-Wave stick into the Raspberry Pi along with a HDMI connection to a display and a mouse and keyboard before giving the Raspberry Pi a power supply. Make sure the Z-Wave USB controller is in pairing mode by pressing it’s center button once. When you plug the MultiSensors into a power source, a light will appear and it will change colour. This means it is not in pairing mode. On the back of the Multi Sensor, there is a discrete concave button in the corner that you can press to put the sensor into pairing mode. A green light will show for about two seconds. This means that they have successfully connected to the Z-Wave network. If there is a flash of orange after the green light however, connection has not been successful. In the outcome of an orange light, repeat the process.
 
-Configuring the Z-Wave Service and Raspberry Pi React Application Script
-Login to the Raspberry Pi with the username pi and the password raspberry. Go to a terminal and run the following commands in bash. 
+
+Login to the Raspberry Pi with the username pi and the password raspberry. 
+
+#### Configuring the Z-Wave Service and Raspberry Pi React Application Script
+Download the source tarball for Openzwave version 1.5 from http://old.openzwave.com/snapshots/.
+Extract it and run the following a terminal of the extracted directory:
+
+```
+sudo make && sudo make install && sudo ldconfig
+```
+
+Now run the following
 
 ```
 cd ~/iot_team_3/rasp-pi/openzwave-service
