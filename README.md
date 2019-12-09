@@ -28,7 +28,7 @@ On the Raspberry Pi, navigate to ~/iot_team_3 in the terminal. You may then use 
 ```
 ssh-agent bash -c 'ssh-add <path_to_your_deploy_key>.key; git init; git clone
 https://gitlab.cs.cf.ac.uk/c1717381/iot-team-3.git;''
-``
+```
 
 When prompted, enter your credentials for gitlab.
 
