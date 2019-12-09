@@ -1,2 +1,5 @@
 # KDE directory files
 .directory
+
+# JetBrains IDE files
+.idea/

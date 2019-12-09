@@ -1,5 +1,5 @@
 import { Response, Request, Router } from 'express';
-import bcrypt from 'bcrypt';
+import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 
 import {LoginUser} from 'src/models/User';
@@ -9,13 +9,13 @@ const router = Router();
 
 router.post('/users/login', (req: Request, res: Response) => {
     const credentials: LoginUser = req.body.user;
-    if (credentials.email == USER) {
+    if (credentials.user == USER) {
         bcrypt.compare(credentials.password, PASS, function (err, success) {
             if (success) {
                 const token = jwt.sign(
-                    { email: credentials.email},
+                    { user: credentials.user},
                     JWT_SECRET,
-                    { expiresIn: '2h' }
+                    { expiresIn: '24h' }
                 );
                 res.status(200).json(
                     {

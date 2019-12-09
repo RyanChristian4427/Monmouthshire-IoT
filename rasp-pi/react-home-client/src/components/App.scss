@@ -1,0 +1,28 @@
+@import 'styles/variables';
+
+.home-page {
+  .card {
+    border-radius: 23px;
+    background: whitesmoke;
+    width: auto;
+    padding: 1vh 1vw 1vh;
+    margin: 1vh 1vw 1vh;
+  }
+
+  #layered-background {
+    border-radius: 20px;
+    background: $theme-coral;
+    padding: 5vh 5vw 5vh;
+    color: $theme-platinum;
+    height: 100%;
+
+    h3 {
+      margin-bottom: 2vh;
+    }
+
+    .container {
+      height: 40vh;
+      overflow-y: auto;
+    }
+  }
+}

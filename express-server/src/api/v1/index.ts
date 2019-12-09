@@ -1,11 +1,11 @@
-import homeRoutes from './home';
-import exampleRoutes from './example';
+import sensorReadingRoutes from './sensorReadings';
 import authRoutes from './auth';
+import sensorRoutes from './sensor';
 
 const routes = [
     authRoutes,
-    homeRoutes,
-    exampleRoutes,
+    sensorReadingRoutes,
+    sensorRoutes
 ];
 
 export default routes;

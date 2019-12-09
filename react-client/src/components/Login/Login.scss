@@ -1,12 +1,26 @@
 @import 'styles/variables';
+@import '~bulma/sass/utilities/functions';
+
+// Neither color is used, but mixins for some reason they're required
+$scheme-main: $theme-coral;
+$scheme-invert: findColorInvert($scheme-main);
+
+@import '~bulma/sass/utilities/mixins';
 
 .login-page {
   .card {
     border-radius: 23px;
     background: whitesmoke;
     width: auto;
-    margin: 10vh 25vw 5vh;
     padding: 1vh 1vh 1vh;
+
+    @include until($tablet) {
+      margin: 5vh 5vw;
+    }
+
+    @include desktop {
+      margin: 10vh 25vw 5vh;
+    }
   }
 
   #layered-background {

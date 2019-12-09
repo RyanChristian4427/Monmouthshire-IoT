@@ -1,0 +1,13 @@
+[Unit]
+Description=Z-Wave app service
+After=network.target
+StartLimitIntervalSec=0
+[Service]
+Type=simple
+Restart=always
+RestartSec=1
+User=pi
+ExecStart=/bin/bash /usr/bin/z-wave-app.sh
+
+[Install]
+WantedBy=multi-user.target
