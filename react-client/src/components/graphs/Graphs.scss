@@ -1,0 +1,36 @@
+@import 'styles/variables';
+
+.chart-card {
+  .rv-xy-plot__axis__line {
+    stroke: #475B63
+  }
+
+  .rv-xy-plot__axis__tick__line{
+    stroke: #475B63
+  }
+
+  .rv-xy-plot__axis__tick__text {
+    stroke: none;
+    fill: #475B63;
+    font-weight: 600;
+  }
+
+  .rv-xy-plot__grid-lines__line {
+    stroke: $theme-silver;
+  }
+
+  .level-right {
+    margin-right: 10vw;
+
+    .date-select-card {
+      .card {
+        background: whitesmoke;
+        margin: 0;
+
+        #layered-background {
+          background: $theme-coral;
+        }
+      }
+    }
+  }
+}

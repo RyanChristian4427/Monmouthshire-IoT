@@ -10,8 +10,7 @@ $theme-silver: #bfbfbf;
 
 
 $colors: (
-        "deep-space-sparkle": ($theme-deep-space-sparkle, $theme-isabelline),
-        "platinum-light": (whitesmoke, $theme-coral),
-        "platinum-dark": ($theme-platinum, $theme-deep-space-sparkle),
-        "coral-light": ($theme-coral, $theme-isabelline),
+        "whitesmoke-light": (whitesmoke, $theme-coral),
+        "whitesmoke-dark": (whitesmoke, $theme-deep-space-sparkle),
+        "coral-light": ($theme-coral, $theme-isabelline)
 );

@@ -1,29 +1,78 @@
-import React from 'react';
-import { ChartLabel, RadialChart } from 'react-vis';
+import React, {useContext, useEffect, useState} from 'react';
+import {toJS} from 'mobx';
+import {observer} from 'mobx-react-lite';
 
+import {LineGraph} from 'components/graphs/LineGraph';
+import {PieChart} from 'components/graphs/PieChart';
+import {dataProcessor} from 'components/graphs/utility/DataProcessor';
 import {HeroHeader} from 'components/HeroHeader';
+import {RoomData} from 'models/Neo4J';
+import {getAllData} from 'services/requests';
+import {SensorDataStoreContext} from 'stores/SensorDataStore';
+import {UserStoreContext} from 'stores/UserStore';
+
 import './Home.scss';
 
-const myData = [{angle: 2, label: 'Hello World'}, {angle: 2, label: 'Bathroom'}, {angle: 2, label: 'Living Room'},
-    {angle: 2, label: 'Bedroom'}, {angle: 2, label: 'Front Door'}];
 
-export const Home: React.FC = () => {
+export const Home: React.FC = observer(() => {
+    const sensorDataStore = useContext(SensorDataStoreContext);
+    const userStore = useContext(UserStoreContext);
+
+    const [temperatureData, setTemperatureData] = useState();
+    const [humidityData, setHumidityData] = useState();
+    const [luminanceData, setLuminanceData] = useState();
+    const [motionData, setMotionData] = useState();
+
+    useEffect(() => {
+        async function getInitialData(): Promise<RoomData[]> {
+            return await getAllData(userStore.currentObservedUser, sensorDataStore.getStartDateTime(), sensorDataStore.getEndDateTime());
+        }
+        getInitialData()
+            .then((data) => {
+                dataProcessor(data, sensorDataStore);
+                setTemperatureData(toJS(sensorDataStore.getAllTemperatureData()));
+                setHumidityData(toJS(sensorDataStore.getAllHumidityData()));
+                setLuminanceData(toJS(sensorDataStore.getAllLuminanceData()));
+                setMotionData(toJS(sensorDataStore.getAllMotionData()));
+            });
+    }, [userStore, sensorDataStore]);
+
+    useEffect(() => {
+        // console.log('Before set: ', temperatureData);
+        // console.log('Data set: ', toJS(sensorDataStore.getAllTemperatureData()));
+        setTemperatureData(toJS(sensorDataStore.getAllTemperatureData()));
+        setHumidityData(toJS(sensorDataStore.getAllHumidityData()));
+        setLuminanceData(toJS(sensorDataStore.getAllLuminanceData()));
+        setMotionData(toJS(sensorDataStore.getAllMotionData()));
+    }, [sensorDataStore.dataList.bedroom]);
+
+    // console.log('Temp State: ', temperatureData);
+
     return (
         <div className="home-page">
             <HeroHeader title="Home" withSettingsMenu={true}/>
-            <section className="card">
+            <section className="section card">
                 <div className="container" id="layered-background">
-                    <h3>Percent of Day Spent in Room</h3>
-                    <RadialChart
-                        data={myData}
-                        width={300}
-                        height={300}
-                        showLabels={true}
-                        labelsAboveChildren={true}>
-                        <ChartLabel text="Hello World!"/>
-                    </RadialChart>
+                    <section className="section chart-card">
+                        <LineGraph title="Temperature Over Time Per Room" xAxisTitle="Time"
+                                   yAxisTitle="Temperature" height={600} width={600} data={temperatureData}
+                        />
+                    </section>
+                    <section className="section chart-card">
+                        <LineGraph title="Humidity Over Time Per Room" xAxisTitle="Time"
+                                   yAxisTitle="Humidity" height={600} width={600} data={humidityData}
+                        />
+                    </section>
+                    <section className="section chart-card">
+                        <LineGraph title="Luminance Over Time Per Room" xAxisTitle="Time"
+                                   yAxisTitle="Luminance" height={600} width={600} data={luminanceData}
+                        />
+                    </section>
+                    <section className="section chart-card">
+                        <PieChart title="Percent of Time Spent in Room" height={600} width={600}/>
+                    </section>
                 </div>
             </section>
         </div>
     );
-};
+});

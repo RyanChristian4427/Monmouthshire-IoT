@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "serve:dev": "nodemon server.ts",
-    "serve:prod": "tsc && cross-env NODE_ENV=production node dist/server.js",
+    "serve:prod": "cross-env NODE_ENV=production nodemon server.ts",
     "test": "jest --forceExit --coverage --verbose --detectOpenHandles",
     "lint": "eslint \"**/*.{js,ts}\""
   },

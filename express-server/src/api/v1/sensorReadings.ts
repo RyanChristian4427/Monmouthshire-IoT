@@ -1,6 +1,6 @@
-import logger from 'src/util/logger';
+import { Response, Request, Router } from 'express';
+
 import { checkToken } from 'src/api/middleware';
-import { Response, Request, NextFunction, Router } from 'express';
 import {
     insertNewReading,
     getAllReadings,
@@ -10,119 +10,127 @@ import {
     getTempReadingsByUser,
     getUltraVioletReadingsByUser
 } from 'src/database/repository/sensorReadingRepository';
+import {QueryArguments} from 'src/models/QueryArguments';
+import logger from 'src/util/logger';
 
 const router = Router();
+
+const argsBuilder = (params: any): QueryArguments => {
+    return {
+        userId: decodeURI(params.userId),
+        startDateTime: params.startDateTime,
+        endDateTime: params.endDateTime
+    };
+};
 
 /**
  * Return all sensor readings
  */
-router.get('/sensorReadings/all', checkToken, (req: Request, res: Response, next: NextFunction) => {
-    getAllReadings()
+router.get('/sensorReadings/all/:userId/:startDateTime/:endDateTime', checkToken, (req: Request, res: Response) => {
+    const args = argsBuilder(req.params);
+    getAllReadings(args)
         .then(
-            (result: any) => {
-                res.send({data: result});
+            (result) => {
+                res.send(result);
             })
-        .catch((err: any) => {
+        .catch((err) => {
             logger.error(err);
-            next(err);
+            res.status(500).json({message: err});
         });
 });
 
 /**
  * Return all temperature readings by user id
  */
-router.get('/sensorReadings/temperature/:userId', checkToken, (req: Request, res: Response, next: NextFunction) => {
-    const args = {userId: parseInt(req.params.userId)};
+router.get('/sensorReadings/temperature/:userId/:startDateTime/:endDateTime', checkToken, (req: Request, res: Response) => {
+    const args = argsBuilder(req.params);
     getTempReadingsByUser(args)
         .then(
-            (result: any) => {
-                res.send({data: result});
+            (result) => {
+                res.send(result);
             })
-        .catch((err: any) => {
-            logger.error(err);
-            next(err);
+        .catch((err) => {
+            res.status(500).json({ message: String(err.code)});
         });
 });
 
 /**
  * Return all motion readings by user id
  */
-router.get('/sensorReadings/motion/:userId', checkToken, (req: Request, res: Response, next: NextFunction) => {
-    const args = {userId: parseInt(req.params.userId)};
+router.get('/sensorReadings/motion/:userId/:startDateTime/:endDateTime', checkToken, (req: Request, res: Response) => {
+    const args = argsBuilder(req.params);
     getMotionReadingsByUser(args)
         .then(
             (result: object) => {
-                res.send({data: result});
+                res.send(result);
             })
-        .catch((err: any) => {
+        .catch((err) => {
             logger.error(err);
-            next(err);
+            res.status(500).json({message: err});
         });
 });
 
 /**
  * Return all luminance readings by user id
  */
-router.get('/sensorReadings/luminance/:userId', checkToken, (req: Request, res: Response, next: NextFunction)=> {
-    const args = {userId: parseInt(req.params.userId)};
+router.get('/sensorReadings/luminance/:userId/:startDateTime/:endDateTime', checkToken, (req: Request, res: Response)=> {
+    const args = argsBuilder(req.params);
     getLuminanceReadingsByUser(args)
         .then(
             (result: object) => {
-                res.send({data: result});
+                res.send(result);
             })
-        .catch((err: any) => {
+        .catch((err) => {
             logger.error(err);
-
-            next(err);
+            res.status(500).json({message: err});
         });
 });
-
 
 /**
  * Return all ultraviolet readings by user id
  */
-router.get('/sensorReadings/ultra-vi/:userId', checkToken, (req: Request, res: Response, next: NextFunction) => {
-    const args = {userId: parseInt(req.params.userId)};
+router.get('/sensorReadings/ultra-vi/:userId/:startDateTime/:endDateTime', checkToken, (req: Request, res: Response) => {
+    const args = argsBuilder(req.params);
     getUltraVioletReadingsByUser(args)
         .then(
             (result: object) => {
-                res.send({data: result});
+                res.send(result);
             })
-        .catch((err: any) => {
+        .catch((err) => {
             logger.error(err);
-            next(err);
+            res.status(500).json({message: err});
         });
 });
 
 /**
  * Return humidity sensor readings by user id
  */
-router.get('/sensorReadings/humidity/:userId', checkToken, (req: Request, res: Response, next: NextFunction) => {
-    const args = {userId: parseInt(req.params.userId)};
+router.get('/sensorReadings/humidity/:userId/:startDateTime/:endDateTime', checkToken, (req: Request, res: Response) => {
+    const args = argsBuilder(req.params);
     getHumidityReadingsByUser(args)
         .then(
             (result: object) => {
-                res.send({data: result});
+                res.send(result);
             })
-        .catch((err: any) => {
+        .catch((err) => {
             logger.error(err);
-            next(err);
+            res.status(500).json({message: err});
         });
 });
 
 /**
  * Add a new sensor reading
  */
-router.post('/sensorReadings/new', (req: Request, res: Response, next: NextFunction) => {
-    // logger.info('New sensor reading received');
+router.post('/sensorReadings/new', (req: Request, res: Response) => {
+    logger.info('New sensor reading received');
     insertNewReading(req.body.sensorReading)
         .then((result: any) => {
             //logger.info(result);
             res.send({data: result});
         })
-        .catch((err: any) => {
+        .catch((err) => {
             logger.error(err);
-            next(err);
+            res.status(500).json({message: err});
         });
 });
 

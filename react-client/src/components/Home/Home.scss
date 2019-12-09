@@ -1,19 +1,29 @@
 @import 'styles/variables';
 
 .home-page {
+  height: 100vh;
+  overflow-y: auto;
+
   .card {
     border-radius: 23px;
     background: whitesmoke;
     width: auto;
-    margin: 10vh 25vw 5vh;
-    padding: 1vh 1vh 1vh;
-  }
+    margin: 10vh 15vw 5vh;
+    padding: 1vh;
 
-  #layered-background {
-    border-radius: 20px;
-    background: $theme-coral;
-    padding: 5vh 15vw 5vh;
-    color: $theme-platinum;
-    fill: $theme-platinum;
+    #layered-background {
+      border-radius: 20px;
+      background: $theme-coral;
+      padding: 2vh;
+      color: $theme-deep-space-sparkle;
+      width: 100%;
+
+      .chart-card {
+        background: $theme-platinum;
+        width: 100%;
+        border-radius: 20px;
+        margin-bottom: 2vh;
+      }
+    }
   }
 }
