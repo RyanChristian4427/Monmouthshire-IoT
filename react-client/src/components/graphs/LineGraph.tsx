@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import {HorizontalGridLines, LineMarkSeries, XAxis, XYPlot, YAxis,} from 'react-vis';
 
+import {colors} from 'components/graphs/utility/colors';
 import {timeFormat, HintFormatter, HintType} from 'components/graphs/utility/HintFormatter';
 import {SensorData} from 'stores/SensorDataStore';
 
@@ -70,6 +71,7 @@ export const LineGraph: React.FC<IProps> = (props: IProps) => {
                             <LineMarkSeries
                                 key={index}
                                 data={roomData.data}
+                                color={colors[index]}
                                 onValueMouseOver={(hint: FormattedData): void => setHint(hint)}
                                 onSeriesMouseOut={(): void => setHint('')}
                             />
