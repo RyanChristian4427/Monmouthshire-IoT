@@ -44,7 +44,6 @@ export const LineGraph: React.FC<IProps> = (props: IProps) => {
 
     useEffect(() => {
         if (props.data !== undefined) {
-            console.log('hit here');
             setData('');
             props.data.forEach((room) => {
                 const tempArray: RoomData = { data:[] };

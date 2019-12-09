@@ -1,10 +1,9 @@
-import {action, observable, toJS} from 'mobx';
+import {action, observable} from 'mobx';
 import {createContext} from 'react';
 
-import {dataProcessor, lightDataProcessor} from 'components/graphs/utility/DataProcessor';
+import {lightDataProcessor} from 'components/graphs/utility/DataProcessor';
 import {ProcessedData, ProcessedNodeData, ProcessedSensorData} from 'models/Neo4J';
 import {getHumidityData, getLuminanceData, getTemperatureData} from 'services/requests';
-
 
 
 export interface SensorDatax {
@@ -50,13 +49,13 @@ export class SensorDataStore {
 
         if (dataType === 'Temperature') {
             const temperatureData = await getTemperatureData(currentUser, this.getStartDateTime(), this.getEndDateTime());
-            lightDataProcessor(temperatureData, this);
+            lightDataProcessor(temperatureData, this, dataType);
         } else if (dataType === 'Humidity') {
             const humidityData = await getHumidityData(currentUser, this.getStartDateTime(), this.getEndDateTime());
-            lightDataProcessor(humidityData, this);
+            lightDataProcessor(humidityData, this, dataType);
         } else if (dataType === 'Luminance') {
             const luminanceData = await getLuminanceData(currentUser, this.getStartDateTime(), this.getEndDateTime());
-            lightDataProcessor(luminanceData, this);
+            lightDataProcessor(luminanceData, this, dataType);
         }
     }
 
@@ -106,14 +105,14 @@ export class SensorDataStore {
     }
 
     @action
-    setAllTemperatureData(sensorData: SensorDatax[]): void {
+    setAllHumidityData(sensorData: SensorDatax[]): void {
         sensorData.forEach((data) => {
             if (data.roomName === 'Kitchen') {
-                this.dataList.kitchen.temperature = data.data;
+                this.dataList.kitchen.humidity = data.data;
             } else if (data.roomName === 'Living Room') {
-                this.dataList.livingRoom.temperature = data.data;
+                this.dataList.livingRoom.humidity = data.data;
             } else if (data.roomName === 'Bedroom') {
-                this.dataList.bedroom.temperature = data.data;
+                this.dataList.bedroom.humidity = data.data;
             }
         });
     }

@@ -46,7 +46,7 @@ export const dataProcessor = (data: RoomData[] | null, sensorStore: SensorDataSt
     }
 };
 
-export const lightDataProcessor = (data: RoomData[], sensorStore: SensorDataStore): void => {
+export const lightDataProcessor = (data: RoomData[], sensorStore: SensorDataStore, dataType: string): void => {
     const processedDataObject: SensorDatax[] = [];
     data.forEach((roomData: RoomData) => {
         const roomObject: any = {
@@ -67,6 +67,12 @@ export const lightDataProcessor = (data: RoomData[], sensorStore: SensorDataStor
         });
         processedDataObject.push({ roomName: roomData.name, data: roomObject.data});
     });
-    sensorStore.setAllTemperatureData(processedDataObject);
+    if (dataType === 'Temperature') {
+        sensorStore.setAllTemperatureData(processedDataObject);
+    } else if (dataType === 'Humidity') {
+        sensorStore.setAllHumidityData(processedDataObject);
+    } else if (dataType === 'Luminance') {
+        sensorStore.setAllLuminanceData(processedDataObject);
+    }
 };
 
