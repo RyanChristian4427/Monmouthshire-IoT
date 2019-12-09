@@ -47,6 +47,10 @@ export const Home: React.FC = observer(() => {
                                    yAxisTitle="Humidity" height={600} width={600} data={humidityData}/>
                     </section>
                     <section className="section chart-card">
+                        <LineGraph title="Luminance Over Time Per Room" xAxisTitle="Time"
+                                   yAxisTitle="Luminance" height={600} width={600} data={luminanceData}/>
+                    </section>
+                    <section className="section chart-card">
                         <PieChart title="Percent of Time Spent in Room" height={600} width={600}/>
                     </section>
                 </div>
