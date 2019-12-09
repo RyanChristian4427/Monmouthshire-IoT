@@ -91,7 +91,7 @@ export const LineGraph: React.FC<IProps> = (props: IProps) => {
                 </div>
                 <div className="level-right">
                     <div className="level-item">
-                        <DateSelect/>
+                        <DateSelect dataType={props.yAxisTitle}/>
                     </div>
                 </div>
             </div>

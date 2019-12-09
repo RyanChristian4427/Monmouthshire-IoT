@@ -6,7 +6,11 @@ import {SensorDataStoreContext} from 'stores/SensorDataStore';
 import './Graphs.scss';
 
 
-export const DateSelect: React.FC = observer(() => {
+interface IProps {
+    dataType: string;
+}
+
+export const DateSelect: React.FC<IProps> = observer((props: IProps) => {
     const sensorDataStore = useContext(SensorDataStoreContext);
 
     return (
@@ -20,7 +24,10 @@ export const DateSelect: React.FC = observer(() => {
                                    type="date"
                                    placeholder="YYYY-MM-DD"
                                    value={sensorDataStore.startDate}
-                                   onChange={(e): string => sensorDataStore.startDate = e.target.value}
+                                   onChange={(e): void => {
+                                       sensorDataStore.startDate = e.target.value;
+                                       sensorDataStore.updateData(props.dataType);
+                                   }}
                             />
                         </div>
                     </div>
@@ -31,7 +38,10 @@ export const DateSelect: React.FC = observer(() => {
                                    type="date"
                                    placeholder="YYYY-MM-DD"
                                    value={sensorDataStore.endDate}
-                                   onChange={(e): string => sensorDataStore.endDate = e.target.value}
+                                   onChange={(e): void => {
+                                       sensorDataStore.endDate = e.target.value;
+                                       sensorDataStore.updateData(props.dataType);
+                                   }}
                             />
                         </div>
                     </div>

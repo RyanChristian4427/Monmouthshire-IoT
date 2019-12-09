@@ -4,10 +4,3 @@ export interface LoginUser {
         password: string;
     };
 }
-
-export const NewLoginUser: LoginUser = {
-    user: {
-        user: '',
-        password: ''
-    }
-};

@@ -6,6 +6,7 @@ import {LineGraph} from 'components/graphs/LineGraph';
 import {PieChart} from 'components/graphs/PieChart';
 import {dataProcessor} from 'components/graphs/utility/DataProcessor';
 import {HeroHeader} from 'components/HeroHeader';
+import {RoomData} from 'models/Neo4J';
 import {getAllData} from 'services/requests';
 import {SensorDataStoreContext} from 'stores/SensorDataStore';
 import {UserStoreContext} from 'stores/UserStore';
@@ -23,7 +24,10 @@ export const Home: React.FC = observer(() => {
     const [motionData, setMotionData] = useState();
 
     useEffect(() => {
-        getAllData(userStore.currentObservedUser, sensorDataStore.getStartDateTime(), sensorDataStore.getEndDateTime())
+        async function getInitialData(): Promise<RoomData[]> {
+            return await getAllData(userStore.currentObservedUser, sensorDataStore.getStartDateTime(), sensorDataStore.getEndDateTime());
+        }
+        getInitialData()
             .then((data) => {
                 dataProcessor(data, sensorDataStore);
                 setTemperatureData(toJS(sensorDataStore.getAllTemperatureData()));
@@ -32,6 +36,17 @@ export const Home: React.FC = observer(() => {
                 setMotionData(toJS(sensorDataStore.getAllMotionData()));
             });
     }, [userStore, sensorDataStore]);
+
+    useEffect(() => {
+        // console.log('Before set: ', temperatureData);
+        // console.log('Data set: ', toJS(sensorDataStore.getAllTemperatureData()));
+        setTemperatureData(toJS(sensorDataStore.getAllTemperatureData()));
+        setHumidityData(toJS(sensorDataStore.getAllHumidityData()));
+        setLuminanceData(toJS(sensorDataStore.getAllLuminanceData()));
+        setMotionData(toJS(sensorDataStore.getAllMotionData()));
+    }, [sensorDataStore.dataList.bedroom]);
+
+    // console.log('Temp State: ', temperatureData);
 
     return (
         <div className="home-page">
