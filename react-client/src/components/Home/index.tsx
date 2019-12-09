@@ -1,4 +1,4 @@
-import React, {useContext, useEffect, useState} from 'react';
+import React, {useContext, useEffect} from 'react';
 import {toJS} from 'mobx';
 import {observer} from 'mobx-react-lite';
 
@@ -18,11 +18,6 @@ export const Home: React.FC = observer(() => {
     const sensorDataStore = useContext(SensorDataStoreContext);
     const userStore = useContext(UserStoreContext);
 
-    const [temperatureData, setTemperatureData] = useState();
-    const [humidityData, setHumidityData] = useState();
-    const [luminanceData, setLuminanceData] = useState();
-    const [motionData, setMotionData] = useState();
-
     useEffect(() => {
         async function getInitialData(): Promise<RoomData[]> {
             return await getAllData(userStore.currentObservedUser, sensorDataStore.getStartDateTime(), sensorDataStore.getEndDateTime());
@@ -30,23 +25,14 @@ export const Home: React.FC = observer(() => {
         getInitialData()
             .then((data) => {
                 dataProcessor(data, sensorDataStore);
-                setTemperatureData(toJS(sensorDataStore.getAllTemperatureData()));
-                setHumidityData(toJS(sensorDataStore.getAllHumidityData()));
-                setLuminanceData(toJS(sensorDataStore.getAllLuminanceData()));
-                setMotionData(toJS(sensorDataStore.getAllMotionData()));
             });
     }, [userStore, sensorDataStore]);
 
     useEffect(() => {
-        // console.log('Before set: ', temperatureData);
-        // console.log('Data set: ', toJS(sensorDataStore.getAllTemperatureData()));
-        setTemperatureData(toJS(sensorDataStore.getAllTemperatureData()));
-        setHumidityData(toJS(sensorDataStore.getAllHumidityData()));
-        setLuminanceData(toJS(sensorDataStore.getAllLuminanceData()));
-        setMotionData(toJS(sensorDataStore.getAllMotionData()));
-    }, [sensorDataStore.dataList.bedroom]);
-
-    // console.log('Temp State: ', temperatureData);
+    }, [sensorDataStore.dataList.kitchen.temperature, sensorDataStore.dataList.kitchen.humidity, sensorDataStore.dataList.kitchen.luminance,
+        sensorDataStore.dataList.bedroom.temperature, sensorDataStore.dataList.bedroom.humidity, sensorDataStore.dataList.bedroom.luminance,
+        sensorDataStore.dataList.livingRoom.temperature, sensorDataStore.dataList.livingRoom.humidity, sensorDataStore.dataList.livingRoom.luminance,
+    ]);
 
     return (
         <div className="home-page">
@@ -55,17 +41,17 @@ export const Home: React.FC = observer(() => {
                 <div className="container" id="layered-background">
                     <section className="section chart-card">
                         <LineGraph title="Temperature Over Time Per Room" xAxisTitle="Time"
-                                   yAxisTitle="Temperature" height={600} width={600} data={temperatureData}
+                                   yAxisTitle="Temperature" height={600} width={600} data={toJS(sensorDataStore.getAllTemperatureData())}
                         />
                     </section>
                     <section className="section chart-card">
                         <LineGraph title="Humidity Over Time Per Room" xAxisTitle="Time"
-                                   yAxisTitle="Humidity" height={600} width={600} data={humidityData}
+                                   yAxisTitle="Humidity" height={600} width={600} data={toJS(sensorDataStore.getAllHumidityData())}
                         />
                     </section>
                     <section className="section chart-card">
                         <LineGraph title="Luminance Over Time Per Room" xAxisTitle="Time"
-                                   yAxisTitle="Luminance" height={600} width={600} data={luminanceData}
+                                   yAxisTitle="Luminance" height={600} width={600} data={toJS(sensorDataStore.getAllLuminanceData())}
                         />
                     </section>
                     <section className="section chart-card">

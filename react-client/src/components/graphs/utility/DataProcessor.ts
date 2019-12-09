@@ -6,7 +6,7 @@ import {
     RoomData,
     SensorData
 } from 'models/Neo4J';
-import {SensorDataStore} from 'stores/SensorDataStore';
+import {SensorDataStore, SensorDatax} from 'stores/SensorDataStore';
 
 
 // Lasciate ogne speranza, voi ch'intrate
@@ -45,3 +45,34 @@ export const dataProcessor = (data: RoomData[] | null, sensorStore: SensorDataSt
         sensorStore.setData(processedDataObject);
     }
 };
+
+export const lightDataProcessor = (data: RoomData[], sensorStore: SensorDataStore, dataType: string): void => {
+    const processedDataObject: SensorDatax[] = [];
+    data.forEach((roomData: RoomData) => {
+        const roomObject: any = {
+            data: [],
+        };
+        roomData.sensorData.forEach((sensorData: SensorData) => {
+            const tempNodeDataList: ProcessedNodeData[] = [];
+            sensorData.nodeData.forEach((nodeData: NodeData) => {
+                const date = new Date(0);
+                date.setUTCSeconds(nodeData.timestamp.low);
+                const processedNodeData: ProcessedNodeData = {
+                    value: nodeData.value,
+                    timestamp: date
+                };
+                tempNodeDataList.push(processedNodeData);
+            });
+            roomObject.data = tempNodeDataList;
+        });
+        processedDataObject.push({ roomName: roomData.name, data: roomObject.data});
+    });
+    if (dataType === 'Temperature') {
+        sensorStore.setAllTemperatureData(processedDataObject);
+    } else if (dataType === 'Humidity') {
+        sensorStore.setAllHumidityData(processedDataObject);
+    } else if (dataType === 'Luminance') {
+        sensorStore.setAllLuminanceData(processedDataObject);
+    }
+};
+

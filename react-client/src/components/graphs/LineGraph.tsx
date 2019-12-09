@@ -5,7 +5,7 @@ import {DateSelect} from 'components/graphs/DateSelect';
 import {colors} from 'components/graphs/utility/colors';
 import {timeFormat, HintFormatter, HintType} from 'components/graphs/utility/HintFormatter';
 import {Legend} from 'components/graphs/utility/Legend';
-import {SensorData} from 'stores/SensorDataStore';
+import {SensorDatax} from 'stores/SensorDataStore';
 
 import './Graphs.scss';
 
@@ -16,7 +16,7 @@ interface IProps {
     yAxisTitle: string;
     height: number;
     width: number;
-    data: SensorData[];
+    data: SensorDatax[];
 }
 
 interface RoomData {
@@ -44,6 +44,7 @@ export const LineGraph: React.FC<IProps> = (props: IProps) => {
 
     useEffect(() => {
         if (props.data !== undefined) {
+            setData('');
             props.data.forEach((room) => {
                 const tempArray: RoomData = { data:[] };
                 room.data.forEach((value) => {

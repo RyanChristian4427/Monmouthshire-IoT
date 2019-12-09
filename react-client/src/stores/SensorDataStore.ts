@@ -1,13 +1,12 @@
-import {action, observable, toJS} from 'mobx';
+import {action, observable} from 'mobx';
 import {createContext} from 'react';
 
-import {dataProcessor} from 'components/graphs/utility/DataProcessor';
+import {lightDataProcessor} from 'components/graphs/utility/DataProcessor';
 import {ProcessedData, ProcessedNodeData, ProcessedSensorData} from 'models/Neo4J';
 import {getHumidityData, getLuminanceData, getTemperatureData} from 'services/requests';
 
 
-
-export interface SensorData {
+export interface SensorDatax {
     roomName: string;
     data: ProcessedNodeData[];
 }
@@ -30,7 +29,7 @@ const dataStructure: ProcessedData = {
 export class SensorDataStore {
     @observable dataList: ProcessedData = dataStructure;
 
-    @observable startDate = '2019-12-07';
+    @observable startDate = '2019-12-06';
     @observable endDate = '2019-12-07';
 
     @action
@@ -47,18 +46,16 @@ export class SensorDataStore {
     async updateData(dataType: string): Promise<void> {
         // Hard-coding the user like this is absolutely terrible practice but I'm running low on time and creativity
         const currentUser = 'b8:27:eb:25:bf:f5';
-        console.log(dataType);
 
         if (dataType === 'Temperature') {
             const temperatureData = await getTemperatureData(currentUser, this.getStartDateTime(), this.getEndDateTime());
-            dataProcessor(temperatureData, this);
+            lightDataProcessor(temperatureData, this, dataType);
         } else if (dataType === 'Humidity') {
             const humidityData = await getHumidityData(currentUser, this.getStartDateTime(), this.getEndDateTime());
-            console.log(humidityData);
-            dataProcessor(humidityData, this);
+            lightDataProcessor(humidityData, this, dataType);
         } else if (dataType === 'Luminance') {
             const luminanceData = await getLuminanceData(currentUser, this.getStartDateTime(), this.getEndDateTime());
-            dataProcessor(luminanceData, this);
+            lightDataProcessor(luminanceData, this, dataType);
         }
     }
 
@@ -73,7 +70,7 @@ export class SensorDataStore {
     }
 
     @action
-    getAllTemperatureData(): SensorData[] {
+    getAllTemperatureData(): SensorDatax[] {
         return [
             { roomName: 'Kitchen', data: this.getData().kitchen.temperature },
             { roomName: 'Bedroom', data: this.getData().bedroom.temperature },
@@ -84,7 +81,20 @@ export class SensorDataStore {
     }
 
     @action
-    getAllHumidityData(): SensorData[] {
+    setAllTemperatureData(sensorData: SensorDatax[]): void {
+        sensorData.forEach((data) => {
+            if (data.roomName === 'Kitchen') {
+                this.dataList.kitchen.temperature = data.data;
+            } else if (data.roomName === 'Living Room') {
+                this.dataList.livingRoom.temperature = data.data;
+            } else if (data.roomName === 'Bedroom') {
+                this.dataList.bedroom.temperature = data.data;
+            }
+        });
+    }
+
+    @action
+    getAllHumidityData(): SensorDatax[] {
         return [
             { roomName: 'Kitchen', data: this.getData().kitchen.humidity },
             { roomName: 'Bedroom', data: this.getData().bedroom.humidity },
@@ -95,7 +105,20 @@ export class SensorDataStore {
     }
 
     @action
-    getAllLuminanceData(): SensorData[] {
+    setAllHumidityData(sensorData: SensorDatax[]): void {
+        sensorData.forEach((data) => {
+            if (data.roomName === 'Kitchen') {
+                this.dataList.kitchen.humidity = data.data;
+            } else if (data.roomName === 'Living Room') {
+                this.dataList.livingRoom.humidity = data.data;
+            } else if (data.roomName === 'Bedroom') {
+                this.dataList.bedroom.humidity = data.data;
+            }
+        });
+    }
+
+    @action
+    getAllLuminanceData(): SensorDatax[] {
         return [
             { roomName: 'Kitchen', data: this.getData().kitchen.luminance },
             { roomName: 'Bedroom', data: this.getData().bedroom.luminance },
@@ -106,7 +129,20 @@ export class SensorDataStore {
     }
 
     @action
-    getAllMotionData(): SensorData[] {
+    setAllLuminanceData(sensorData: SensorDatax[]): void {
+        sensorData.forEach((data) => {
+            if (data.roomName === 'Kitchen') {
+                this.dataList.kitchen.luminance = data.data;
+            } else if (data.roomName === 'Living Room') {
+                this.dataList.livingRoom.luminance = data.data;
+            } else if (data.roomName === 'Bedroom') {
+                this.dataList.bedroom.luminance = data.data;
+            }
+        });
+    }
+
+    @action
+    getAllMotionData(): SensorDatax[] {
         return [
             { roomName: 'Kitchen', data: this.getData().kitchen.motion },
             { roomName: 'Bedroom', data: this.getData().bedroom.motion },
