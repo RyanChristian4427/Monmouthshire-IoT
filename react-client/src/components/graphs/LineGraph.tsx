@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import {HorizontalGridLines, LineMarkSeries, XAxis, XYPlot, YAxis,} from 'react-vis';
 
+import {DateSelect} from 'components/graphs/DateSelect';
 import {colors} from 'components/graphs/utility/colors';
 import {timeFormat, HintFormatter, HintType} from 'components/graphs/utility/HintFormatter';
 import {Legend} from 'components/graphs/utility/Legend';
@@ -60,30 +61,40 @@ export const LineGraph: React.FC<IProps> = (props: IProps) => {
     return (
         <div>
             <h3 className="is-size-3">{props.title}</h3>
-            <XYPlot
-                width={props.width}
-                height={props.height}
-                margin={{right: 20}}>
-                <HorizontalGridLines />
+            <div className="level">
+                <div className="level-left">
+                    <div className="level-item">
+                        <XYPlot
+                            width={props.width}
+                            height={props.height}
+                            margin={{right: 20}}>
+                            <HorizontalGridLines />
 
-                {loadingFinished &&
-                    data.map((roomData: RoomData, index: number) => {
-                        return (
-                            <LineMarkSeries
-                                key={index}
-                                data={roomData.data}
-                                color={colors[index]}
-                                onValueMouseOver={(hint: FormattedData): void => setHint(hint)}
-                                onSeriesMouseOut={(): void => setHint('')}
-                            />
-                        );
-                    })
-                }
-
-                <XAxis title={props.xAxisTitle} tickFormat={xAxisFormat}/>
-                <YAxis title={props.yAxisTitle} />
-                {hint ? HintFormatter({values: hint, type: HintType.LineGraphDate}) : null}
-            </XYPlot>
+                            {loadingFinished &&
+                                data.map((roomData: RoomData, index: number) => {
+                                    return (
+                                        <LineMarkSeries
+                                            key={index}
+                                            data={roomData.data}
+                                            color={colors[index]}
+                                            onValueMouseOver={(hint: FormattedData): void => setHint(hint)}
+                                            onSeriesMouseOut={(): void => setHint('')}
+                                        />
+                                    );
+                                })
+                            }
+                            <XAxis title={props.xAxisTitle} tickFormat={xAxisFormat}/>
+                            <YAxis title={props.yAxisTitle} />
+                            {hint ? HintFormatter({values: hint, type: HintType.LineGraphDate}) : null}
+                        </XYPlot>
+                    </div>
+                </div>
+                <div className="level-right">
+                    <div className="level-item">
+                        <DateSelect/>
+                    </div>
+                </div>
+            </div>
             <Legend/>
         </div>
     );
