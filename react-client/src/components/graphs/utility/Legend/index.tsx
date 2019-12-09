@@ -6,7 +6,7 @@ import {colors} from 'components/graphs/utility/colors';
 import 'components/graphs/utility/Legend/Legend.scss';
 
 
-export const Index: React.FC = () => {
+export const Legend: React.FC = () => {
     const roomNameList = ['Kitchen', 'Bedroom', 'Bathroom', 'Living Room', 'Front Door'];
 
     return (

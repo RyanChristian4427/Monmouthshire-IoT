@@ -3,7 +3,7 @@ import {HorizontalGridLines, LineMarkSeries, XAxis, XYPlot, YAxis,} from 'react-
 
 import {colors} from 'components/graphs/utility/colors';
 import {timeFormat, HintFormatter, HintType} from 'components/graphs/utility/HintFormatter';
-import {Index} from 'components/graphs/utility/Legend';
+import {Legend} from 'components/graphs/utility/Legend';
 import {SensorData} from 'stores/SensorDataStore';
 
 import './Graphs.scss';
@@ -84,7 +84,7 @@ export const LineGraph: React.FC<IProps> = (props: IProps) => {
                 <YAxis title={props.yAxisTitle} />
                 {hint ? HintFormatter({values: hint, type: HintType.LineGraphDate}) : null}
             </XYPlot>
-            <Index/>
+            <Legend/>
         </div>
     );
 };
