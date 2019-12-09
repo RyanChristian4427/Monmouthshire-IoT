@@ -40,15 +40,18 @@ export const Home: React.FC = observer(() => {
                 <div className="container" id="layered-background">
                     <section className="section chart-card">
                         <LineGraph title="Temperature Over Time Per Room" xAxisTitle="Time"
-                                   yAxisTitle="Temperature" height={600} width={600} data={temperatureData}/>
+                                   yAxisTitle="Temperature" height={600} width={600} data={temperatureData}
+                        />
                     </section>
                     <section className="section chart-card">
                         <LineGraph title="Humidity Over Time Per Room" xAxisTitle="Time"
-                                   yAxisTitle="Humidity" height={600} width={600} data={humidityData}/>
+                                   yAxisTitle="Humidity" height={600} width={600} data={humidityData}
+                        />
                     </section>
                     <section className="section chart-card">
                         <LineGraph title="Luminance Over Time Per Room" xAxisTitle="Time"
-                                   yAxisTitle="Luminance" height={600} width={600} data={luminanceData}/>
+                                   yAxisTitle="Luminance" height={600} width={600} data={luminanceData}
+                        />
                     </section>
                     <section className="section chart-card">
                         <PieChart title="Percent of Time Spent in Room" height={600} width={600}/>
