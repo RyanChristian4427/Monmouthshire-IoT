@@ -10,9 +10,9 @@ class SensorRepository {
 	        CREATE TABLE IF NOT EXISTS sensors (
 		        id INTEGER PRIMARY KEY AUTOINCREMENT,
 		        nodeId INTEGER,
-		        type TEXT DEFAULT 'None',
 		        name TEXT,
-		        configured INTEGER DEFAULT 0)`;
+		        hardware TEXT,
+		        roomType TEXT DEFAULT 'None')`;
     return this.dao.run(sql);
   }
 
