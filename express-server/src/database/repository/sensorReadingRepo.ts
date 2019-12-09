@@ -27,19 +27,19 @@ export const fetchBuilder = async (query: string, objectKey: string, args: objec
  * Return all SensorReading nodes #
  */
 export const getAllReadings = async (args: QueryArguments): Promise<object> => {
-    const query = `MATCH (:User {id: {userId}})-[]-(rooms)-[]-(sensors)-[]-(sensorReadings)
-                   WHERE sensors.type IN ["Motion", "Temperature", "Relative Humidity", "Luminance"] AND
-                   sensorReadings.timestamp >= dateTime({startDateTime}) AND sensorReadings.timestamp <= dateTime({endDateTime})
-                   WITH rooms.name as roomName,
-                        sensors.type as sensorType,
+    const objectKey = 'sensorReadings';
+    const query = `MATCH (:User {id: {userId}})-[]-(room:Room)-[]-(sensor:Sensor)-[]-(reading:Reading)
+                   WHERE sensor.type IN ["Motion", "Temperature", "Relative Humidity", "Luminance"] AND
+                   reading.timestamp >= dateTime({startDateTime}) AND reading.timestamp <= dateTime({endDateTime})
+                   WITH room.name as roomName,
+                        sensor.type as sensorType,
                         {
-                            value: toFloat(sensorReadings.value),
-                            timestamp: ToInteger(datetime(sensorReadings.timestamp).epochSeconds)
+                            value: toFloat(reading.value),
+                            timestamp: ToInteger(datetime(reading.timestamp).epochSeconds)
                         } as data
                    ORDER BY data.timestamp
                    WITH roomName, sensorType, COLLECT(data) AS nodeData
-                   RETURN { name: roomName, sensorData: COLLECT({ type: sensorType, nodeData: nodeData })} AS sensorReading`;
-    const objectKey = 'sensorReading';
+                   RETURN { name: roomName, sensorData: COLLECT({ type: sensorType, nodeData: nodeData })} AS sensorReadings`;
     return await fetchBuilder(query, objectKey, args);
 };
 
@@ -49,16 +49,16 @@ export const getAllReadings = async (args: QueryArguments): Promise<object> => {
  * @param args
  */
 export const getTempReadingsByUser = async (args: QueryArguments): Promise<object> => {
-    const objectKey = 'sensorReading';
-    const query = `MATCH (:User {id: {userId}})-[]-(rooms)-[]-(:Sensor {type: 'Temperature'})-[]-(sensorReadings)
-                   WHERE sensorReadings.timestamp >= dateTime({startDateTime}) AND
-                        sensorReadings.timestamp <= dateTime({endDateTime})
-                   WITH rooms.name as roomName, {
-                       value: toFloat(properties(sensorReadings).value),
-                       timestamp: toInteger(datetime(properties(sensorReadings).timestamp).epochSeconds)
+    const objectKey = 'sensorReadings';
+    const query = `MATCH (:User {id: {userId}})-[]-(room:Room)-[]-(:Sensor {type: 'Temperature'})-[]-(reading:Reading)
+                   WHERE reading.timestamp >= dateTime({startDateTime}) AND
+                         reading.timestamp <= dateTime({endDateTime})
+                   WITH room.name as roomName, {
+                       value: toFloat(properties(reading).value),
+                       timestamp: toInteger(datetime(properties(reading).timestamp).epochSeconds)
                    } as data
                    ORDER BY data.timestamp
-                   RETURN { name: roomName, data: COLLECT(data) } AS sensorReading`;
+                   RETURN { name: roomName, data: COLLECT(data) } AS sensorReadings`;
     return await fetchBuilder(query, objectKey, args);
 };
 
@@ -68,16 +68,16 @@ export const getTempReadingsByUser = async (args: QueryArguments): Promise<objec
  * @param args
  */
 export const getLuminanceReadingsByUser = async (args: QueryArguments): Promise<object> => {
-    const objectKey = 'sensorReading';
-    const query = `MATCH (:User {id: {userId}})-[]-(rooms)-[]-(:Sensor {type: 'Luminance'})-[]-(sensorReadings)
-                   WHERE sensorReadings.timestamp >= dateTime({startDateTime}) AND
-                        sensorReadings.timestamp <= dateTime({endDateTime})
-                   WITH rooms.name as roomName, {
-                       value: toFloat(properties(sensorReadings).value),
-                       timestamp: toInteger(datetime(properties(sensorReadings).timestamp).epochSeconds)
+    const objectKey = 'sensorReadings';
+    const query = `MATCH (:User {id: {userId}})-[]-(room:Room)-[]-(:Sensor {type: 'Luminance'})-[]-(reading:Reading)
+                   WHERE reading.timestamp >= dateTime({startDateTime}) AND
+                         reading.timestamp <= dateTime({endDateTime})
+                   WITH room.name as roomName, {
+                       value: toFloat(properties(reading).value),
+                       timestamp: toInteger(datetime(properties(reading).timestamp).epochSeconds)
                    } as data
                    ORDER BY data.timestamp
-                   RETURN { name: roomName, data: COLLECT(data) } AS sensorReading`;
+                   RETURN { name: roomName, data: COLLECT(data) } AS sensorReadings`;
     return await fetchBuilder(query, objectKey, args);
 };
 
@@ -87,16 +87,16 @@ export const getLuminanceReadingsByUser = async (args: QueryArguments): Promise<
  * @param args
  */
 export const getUltraVioletReadingsByUser = async (args: QueryArguments): Promise<object> => {
-    const objectKey = 'sensorReading';
-    const query = `MATCH (:User {id: {userId}})-[]-(rooms)-[]-(:Sensor {type: 'Ultraviolet'})-[]-(sensorReadings)
-                   WHERE sensorReadings.timestamp >= dateTime({startDateTime}) AND
-                        sensorReadings.timestamp <= dateTime({endDateTime})
-                   WITH rooms.name as roomName, {
-                       value: toFloat(properties(sensorReadings).value),
-                       timestamp: toInteger(datetime(properties(sensorReadings).timestamp).epochSeconds)
+    const objectKey = 'sensorReadings';
+    const query = `MATCH (:User {id: {userId}})-[]-(room:Room)-[]-(:Sensor {type: 'Ultraviolet'})-[]-(reading:Reading)
+                   WHERE reading.timestamp >= dateTime({startDateTime}) AND
+                         reading.timestamp <= dateTime({endDateTime})
+                   WITH room.name as roomName, {
+                       value: toFloat(properties(reading).value),
+                       timestamp: toInteger(datetime(properties(reading).timestamp).epochSeconds)
                    } as data
                    ORDER BY data.timestamp
-                   RETURN { name: roomName, data: COLLECT(data) } AS sensorReading`;
+                   RETURN { name: roomName, data: COLLECT(data) } AS sensorReadings`;
     return await fetchBuilder(query, objectKey, args);
 };
 
@@ -106,16 +106,16 @@ export const getUltraVioletReadingsByUser = async (args: QueryArguments): Promis
  * @param args
  */
 export const getHumidityReadingsByUser = async (args: QueryArguments): Promise<object> => {
-    const objectKey = 'sensorReading';
-    const query = `MATCH (:User {id: {userId}})-[]-(rooms)-[]-(:Sensor {type: 'Relative Humidity'})-[]-(sensorReadings)
-                   WHERE sensorReadings.timestamp >= dateTime({startDateTime}) AND
-                        sensorReadings.timestamp <= dateTime({endDateTime})
-                   WITH rooms.name as roomName, {
-                       value: toFloat(properties(sensorReadings).value),
-                       timestamp: toInteger(datetime(properties(sensorReadings).timestamp).epochSeconds)
+    const objectKey = 'sensorReadings';
+    const query = `MATCH (:User {id: {userId}})-[]-(room:Room)-[]-(:Sensor {type: 'Relative Humidity'})-[]-(reading:Reading)
+                   WHERE reading.timestamp >= dateTime({startDateTime}) AND
+                         reading.timestamp <= dateTime({endDateTime})
+                   WITH room.name as roomName, {
+                       value: toFloat(properties(reading).value),
+                       timestamp: toInteger(datetime(properties(reading).timestamp).epochSeconds)
                    } as data
                    ORDER BY data.timestamp
-                   RETURN { name: roomName, data: COLLECT(data) } AS sensorReading`;
+                   RETURN { name: roomName, data: COLLECT(data) } AS sensorReadings`;
     return await fetchBuilder(query, objectKey, args);
 };
 
@@ -125,16 +125,16 @@ export const getHumidityReadingsByUser = async (args: QueryArguments): Promise<o
  * @param args
  */
 export const getMotionReadingsByUser = async (args: QueryArguments): Promise<object> => {
-    const objectKey = 'sensorReading';
-    const query = `MATCH (:User {id: {userId}})-[]-(rooms)-[]-(:Sensor {type: 'Motion'})-[]-(sensorReadings)
-                   WHERE sensorReadings.timestamp >= dateTime({startDateTime}) AND
-                        sensorReadings.timestamp <= dateTime({endDateTime})
-                   WITH rooms.name as roomName, {
-                       value: toFloat(properties(sensorReadings).value),
-                       timestamp: toInteger(datetime(properties(sensorReadings).timestamp).epochSeconds)
+    const objectKey = 'sensorReadings';
+    const query = `MATCH (:User {id: {userId}})-[]-(room:Room)-[]-(:Sensor {type: 'Motion'})-[]-(reading:Reading)
+                   WHERE reading.timestamp >= dateTime({startDateTime}) AND
+                         reading.timestamp <= dateTime({endDateTime})
+                   WITH room.name as roomName, {
+                       value: toFloat(properties(reading).value),
+                       timestamp: toInteger(datetime(properties(reading).timestamp).epochSeconds)
                    } as data
                    ORDER BY data.timestamp
-                   RETURN { name: roomName, data: COLLECT(data) } AS sensorReading`;
+                   RETURN { name: roomName, data: COLLECT(data) } AS sensorReadings`;
     return await fetchBuilder(query, objectKey, args);
 };
 
