@@ -1,5 +1,8 @@
 # IoT-Team-3
 
+## Project has concluded, but loose ends still need be cleaned up
+
+
 ## Raspberry Pi Setup
 
 ### Installing the Software
