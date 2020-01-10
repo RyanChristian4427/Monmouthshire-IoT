@@ -1,0 +1,16 @@
+// Color Scheme (and names) generated from https://coolors.co/
+$theme-isabelline: #F3E8EE;
+$theme-deep-space-sparkle: #475B63;
+$theme-ash-grey: #2E2C2F;
+
+$theme-coral: #fc814a;
+$theme-platinum: #e8e8e8;
+$theme-spanish-grey: #96939b;
+$theme-silver: #bfbfbf;
+
+
+$colors: (
+        "whitesmoke-light": (whitesmoke, $theme-coral),
+        "whitesmoke-dark": (whitesmoke, $theme-deep-space-sparkle),
+        "coral-light": ($theme-coral, $theme-isabelline)
+);
