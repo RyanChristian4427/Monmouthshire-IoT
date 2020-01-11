@@ -12,6 +12,7 @@ html, body {
 	color: #444;
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
+	overflow-y: hidden !important;
 }
 
 * {
@@ -19,19 +20,11 @@ html, body {
 }
 
 #app {
-	height: 100%;
+	background-color: $theme-platinum;
+	min-height: 100vh;
 }
 
-//html {
-//	overflow-y: hidden !important;
-//}
-//
-//#root {
-//	background-color: $theme-platinum;
-//	min-height: 100vh;
-//}
-//
-//$label-color: $theme-deep-space-sparkle;
+$label-color: $theme-deep-space-sparkle;
 
 // Importing all of Bulma
 @import '~bulma/bulma.sass';
