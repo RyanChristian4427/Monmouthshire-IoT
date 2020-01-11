@@ -1,6 +1,6 @@
 import { resolve } from 'path';
 
-export default function(config, env, helpers) {
+export default function (config, env, helpers) {
     // Switch css-loader for typings-for-css-modules-loader, which is a wrapper
     // that automatically generates .d.ts files for loaded CSS
     helpers.getLoadersByName(config, 'css-loader').forEach(({ loader }) => {
@@ -22,6 +22,16 @@ export default function(config, env, helpers) {
     );
 
     config.resolve.modules.push(env.src);
+
+    config.devServer.proxy = [
+        {
+            // proxy requests matching a pattern:
+            path: '/api/v1',
+
+            // where to proxy to:
+            target: 'http://localhost:8000'
+        }
+    ];
 
     return config;
 }
