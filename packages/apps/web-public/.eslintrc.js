@@ -2,7 +2,8 @@ module.exports =  {
   parser:  '@typescript-eslint/parser',
   extends:  [
     'plugin:@typescript-eslint/recommended',
-    'eslint-config-synacor'
+    'standard',
+    'standard-preact'
   ],
   settings: {
     react: { pragma: 'h' },
@@ -12,7 +13,10 @@ module.exports =  {
     sourceType:  'module',
   },
   rules:  {
+    'no-unused-vars': ['off'],
     'indent': ['warn', 4],
+    'react/jsx-indent': ['warn', 4],
+    'react/jsx-indent-props': ['warn', 4],
     'react/no-unknown-property': ['error', { ignore: ['class'] }],
     'quotes': 'off',
     '@typescript-eslint/quotes': ['warn', 'single'],
