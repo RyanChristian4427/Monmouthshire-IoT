@@ -1,10 +1,12 @@
 version: '3.7'
 
 services:
-  mongo:
-    container_name: 'mongo'
-    image: mvertes/alpine-mongo
+  postgres:
+    container_name: 'postgres'
+    image: postgres:12-alpine
     environment:
-      MONGO_INITDB_DATABASE: "express-template"
+      POSTGRES_USER: "iot-api"
+      POSTGRES_PASSWORD: "admin"
+      POSTGRES_DB: "iot"
     ports:
-      - "27017:27017"
+      - "5432:5432"
