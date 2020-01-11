@@ -5,7 +5,7 @@ export const login = (credentials: LoginUser): Promise<string> => {
     return new Promise((resolve) => {
         apiService.post('users/login', credentials)
             .then(({ data }) => {
-                jwtService.saveToken(data.token);
+                jwtService.saveToken(data.user.token);
                 resolve();
             })
             .catch(({ response }) => {
