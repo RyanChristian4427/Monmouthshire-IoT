@@ -10,8 +10,7 @@ router.post('/users/login', (req: Request, res: Response) => {
 
     checkCredentials(credentials)
         .then((user) => {
-            res.status(200).json(
-                {
+            res.status(200).json({
                     success: true,
                     message: 'Authentication successful',
                     user: user
@@ -21,7 +20,9 @@ router.post('/users/login', (req: Request, res: Response) => {
             res.status(401).json({
                 success: false,
                 message: error
-            }).send();
+            });
+        });
+});
         });
 });
 

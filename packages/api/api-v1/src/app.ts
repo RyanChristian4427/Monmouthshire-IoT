@@ -17,7 +17,7 @@ const pgp = pgPromise({
     }
 });
 
-app.locals.driver = pgp(POSTGRESDB_URI);
+app.locals.db = pgp(POSTGRESDB_URI);
 
 // Express configuration
 app.set('port', process.env.PORT || 8000);

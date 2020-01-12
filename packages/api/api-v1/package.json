@@ -1,5 +1,5 @@
 {
-    "name": "express-typescript-mongo-template",
+    "name": "api-v1",
     "version": "0.1.0",
     "scripts": {
         "serve:dev": "npm run lint && nodemon server.ts",
