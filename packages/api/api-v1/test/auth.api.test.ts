@@ -64,3 +64,39 @@ describe('POST /api/v1/users/login', () => {
     });
 });
 
+describe('POST /api/v1/users/register', () => {
+    it('should return 200 OK', async () => {
+        const response = await request(app)
+            .post('/api/v1/users/register')
+            .send({
+                user: {
+                    firstName: 'smoke',
+                    lastName: 'test',
+                    email: 'newsmoketest@example.com',
+                    password: 'came try steady fewer'
+                }
+            });
+        return (
+            expect(response.status).toBe(200),
+                expect(response.body.success).toBe(true),
+                expect(response.body.message).toBe('Registration successful'),
+                expect(response.body.user.token).toBeDefined
+        );
+    });
+
+    it('should return 409 Conflict with Non-Unique Email', async () => {
+        return request(app)
+            .post('/api/v1/users/register')
+            .send({
+                user: {
+                    firstName: 'smoke',
+                    lastName: 'test',
+                    email: 'smoketest@example.com',
+                    password: 'came try steady fewer'
+                }
+            }).expect(409, {
+                success: false,
+                message: 'Non-Unique Email'
+            });
+    });
+});
