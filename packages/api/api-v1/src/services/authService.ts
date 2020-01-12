@@ -1,7 +1,7 @@
 import bcrypt from 'bcryptjs';
 
-import {LoginUser, toUserAuth, UserAuth} from 'src/models/User';
-import {getUser} from 'src/db/authRepository';
+import {LoginUser, RegistrationUser, toUserAuth, UserAuth} from 'src/models/User';
+import {getUser, registerUser} from 'src/db/authRepository';
 
 export const checkCredentials = (credentials: LoginUser): Promise<UserAuth> => {
     return new Promise((resolve, reject): void => {
@@ -19,4 +19,18 @@ export const checkCredentials = (credentials: LoginUser): Promise<UserAuth> => {
     });
 };
 
+export const register = (credentials: RegistrationUser): Promise<UserAuth> => {
+    return new Promise((resolve, reject): void => {
+        bcrypt.hash(credentials.password, 8, function(err, hash) {
+            credentials.password = hash;
 
+            if (err) reject(err);
+
+            registerUser(credentials)
+                .then((user) => resolve(toUserAuth(user)))
+                .catch((error) => {
+                    reject(error);
+                });
+        });
+    });
+};

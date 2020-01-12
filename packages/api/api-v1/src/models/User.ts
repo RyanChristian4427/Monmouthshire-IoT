@@ -7,6 +7,13 @@ export interface LoginUser {
     password: string;
 }
 
+export interface RegistrationUser {
+    firstName: string;
+    lastName: string;
+    email: string;
+    password: string;
+}
+
 export interface User {
     id: number;
     firstName: string;
