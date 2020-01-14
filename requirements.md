@@ -1,6 +1,6 @@
 # Requirements
 
-## Functional Requirements (Or what is necessary for a system to work)
+## Functional Requirements
 
 * Redundancy – The data needs to be stored locally as well as sent to the cloud for storage
 * The equipment should be easy to set up out of the box for someone with limited technical capability (non-developer experience)
@@ -16,11 +16,11 @@
 * Each user can see their own data if they wish using the same interface.
 * The data transfer must be secure.
 
-## Non-Functional Requirements (Or non-critical requirements)
+## Non-Functional Requirements
 
 * Well documented code.
 * Attractive interface to look at and easy to read visualisations (negotiated with the principal investigators).
 
-## Data Requirements (Or what information do we need to build the system)
+## Data Requirements
 
 * Quiz Questions – selection of different genres.
