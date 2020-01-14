@@ -16,47 +16,50 @@ const Login: preact.FunctionalComponent = () => {
     const submitDetails = (): void => {
         const credentials = { user: { email, password } };
         setInProgress(true);
-        login(credentials)
-            .then((result) => {
-                setInProgress(false);
-                if (result) setErrors(result);
-                else route('/home');
-            });
+        login(credentials).then((result) => {
+            setInProgress(false);
+            if (result) setErrors(result);
+            else route('/home');
+        });
     };
 
     return (
         <div class={style.loginPage}>
-            <Header title='Login' withSettingsMenu={false} />
+            <Header title="Login" withSettingsMenu={false} />
             <section class={style.card}>
-                <div class='container' id={style.layeredBackground}>
-                    <div class='field'>
-                        <label class='label'>User</label>
-                        <div class='control'>
-                            <input class='input'
-                                type='text'
-                                placeholder='Username'
+                <div class="container" id={style.layeredBackground}>
+                    <div class="field">
+                        <label class="label">User</label>
+                        <div class="control">
+                            <input
+                                class="input"
+                                type="text"
+                                placeholder="Username"
                                 value={email}
                                 onChange={(e): void => setEmail((e.target as HTMLInputElement).value)}
                             />
                         </div>
                     </div>
-                    <div class='field'>
-                        <label class='label'>Password</label>
-                        <div class='control'>
-                            <input class='input'
-                                type='password'
-                                placeholder='Password'
+                    <div class="field">
+                        <label class="label">Password</label>
+                        <div class="control">
+                            <input
+                                class="input"
+                                type="password"
+                                placeholder="Password"
                                 value={password}
                                 onChange={(e): void => setPassword((e.target as HTMLInputElement).value)}
                             />
                         </div>
                     </div>
-                    <div class='level'>
-                        <div class='level-left' />
-                        <div class='level-right'>
-                            <button class={'button is-whitesmoke-light level-item ' + (inProgress ? 'is-loading' : '')}
-                                onClick={(): void => submitDetails()}>
-                                    Submit
+                    <div class="level">
+                        <div class="level-left" />
+                        <div class="level-right">
+                            <button
+                                class={'button is-whitesmoke-light level-item ' + (inProgress ? 'is-loading' : '')}
+                                onClick={(): void => submitDetails()}
+                            >
+                                Submit
                             </button>
                         </div>
                     </div>

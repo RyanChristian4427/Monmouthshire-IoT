@@ -5,9 +5,9 @@ import Home from 'routes/home';
 import Login from 'routes/login';
 import Profile from 'routes/profile';
 
-if ((module as any).hot) {
-    require('preact/debug');
-}
+// if ((module as any).hot) {
+//     require('preact/debug');
+// }
 
 export const App: preact.FunctionalComponent = () => {
     let currentUrl = '';
@@ -20,12 +20,12 @@ export const App: preact.FunctionalComponent = () => {
     console.log(currentUrl);
 
     return (
-        <div id='app'>
+        <div id="app">
             <Router onChange={handleRoute}>
-                <Route path='/' component={Home} />
-                <Route path='/login' component={Login} />
-                <Route path='/profile/' component={Profile} user='me' />
-                <Route path='/profile/:user' component={Profile} />
+                <Route path="/" component={Home} />
+                <Route path="/login" component={Login} />
+                <Route path="/profile/" component={Profile} user="me" />
+                <Route path="/profile/:user" component={Profile} />
             </Router>
         </div>
     );

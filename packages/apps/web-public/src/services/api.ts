@@ -3,7 +3,8 @@ import { LoginUser } from 'models/User';
 
 export const login = (credentials: LoginUser): Promise<string> => {
     return new Promise((resolve) => {
-        apiService.post('users/login', credentials)
+        apiService
+            .post('users/login', credentials)
             .then(({ data }) => {
                 jwtService.saveToken(data.user.token);
                 resolve();
