@@ -3,6 +3,7 @@ import { Settings } from 'react-feather';
 import { jwtService } from 'ts-api-toolkit';
 
 import * as style from './style.scss';
+import { route } from 'preact-router';
 
 interface IProps {
     title: string;
@@ -13,7 +14,7 @@ interface IProps {
 const Header: preact.FunctionalComponent<IProps> = (props: IProps) => {
     function handleClick(): void {
         jwtService.destroyToken();
-        // history.push('/login');
+        route('/login');
     }
 
     const settingsMenu = props.withSettingsMenu ? (
