@@ -20,7 +20,7 @@ module.exports =  {
         }
     },
     rules:  {
-        'indent': ['warn', 4],
+        'indent': ['warn', 4, { "SwitchCase": 1 }],
         'react/jsx-indent': ['warn', 4],
         'react/jsx-indent-props': ['warn', 4],
         'react/no-unknown-property': ['error', { ignore: ['class'] }],
