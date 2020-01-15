@@ -7,7 +7,7 @@ const logFormat = winston.format.printf((log) => {
 const options: winston.LoggerOptions = {
     transports: [
         new winston.transports.Console({
-            level: process.env.NODE_ENV === 'production' ? 'debug' : 'debug',
+            level: process.env.NODE_ENV === 'production' ? 'info' : 'debug',
             format: winston.format.combine(winston.format.colorize(), logFormat),
         }),
     ]
