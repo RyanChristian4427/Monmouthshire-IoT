@@ -7,24 +7,25 @@ export const checkCredentials = (credentials: LoginUser): Promise<UserAuth> => {
     return new Promise((resolve, reject): void => {
         getUser(credentials)
             .then((user) => {
-                bcrypt.compare(credentials.password, user.hashedPassword, function (err: Error, success: boolean) {
-                    if (success) {
-                        resolve(toUserAuth(user));
-                    }
-                    reject('Incorrect Password');
+                bcrypt.compare(credentials.password, user.hashedPassword, (error, success) => {
+                    if (success) resolve(toUserAuth(user));
+
+                    if (error) reject(error);
+                    else reject('Incorrect Password');
                 });
-            }).catch(() => {
-                reject('Unknown User');
+            }).catch((error) => {
+                if (error.received == 0) reject('Unknown User');
+                else reject(error);
             });
     });
 };
 
 export const register = (credentials: RegistrationUser): Promise<UserAuth> => {
     return new Promise((resolve, reject): void => {
-        bcrypt.hash(credentials.password, 8, function(err, hash) {
+        bcrypt.hash(credentials.password, 8, (error, hash) => {
             credentials.password = hash;
 
-            if (err) reject(err);
+            if (error) reject(error);
 
             registerUser(credentials)
                 .then((user) => resolve(toUserAuth(user)))
