@@ -21,7 +21,7 @@ router.post('/users/login', (req: Request, res: Response) => {
                 }
             );
         }).catch((error) => {
-            logger.debug(`Authentication for user ${credentials.email} has failed`);
+            logger.debug(`Authentication for user ${credentials.email} has failed due to ${error}`);
             res.status(401).json({
                 success: false,
                 message: error
