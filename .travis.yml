@@ -6,6 +6,7 @@ services:
 install:
   - cd packages/api/api-v1
   - docker-compose up --build -d
+  - npm install
   - npm run migration:run
 
 jobs:
