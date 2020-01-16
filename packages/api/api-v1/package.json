@@ -4,6 +4,10 @@
     "scripts": {
         "serve:dev": "npm run lint && nodemon server.ts",
         "serve:prod": "tsc && npm run lint && cross-env NODE_ENV=production node dist/server.js",
+        "migration:run": "npx node-pg-migrate -f='./config/default.json' --tsconfig='./tsconfig.json' up",
+        "migration:revert": "npx node-pg-migrate -f='./config/default.json' --tsconfig='./tsconfig.json' down",
+        "migration:redo": "npx node-pg-migrate -f='./config/default.json' --tsconfig='./tsconfig.json' redo",
+        "migration:generate": "npx node-pg-migrate -f='./config/default.json' create",
         "test": "jest --forceExit --coverage --verbose --detectOpenHandles",
         "lint": "eslint \"**/*.{js,ts}\""
     },
@@ -14,6 +18,8 @@
         "express": "^4.17.1",
         "express-validator": "^6.2.0",
         "jsonwebtoken": "^8.5.1",
+        "node-pg-migrate": "^4.2.1",
+        "pg": "^7.17.1",
         "pg-promise": "^10.3.3",
         "ts-node": "^8.4.1",
         "typescript": "^3.6.3",
@@ -30,6 +36,7 @@
         "@types/jest": "^24.0.18",
         "@types/jsonwebtoken": "^8.3.5",
         "@types/node": "^12.7.8",
+        "@types/node-pg-migrate": "^2.3.1",
         "@types/pg-promise": "^5.4.3",
         "@types/supertest": "^2.0.8",
         "@types/winston": "^2.4.4",

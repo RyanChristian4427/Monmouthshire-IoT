@@ -1,6 +1,15 @@
 import pgPromise from 'pg-promise';
+import {DATABASE_URL} from './secrets';
 
-export const camelizeColumns = (data: any) => {
+const pgp = pgPromise({
+    receive: (data) => {
+        camelizeColumns(data);
+    }
+});
+
+export const db = pgp(DATABASE_URL);
+
+const camelizeColumns = (data: any) => {
     const template = data[0];
     for (const prop in template) {
         const camel = pgPromise.utils.camelize(prop);
