@@ -1,0 +1,17 @@
+language: node_js
+
+services:
+  - docker
+
+install:
+  - cd packages/api/api-v1
+  - docker-compose up --build -d
+  - npm run migration:run
+
+jobs:
+  include:
+    - stage: "API"
+      name: "NPM Test"
+      script: "npm run test"
+    - name: "NPM Lint"
+      script: "npm run lint"
