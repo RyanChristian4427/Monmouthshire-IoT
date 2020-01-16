@@ -9,7 +9,8 @@ const pgp = pgPromise({
 
 export const db = pgp(DATABASE_URL);
 
-const camelizeColumns = (data: any) => {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const camelizeColumns = (data: any): void => {
     const template = data[0];
     for (const prop in template) {
         const camel = pgPromise.utils.camelize(prop);
