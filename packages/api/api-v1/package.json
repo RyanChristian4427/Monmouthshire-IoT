@@ -4,10 +4,11 @@
     "scripts": {
         "serve:dev": "npm run lint && nodemon server.ts",
         "serve:prod": "tsc && npm run lint && cross-env NODE_ENV=production node dist/server.js",
-        "migration:run": "npx node-pg-migrate -f='./config/default.json' --tsconfig='./tsconfig.json' up",
-        "migration:revert": "npx node-pg-migrate -f='./config/default.json' --tsconfig='./tsconfig.json' down",
-        "migration:redo": "npx node-pg-migrate -f='./config/default.json' --tsconfig='./tsconfig.json' redo",
-        "migration:generate": "npx node-pg-migrate -f='./config/default.json' create",
+        "migration": "npx node-pg-migrate -t='migrations' --tsconfig='./tsconfig.json'",
+        "migration:run": "npm run migration up",
+        "migration:revert": "npm run migration down",
+        "migration:redo": "npm run migration redo",
+        "migration:generate": "npm run migration create",
         "test": "jest --forceExit --coverage --verbose --detectOpenHandles",
         "lint": "eslint \"**/*.{js,ts}\""
     },
