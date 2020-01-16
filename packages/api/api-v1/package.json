@@ -4,7 +4,7 @@
     "scripts": {
         "serve:dev": "npm run lint && nodemon server.ts",
         "serve:prod": "tsc && npm run lint && cross-env NODE_ENV=production node dist/server.js",
-        "migration": "npx node-pg-migrate -t='migrations' --tsconfig='./tsconfig.json'",
+        "migration": "./node_modules/.bin/node-pg-migrate -t='migrations' --tsconfig='./tsconfig.json'",
         "migration:run": "npm run migration up",
         "migration:revert": "npm run migration down",
         "migration:redo": "npm run migration redo",
