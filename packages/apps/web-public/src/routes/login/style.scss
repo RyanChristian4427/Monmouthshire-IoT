@@ -3,10 +3,11 @@
 .login-page {
   .hero {
     background: #F2F6FA;
-  }
-  .hero .nav {
-    -webkit-box-shadow: none;
-    box-shadow: none;
+
+    .nav {
+      -webkit-box-shadow: none;
+      box-shadow: none;
+    }
   }
   .box {
     margin-top: 5rem;
