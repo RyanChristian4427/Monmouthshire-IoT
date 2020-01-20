@@ -2,9 +2,9 @@ import preact, { h } from 'preact';
 import { useState } from 'preact/hooks';
 import { route } from 'preact-router';
 
-import * as style from './style.scss';
-
 import { login } from 'services/api';
+
+import './style.scss';
 
 const Login: preact.FunctionalComponent = () => {
     const [email, setEmail] = useState('');

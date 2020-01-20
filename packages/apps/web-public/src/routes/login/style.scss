@@ -1,36 +1,55 @@
 @import 'src/style/variables';
-@import '~bulma/sass/utilities/functions';
-
-// Neither color is used, but mixins for some reason they're required
-$scheme-main: $theme-coral;
-$scheme-invert: findColorInvert($scheme-main);
-
-@import '~bulma/sass/utilities/mixins';
 
 .login-page {
-  .card {
-    border-radius: 23px;
-    background: whitesmoke;
-    width: auto;
-    padding: 1vh 1vh 1vh;
+  .hero {
+    background: #F2F6FA;
+  }
+  .hero .nav {
+    -webkit-box-shadow: none;
+    box-shadow: none;
+  }
+  .box {
+    margin-top: 5rem;
+  }
+  .avatar {
+    margin-top: -70px;
+    padding-bottom: 20px;
 
-    @include until($tablet) {
-      margin: 5vh 5vw;
+    img {
+      height: 128px;
+      width: 128px;
+      padding: 5px;
+      background: #fff;
+      border-radius: 50%;
+      -webkit-box-shadow: 0 2px 3px rgba(10,10,10,.1), 0 0 0 1px rgba(10,10,10,.1);
+      box-shadow: 0 2px 3px rgba(10,10,10,.1), 0 0 0 1px rgba(10,10,10,.1);
     }
+  }
+  input {
+    font-weight: 300;
+  }
+  p {
+    font-weight: 700;
 
-    @include desktop {
-      margin: 10vh 25vw 5vh;
+    .subtitle {
+      padding-top: 1rem
     }
   }
 
-  #layered-background {
-    border-radius: 20px;
-    background: $theme-coral;
-    padding: 5vh 15vw 5vh;
+  .login-hr {
+    border-bottom: 1px solid black;
+  }
+
+  .field {
+    padding-bottom: 10px;
+  }
+
+  .icon {
+    margin-left: 5px;
   }
 
   .error {
+    color: crimson;
     text-align: center;
-    color: $theme-isabelline;
   }
 }
