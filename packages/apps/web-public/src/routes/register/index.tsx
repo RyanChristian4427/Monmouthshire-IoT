@@ -4,11 +4,13 @@ import { Link, route } from 'preact-router';
 import { LogIn } from 'react-feather';
 
 import placeholder from 'assets/placeholder.jpg';
-import { login, logout } from 'services/api';
+import { logout, register } from 'services/api';
 
 import './style.scss';
 
-const Login: preact.FunctionalComponent = () => {
+const Register: preact.FunctionalComponent = () => {
+    const [firstName, setFirstName] = useState('');
+    const [lastName, setLastName] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [inProgress, setInProgress] = useState(false);
@@ -17,10 +19,10 @@ const Login: preact.FunctionalComponent = () => {
     useEffect(() => logout());
 
     const submitDetails = (): void => {
-        const credentials = { user: { email, password } };
+        const credentials = { user: { firstName, lastName, email, password } };
         setErrors('');
         setInProgress(true);
-        login(credentials).then((result) => {
+        register(credentials).then((result) => {
             setInProgress(false);
             if (result) setErrors(result);
             else route('/');
@@ -33,14 +35,40 @@ const Login: preact.FunctionalComponent = () => {
                 <div class="hero-body">
                     <div class="container has-text-centered">
                         <div class="column is-4 is-offset-4">
-                            <h3 class="title">Login</h3>
+                            <h3 class="title">Register</h3>
                             <hr class="login-hr" />
-                            <h5 class="subtitle">Please login to proceed.</h5>
+                            <h5 class="subtitle">Please provide your details to proceed.</h5>
                             <div class="box">
                                 <figure class="avatar">
                                     <img src={placeholder} alt="he-man" />
                                 </figure>
                                 <form>
+                                    <div class="field">
+                                        <div class="control">
+                                            <input
+                                                class="input is-large"
+                                                type="text"
+                                                placeholder="Your First Name"
+                                                value={firstName}
+                                                onChange={(e): void =>
+                                                    setFirstName((e.target as HTMLInputElement).value)
+                                                }
+                                            />
+                                        </div>
+                                    </div>
+                                    <div class="field">
+                                        <div class="control">
+                                            <input
+                                                class="input is-large"
+                                                type="text"
+                                                placeholder="Your Last Name"
+                                                value={lastName}
+                                                onChange={(e): void =>
+                                                    setLastName((e.target as HTMLInputElement).value)
+                                                }
+                                            />
+                                        </div>
+                                    </div>
                                     <div class="field">
                                         <div class="control">
                                             <input
@@ -90,7 +118,7 @@ const Login: preact.FunctionalComponent = () => {
                                 </form>
                             </div>
                             <p class="has-text-grey">
-                                <Link href="/register">Sign Up</Link> &nbsp;·&nbsp;
+                                <Link href="/login">Login</Link> &nbsp;·&nbsp;
                                 <Link href="/forgotten-password">Forgot Password</Link>
                             </p>
                         </div>
@@ -101,4 +129,4 @@ const Login: preact.FunctionalComponent = () => {
     );
 };
 
-export default Login;
+export default Register;

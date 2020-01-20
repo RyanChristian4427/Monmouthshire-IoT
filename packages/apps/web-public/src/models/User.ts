@@ -4,3 +4,12 @@ export interface LoginUser {
         password: string;
     };
 }
+
+export interface RegistrationUser {
+    user: {
+        firstName: string;
+        lastName: string;
+        email: string;
+        password: string;
+    };
+}

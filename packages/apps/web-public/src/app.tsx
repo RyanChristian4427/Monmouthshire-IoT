@@ -5,6 +5,7 @@ import { getCurrentUrl, Route, Router, RouterOnChangeArgs } from 'preact-router'
 import Header from 'components/header';
 import Home from 'routes/home';
 import Login from 'routes/login';
+import Register from 'routes/register';
 import Profile from 'routes/profile';
 
 interface RouteInfo {
@@ -44,6 +45,7 @@ export const App: preact.FunctionalComponent = () => {
             <Router onChange={(e: RouterOnChangeArgs): void => setCurrentUrl(e.url)}>
                 <Route path="/" component={Home} />
                 <Route path="/login" component={Login} />
+                <Route path="/register" component={Register} />
                 <Route path="/profile/" component={Profile} user="me" />
                 <Route path="/profile/:user" component={Profile} />
             </Router>
