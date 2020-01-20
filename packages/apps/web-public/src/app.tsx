@@ -40,7 +40,7 @@ export const App: preact.FunctionalComponent = () => {
 
     return (
         <div id="app">
-            {renderHeader()}
+            {/*{renderHeader()}*/}
             <Router onChange={(e: RouterOnChangeArgs): void => setCurrentUrl(e.url)}>
                 <Route path="/" component={Home} />
                 <Route path="/login" component={Login} />
