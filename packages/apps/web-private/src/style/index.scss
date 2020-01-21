@@ -1,37 +1,9 @@
 @charset "utf-8";
 @import 'variables';
 
-html, body {
-	height: 100%;
-	width: 100%;
-	padding: 0;
-	margin: 0;
-	background: #FAFAFA;
-	font-family: 'Helvetica Neue', arial, sans-serif;
-	font-weight: 400;
-	color: #444;
-	-webkit-font-smoothing: antialiased;
-	-moz-osx-font-smoothing: grayscale;
-}
+@import url('https://fonts.googleapis.com/css?family=Questrial&display=swap');
 
-* {
-	box-sizing: border-box;
-}
-
-#app {
-	height: 100%;
-}
-
-//html {
-//	overflow-y: hidden !important;
-//}
-//
-//#root {
-//	background-color: $theme-platinum;
-//	min-height: 100vh;
-//}
-//
-//$label-color: $theme-deep-space-sparkle;
+$family-primary: 'Questrial', sans-serif;
 
 // Importing all of Bulma
 @import '~bulma/bulma.sass';

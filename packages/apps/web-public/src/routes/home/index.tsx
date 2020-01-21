@@ -37,15 +37,6 @@ const Home: preact.FunctionalComponent = () => {
                                                 <a>Home</a>
                                             </li>
                                             <li>
-                                                <a href="">Features</a>
-                                            </li>
-                                            <li>
-                                                <a href="">Team</a>
-                                            </li>
-                                            <li>
-                                                <a href="">Help</a>
-                                            </li>
-                                            <li>
                                                 <Link href="/login">Log Out</Link>
                                             </li>
                                         </ul>
