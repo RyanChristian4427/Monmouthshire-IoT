@@ -10,7 +10,7 @@
         "migration:redo": "npm run migration redo",
         "migration:generate": "npm run migration create",
         "test": "jest --forceExit --coverage --verbose --detectOpenHandles",
-        "lint": "eslint \"**/*.{js,ts}\""
+        "lint": "eslint src/**/*.{js,ts} --quiet --fix"
     },
     "dependencies": {
         "bcryptjs": "^2.4.3",
@@ -47,8 +47,11 @@
         "chai": "^4.2.0",
         "cross-env": "^6.0.3",
         "eslint": "^6.4.0",
+        "eslint-config-prettier": "^6.9.0",
+        "eslint-plugin-prettier": "^3.1.2",
         "jest": "^24.9.0",
         "nodemon": "^2.0.1",
+        "prettier": "^1.19.1",
         "supertest": "^4.0.2",
         "ts-jest": "^24.1.0",
         "tsconfig-paths": "^3.9.0"

@@ -1,5 +1,5 @@
 # Monmouthshire Elderly IoT
-[![Build Status](https://travis-ci.org/RyanChristian4427/Monmouthshire-IoT.svg?branch=improved)](https://travis-ci.org/RyanChristian4427/Monmouthshire-IoT)[![lerna](https://img.shields.io/badge/maintained%20with-lerna-cc00ff.svg)](https://lerna.js.org/)
+[![Build Status](https://travis-ci.org/RyanChristian4427/Monmouthshire-IoT.svg?branch=improved)](https://travis-ci.org/RyanChristian4427/Monmouthshire-IoT) [![lerna](https://img.shields.io/badge/maintained%20with-lerna-cc00ff.svg)](https://lerna.js.org/)
 
 This was a group project we were given in the first semester of third year of university. The goal of this project was to integrate Internet of Things technology into a system that could provide higher levels of care for the elderly who want to live alone, while also combating social isolation. While we were provided the sensors to use for the IoT portion, how we chose to tackle social isolation was up to us.
 
