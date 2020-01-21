@@ -91,7 +91,7 @@ const Login: preact.FunctionalComponent = () => {
                             </div>
                             <p class="has-text-grey">
                                 <Link href="/register">Sign Up</Link> &nbsp;·&nbsp;
-                                <Link href="/forgotten-password">Forgot Password</Link>
+                                <Link href="/">Forgot Password</Link>
                             </p>
                         </div>
                     </div>
