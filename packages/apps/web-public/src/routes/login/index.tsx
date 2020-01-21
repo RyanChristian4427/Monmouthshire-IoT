@@ -7,6 +7,7 @@ import placeholder from 'assets/placeholder.jpg';
 import { login, logout } from 'services/api';
 
 import './style.scss';
+import Footer from 'components/footer';
 
 const Login: preact.FunctionalComponent = () => {
     const [email, setEmail] = useState('');
@@ -96,6 +97,7 @@ const Login: preact.FunctionalComponent = () => {
                         </div>
                     </div>
                 </div>
+                <Footer />
             </section>
         </div>
     );
