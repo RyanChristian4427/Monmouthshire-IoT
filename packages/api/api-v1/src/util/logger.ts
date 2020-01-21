@@ -10,7 +10,7 @@ const options: winston.LoggerOptions = {
             level: process.env.NODE_ENV === 'production' ? 'info' : 'debug',
             format: winston.format.combine(winston.format.colorize(), logFormat),
         }),
-    ]
+    ],
 };
 
 const logger = winston.createLogger(options);

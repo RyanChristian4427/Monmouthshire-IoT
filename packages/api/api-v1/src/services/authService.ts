@@ -1,7 +1,7 @@
 import bcrypt from 'bcryptjs';
 
-import {LoginUser, RegistrationUser, toUserAuth, UserAuth} from 'src/models/User';
-import {getUser, registerUser} from 'src/db/authRepository';
+import { LoginUser, RegistrationUser, toUserAuth, UserAuth } from 'src/models/User';
+import { getUser, registerUser } from 'src/db/authRepository';
 
 export const checkCredentials = (credentials: LoginUser): Promise<UserAuth> => {
     return new Promise((resolve, reject): void => {
@@ -13,7 +13,8 @@ export const checkCredentials = (credentials: LoginUser): Promise<UserAuth> => {
                     if (error) reject(error);
                     else reject('Incorrect Password');
                 });
-            }).catch((error) => {
+            })
+            .catch((error) => {
                 if (error.received == 0) reject('Unknown User');
                 else reject(error);
             });

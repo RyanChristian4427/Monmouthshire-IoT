@@ -1,6 +1,6 @@
-import { Request, Response, NextFunction} from 'express';
+import { Request, Response, NextFunction } from 'express';
 import jwt from 'jsonwebtoken';
-import {JWT_SECRET} from 'src/util/secrets';
+import { JWT_SECRET } from 'src/util/secrets';
 
 export const checkToken = (req: Request, res: Response, next: NextFunction): Response | NextFunction => {
     let token: string;
@@ -13,7 +13,7 @@ export const checkToken = (req: Request, res: Response, next: NextFunction): Res
             if (err) {
                 return res.status(401).json({
                     success: false,
-                    message: 'Auth token is not valid'
+                    message: 'Auth token is not valid',
                 });
             } else {
                 next();
@@ -22,7 +22,7 @@ export const checkToken = (req: Request, res: Response, next: NextFunction): Res
     } else {
         return res.status(401).json({
             success: false,
-            message: 'Auth token is not supplied'
+            message: 'Auth token is not supplied',
         });
     }
 };

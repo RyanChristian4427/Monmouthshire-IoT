@@ -1,10 +1,10 @@
 import pgPromise from 'pg-promise';
-import {DATABASE_URL} from './secrets';
+import { DATABASE_URL } from './secrets';
 
 const pgp = pgPromise({
     receive: (data) => {
         camelizeColumns(data);
-    }
+    },
 });
 
 export const db = pgp(DATABASE_URL);

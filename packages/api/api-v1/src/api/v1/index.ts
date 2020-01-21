@@ -1,7 +1,5 @@
 import authRoutes from './auth';
 
-const routes = [
-    authRoutes,
-];
+const routes = [authRoutes];
 
 export default routes;

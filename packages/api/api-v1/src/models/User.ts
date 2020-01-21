@@ -1,6 +1,6 @@
 import jwt from 'jsonwebtoken';
 
-import {JWT_SECRET} from 'src/util/secrets';
+import { JWT_SECRET } from 'src/util/secrets';
 
 export interface LoginUser {
     email: string;
@@ -30,11 +30,7 @@ export interface UserAuth {
 }
 
 export const toUserAuth = (user: User): UserAuth => {
-    const token = jwt.sign(
-        { id: user.id, email: user.email },
-        JWT_SECRET,
-        { expiresIn: '2h' }
-    );
+    const token = jwt.sign({ id: user.id, email: user.email }, JWT_SECRET, { expiresIn: '2h' });
 
     return {
         firstName: user.firstName,
