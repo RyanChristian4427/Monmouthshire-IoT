@@ -8,11 +8,11 @@ export async function up(pgm: MigrationBuilder): Promise<void> {
         id: 'id',
         first_name: {
             type: 'TEXT',
-            notNull: true
+            notNull: true,
         },
         last_name: {
             type: 'TEXT',
-            notNull: true
+            notNull: true,
         },
         email: {
             type: 'TEXT',
@@ -20,14 +20,14 @@ export async function up(pgm: MigrationBuilder): Promise<void> {
         },
         hashed_password: {
             type: 'TEXT',
-            notNull: true
+            notNull: true,
         },
     });
     pgm.addConstraint('users', 'unique_email', {
-        unique: 'email'
+        unique: 'email',
     });
     pgm.alterSequence('users_id_seq', {
-        restart: 1
+        restart: 1,
     });
     pgm.sql(`INSERT INTO users(first_name, last_name, email, hashed_password)
         VALUES ('smoke', 'test', 'smoketest@example.com', '$2b$12$dNetpytUYbAg0Yud55CB.OIIGNACrIPpxZAW4G8md9eman7qdawz2')
