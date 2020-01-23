@@ -1,6 +1,6 @@
 {
-  "name": "app-public",
-  "short_name": "app-public",
+  "name": "Monmouthshire IoT - Private",
+  "short_name": "Monmouthshire IoT - Private",
   "start_url": "/",
   "display": "standalone",
   "orientation": "portrait",

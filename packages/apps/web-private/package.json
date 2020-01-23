@@ -9,7 +9,8 @@
         "lint": "eslint src/**/*.{js,ts,tsx} --quiet --fix"
     },
     "dependencies": {
-        "preact": "^10.2.1"
+        "preact": "^10.2.1",
+        "preact-router": "^3.1.0"
     },
     "devDependencies": {
         "@types/webpack-env": "^1.15.0",
@@ -26,6 +27,7 @@
         "prettier": "^1.19.1",
         "sass-loader": "^7.3.1",
         "react-feather": "^2.0.3",
+        "ts-api-toolkit": "^1.0.3",
         "ts-loader": "^6.2.1",
         "typescript": "^3.7.4"
     }

@@ -1,5 +1,28 @@
+@import "src/style/variables";
+
 .home-page {
-    padding: 56px 20px;
-    min-height: 100%;
-    width: 100%;
+    height: 100vh;
+
+    .hero-body {
+        .columns {
+            width: 100%;
+        }
+
+        .sensors {
+            display: block;
+            background-color: #fff;
+            border-right: 1px solid #DEDEDE;
+            padding: 40px 20px;
+            margin-top: 40px;
+            max-height: 80vh;
+            overflow-y: auto;
+        }
+
+        .sensor-config {
+            display:block;
+            background-color: #fff;
+            padding: 40px 20px;
+            margin-top: 40px;
+        }
+    }
 }

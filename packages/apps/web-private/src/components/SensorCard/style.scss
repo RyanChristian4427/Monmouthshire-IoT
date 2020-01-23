@@ -1,0 +1,30 @@
+@import 'src/style/variables';
+
+.card {
+  margin-bottom: 2vh;
+  border-radius: 10px;
+  width: 100%;
+
+  strong {
+    color: #5D5D5D;
+  }
+
+  .room-type {
+    float: right;
+    padding: 0 20px;
+    color: #5D5D5D;
+  }
+
+  .sensor-name {
+    padding: 10px 0;
+    color: #5D5D5D;
+  }
+
+  &:hover {
+    background-color: #F5F5F5;
+  }
+
+  &.active {
+    background-color: $theme-coral;
+  }
+}

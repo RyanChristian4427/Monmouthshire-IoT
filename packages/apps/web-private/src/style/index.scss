@@ -5,5 +5,13 @@
 
 $family-primary: 'Questrial', sans-serif;
 
+html {
+  overflow-y: hidden !important;
+}
+
+.is-clickable {
+  cursor: pointer;
+}
+
 // Importing all of Bulma
 @import '~bulma/bulma.sass';
