@@ -16,3 +16,15 @@ export const registerUser = async (credentials: RegistrationUser): Promise<User>
         },
     );
 };
+
+export const registerHome = async (credentials: RegistrationUser): Promise<User> => {
+    return await db.one(
+        'INSERT INTO users(first_name, last_name, email, hashed_password) VALUES(${firstName}, ${lastName}, ${email}, ${password}) RETURNING *',
+        {
+            firstName: credentials.firstName,
+            lastName: credentials.lastName,
+            email: credentials.email,
+            password: credentials.password,
+        },
+    );
+};

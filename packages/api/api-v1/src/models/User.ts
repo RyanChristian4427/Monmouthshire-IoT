@@ -20,6 +20,7 @@ export interface User {
     lastName: string;
     email: string;
     hashedPassword: string;
+    refreshToken?: string;
 }
 
 export interface UserAuth {
@@ -27,15 +28,17 @@ export interface UserAuth {
     lastName: string;
     email: string;
     token: string;
+    refreshToken: string;
 }
 
 export const toUserAuth = (user: User): UserAuth => {
-    const token = jwt.sign({ id: user.id, email: user.email }, JWT_SECRET, { expiresIn: '2h' });
+    const token = jwt.sign({ id: user.id, email: user.email }, JWT_SECRET, { expiresIn: '24h' });
 
     return {
         firstName: user.firstName,
         lastName: user.lastName,
         email: user.email,
         token: token,
+        refreshToken: user.refreshToken,
     };
 };
