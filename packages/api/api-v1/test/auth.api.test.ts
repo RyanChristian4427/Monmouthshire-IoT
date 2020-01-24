@@ -1,21 +1,7 @@
 import request from 'supertest';
 import { app } from 'src/app';
 
-export const login = async (): Promise<string> => {
-    const data = {
-        user: {
-            email: 'smoketest@example.com',
-            password: 'came try steady fewer',
-        },
-    };
-    const response = await request(app)
-        .post('/api/v1/users/login')
-        .send(data);
 
-    if (response.body.user) {
-        return response.body.user.token;
-    } else return 'Error';
-};
 
 describe('POST /api/v1/users/login', () => {
     it('should return 200 OK with Token', async () => {
