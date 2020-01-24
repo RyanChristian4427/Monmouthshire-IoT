@@ -1,12 +1,12 @@
 import request from 'supertest';
-import {app} from 'src/app';
+import { app } from 'src/app';
 
 export const login = async (): Promise<string> => {
     const data = {
         user: {
             email: 'smoketest@example.com',
-            password: 'came try steady fewer'
-        }
+            password: 'came try steady fewer',
+        },
     };
     const response = await request(app)
         .post('/api/v1/users/login')
@@ -19,20 +19,20 @@ export const login = async (): Promise<string> => {
 
 describe('POST /api/v1/users/login', () => {
     it('should return 200 OK with Token', async () => {
-       const response = await request(app)
-           .post('/api/v1/users/login')
-           .send({
-               user: {
-                   email: 'smoketest@example.com',
-                   password: 'came try steady fewer'
-               }
-           });
-       return (
-           expect(response.status).toBe(200),
-           expect(response.body.success).toBe(true),
-           expect(response.body.message).toBe('Authentication successful'),
-           expect(response.body.user.token).toBeDefined
-       );
+        const response = await request(app)
+            .post('/api/v1/users/login')
+            .send({
+                user: {
+                    email: 'smoketest@example.com',
+                    password: 'came try steady fewer',
+                },
+            });
+        return (
+            expect(response.status).toBe(200),
+            expect(response.body.success).toBe(true),
+            expect(response.body.message).toBe('Authentication successful'),
+            expect(response.body.user.token).toBeDefined
+        );
     });
 
     it('should return 401 Unauthorized with Incorrect Password', async () => {
@@ -41,11 +41,12 @@ describe('POST /api/v1/users/login', () => {
             .send({
                 user: {
                     email: 'smoketest@example.com',
-                    password: 'wrong password'
-                }
-            }).expect(401, {
+                    password: 'wrong password',
+                },
+            })
+            .expect(401, {
                 success: false,
-                message: 'Incorrect Password'
+                message: 'Incorrect Password',
             });
     });
 
@@ -55,11 +56,12 @@ describe('POST /api/v1/users/login', () => {
             .send({
                 user: {
                     email: 'unknownuser@example.com',
-                    password: 'came try steady fewer'
-                }
-            }).expect(401, {
+                    password: 'came try steady fewer',
+                },
+            })
+            .expect(401, {
                 success: false,
-                message: 'Unknown User'
+                message: 'Unknown User',
             });
     });
 });
@@ -73,14 +75,14 @@ describe('POST /api/v1/users/register', () => {
                     firstName: 'smoke',
                     lastName: 'test',
                     email: 'newsmoketest@example.com',
-                    password: 'came try steady fewer'
-                }
+                    password: 'came try steady fewer',
+                },
             });
         return (
             expect(response.status).toBe(200),
-                expect(response.body.success).toBe(true),
-                expect(response.body.message).toBe('Registration successful'),
-                expect(response.body.user.token).toBeDefined
+            expect(response.body.success).toBe(true),
+            expect(response.body.message).toBe('Registration successful'),
+            expect(response.body.user.token).toBeDefined
         );
     });
 
@@ -92,11 +94,12 @@ describe('POST /api/v1/users/register', () => {
                     firstName: 'smoke',
                     lastName: 'test',
                     email: 'smoketest@example.com',
-                    password: 'came try steady fewer'
-                }
-            }).expect(409, {
+                    password: 'came try steady fewer',
+                },
+            })
+            .expect(409, {
                 success: false,
-                message: 'Non-Unique Email'
+                message: 'Non-Unique Email',
             });
     });
 });
