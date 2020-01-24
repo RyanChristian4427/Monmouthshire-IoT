@@ -6,7 +6,7 @@
         "serve:prod": "tsc && cross-env NODE_ENV=production node dist/server.js",
         "migration": "./node_modules/.bin/node-pg-migrate -t='migrations' --tsconfig='./tsconfig.json'",
         "test": "jest --forceExit --coverage --verbose --detectOpenHandles",
-        "lint": "eslint src/**/*.{js,ts} --quiet --fix"
+        "lint": "eslint src/**/*.{js,ts} --fix"
     },
     "dependencies": {
         "bcryptjs": "^2.4.3",
@@ -17,8 +17,6 @@
         "node-pg-migrate": "^4.2.1",
         "pg": "^7.17.1",
         "pg-promise": "^10.3.3",
-        "ts-node": "^8.4.1",
-        "typescript": "^3.6.3",
         "winston": "^3.2.1"
     },
     "devDependencies": {
@@ -47,7 +45,9 @@
         "nodemon": "^2.0.1",
         "prettier": "^1.19.1",
         "ts-jest": "^24.1.0",
-        "tsconfig-paths": "^3.9.0"
+        "ts-node": "^8.4.1",
+        "tsconfig-paths": "^3.9.0",
+        "typescript": "^3.6.3"
     },
     "_moduleAliases": {
         "src": "dist/"
