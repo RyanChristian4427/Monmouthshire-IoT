@@ -20,6 +20,11 @@ export const checkToken = (req: Request, res: Response, next: NextFunction): Res
                         success: false,
                         message: 'Access token has expired',
                     });
+                } else if (err.message == 'invalid signature') {
+                    return res.status(401).json({
+                        success: false,
+                        message: 'Access token has invalid signature',
+                    });
                 }
                 return res.status(401).json({
                     success: false,
