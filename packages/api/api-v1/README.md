@@ -1,8 +1,6 @@
-# Express-TypeScript-MongoDB-Template
+# Monmouthshire IoT API Server
 
-This is a boilerplate/template project used to bootstrap a new Express server. 
-
-This template includes TypeScript and MongoDB, as well as boilerplate showing off authentication and a simple post/get request system.
+This is the API server that works to provide data and data storage to the various client applications of the Mounmouthshire IoT project.
 
 ## Getting Started
 
@@ -14,11 +12,12 @@ These instructions will get you a copy of the project up and running on your loc
 NodeJs
 NPM
 Docker (optional)
+PostgreSQL (optional)
 ```
 
 ### Running
 
-A Docker-Compose file is included in the project should you choose to use it. If you do, run from the root directory: 
+A Docker-Compose file is included in the project for easily setting up the database, should you choose to use it. If you do, run from the project directory: 
 
 ```
 docker-compose up --build -d
@@ -32,7 +31,15 @@ Once you have the database prepared, next you will need to install the project d
 npm install
 ```
 
-Depending on your database method, you can then run `npm run serve:dev` for a development environment, or `npm run serve:prod` for a production. By default, the production environment is not hooked up to a database, though MongoDB Atlas would be a recommended way to have a production ready database. The Docker container is automatically set to work with the development profile, should you choose to use it.
+Following this, you will need to run the migrations in your database. Make sure the database URL in [.env](.env) is accurate and run:
+
+```
+npm run migration up
+```
+
+This will run all of the migrations, and this also populates the database with seeding data, ensuring you can start to use the system immediately.
+
+From there, the server can be ran using `npm run serve:dev` or `npm run serve:prod`. The development server uses NoDemon for hot-reloading, while the production server is a more optimized build. 
 
 ## Code Style
 
@@ -48,6 +55,7 @@ npm run lint
 
 * [Express](https://expressjs.com/) - Web Framework Used to Build the API
   * [TypeScript](https://www.typescriptlang.org/) - Language Used
-  * [MongoDB](https://www.mongodb.com/) - Database System Used for Persistence
-  * [Mongoose](https://mongoosejs.com/) - ODM Tool Used Interface with Mongo
+  * [PostgreSQL](https://www.postgresql.org/) - Database System Used for Persistence
+  * [PG-Promise](https://github.com/vitaly-t/pg-promise) - PostgreSQL Interface for Node.js
+  * [Node-PG-Migrate](https://github.com/salsita/node-pg-migrate) - Node Migration System for PostgreSQL
   * [NPM](https://www.npmjs.com/) - Dependency Management Tool

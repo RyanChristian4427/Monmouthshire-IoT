@@ -1,14 +1,6 @@
 import pgPromise from 'pg-promise';
 import { DATABASE_URL } from './secrets';
 
-const pgp = pgPromise({
-    receive: (data) => {
-        camelizeColumns(data);
-    },
-});
-
-export const db = pgp(DATABASE_URL);
-
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const camelizeColumns = (data: any): void => {
     const template = data[0];
@@ -23,3 +15,11 @@ const camelizeColumns = (data: any): void => {
         }
     }
 };
+
+const pgp = pgPromise({
+    receive: (data) => {
+        camelizeColumns(data);
+    },
+});
+
+export const db = pgp(DATABASE_URL);
