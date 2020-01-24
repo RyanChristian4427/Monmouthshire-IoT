@@ -1,3 +1,5 @@
+import 'module-alias/register';
+
 import { app, server } from 'src/app';
 import logger from 'src/util/logger';
 
