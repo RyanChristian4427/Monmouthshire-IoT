@@ -45,7 +45,7 @@ router.post('/users/register', (req: Request, res: Response) => {
             });
         })
         .catch((error) => {
-            if (error.constraint.includes('unique_email')) {
+            if (error.constraint.includes('users_email_key')) {
                 logger.debug(`Registration for user ${registrationDetails.email} has failed due to a non-unique email`);
                 res.status(409).json({
                     success: false,
