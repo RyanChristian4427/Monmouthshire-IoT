@@ -17,17 +17,12 @@ export async function up(pgm: MigrationBuilder): Promise<void> {
         email: {
             type: 'TEXT',
             notNull: true,
+            unique: true,
         },
         hashed_password: {
             type: 'TEXT',
             notNull: true,
         },
-    });
-    pgm.addConstraint('users', 'unique_email', {
-        unique: 'email',
-    });
-    pgm.alterSequence('users_id_seq', {
-        restart: 1,
     });
     pgm.sql(`INSERT INTO users(first_name, last_name, email, hashed_password)
         VALUES ('smoke', 'test', 'smoketest@example.com', '$2b$12$dNetpytUYbAg0Yud55CB.OIIGNACrIPpxZAW4G8md9eman7qdawz2')
