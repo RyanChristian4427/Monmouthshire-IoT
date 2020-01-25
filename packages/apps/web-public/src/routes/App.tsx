@@ -1,21 +1,23 @@
 import preact, { h } from 'preact';
-import { useState } from 'preact/hooks';
+import { useContext, useState } from 'preact/hooks';
 import { getCurrentUrl, route, Route, Router, RouterOnChangeArgs } from 'preact-router';
-import { jwtService } from 'ts-api-toolkit';
 
 import Home from 'routes/home';
 import Login from 'routes/login';
 import Register from 'routes/register';
+import { AuthStoreContext } from 'stores';
 
 export const App: preact.FunctionalComponent = () => {
+    const authStore = useContext(AuthStoreContext);
+
     const [currentUrl, setCurrentUrl] = useState<string>(getCurrentUrl());
 
     const publicRoutes = ['/register', '/login'];
 
     const authGuard = (): void => {
-        if (!publicRoutes.includes(currentUrl) && jwtService.getToken() == null) {
+        if (!publicRoutes.includes(currentUrl) && !authStore.isAuthenticated) {
             // TODO: Necessary until https://github.com/preactjs/preact-router/issues/357 is resolved
-            setTimeout(() => route('/login'));
+            route('/login');
         }
     };
 
