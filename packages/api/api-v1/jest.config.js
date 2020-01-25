@@ -1,4 +1,5 @@
 module.exports = {
+    coveragePathIgnorePatterns: ['<rootDir>/test/common/'],
     globals: {
         'ts-jest': {
             tsConfig: 'tsconfig.json',
@@ -12,6 +13,6 @@ module.exports = {
     transform: {
         '^.+\\.(ts)$': 'ts-jest',
     },
-    testMatch: ['**/test/**/*.test.(ts|js)'],
     testEnvironment: 'node',
+    testMatch: ['**/test/**/*.test.(ts|js)'],
 };
