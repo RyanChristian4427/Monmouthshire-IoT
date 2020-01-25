@@ -13,3 +13,11 @@ export interface RegistrationUser {
         password: string;
     };
 }
+
+export interface User {
+    firstName: string;
+    lastName: string;
+    email: string;
+    token: string;
+    refreshToken: string;
+}
