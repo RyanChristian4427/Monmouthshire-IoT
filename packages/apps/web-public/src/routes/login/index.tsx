@@ -1,30 +1,34 @@
 import preact, { h } from 'preact';
-import { useEffect, useState } from 'preact/hooks';
+import { useContext, useEffect, useState } from 'preact/hooks';
 import { Link, route } from 'preact-router';
+import { observer } from 'mobx-react-lite';
 import { LogIn } from 'react-feather';
 
 import placeholder from 'assets/placeholder.jpg';
 import Footer from 'components/Footer';
-import { login, logout } from 'services/api';
+import { LoginUser } from 'models/User';
+import { AuthStoreContext } from 'stores';
 
 import './style.scss';
 
-const Login: preact.FunctionalComponent = () => {
+const Login: preact.FunctionalComponent = observer(() => {
+    const authStore = useContext(AuthStoreContext);
+
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    const [inProgress, setInProgress] = useState(false);
-    const [errors, setErrors] = useState('');
 
-    useEffect(() => logout());
+    const [errors, setErrors] = useState('');
+    const [inProgress, setInProgress] = useState(false);
+
+    useEffect(() => authStore.logout);
 
     const submitDetails = (): void => {
-        const credentials = { user: { email, password } };
-        setErrors('');
         setInProgress(true);
-        login(credentials).then((result) => {
+        const credentials: LoginUser = { user: { email, password } };
+        authStore.login(credentials).then((errors) => {
             setInProgress(false);
-            if (result) setErrors(result);
-            else route('/');
+            if (errors) setErrors(errors);
+            else if (authStore.isAuthenticated) route('/');
         });
     };
 
@@ -49,7 +53,10 @@ const Login: preact.FunctionalComponent = () => {
                                                 type="email"
                                                 placeholder="Your Email"
                                                 value={email}
-                                                onChange={(e): void => setEmail((e.target as HTMLInputElement).value)}
+                                                onInput={(e): void => {
+                                                    setErrors('');
+                                                    setEmail((e.target as HTMLInputElement).value);
+                                                }}
                                             />
                                         </div>
                                     </div>
@@ -60,20 +67,21 @@ const Login: preact.FunctionalComponent = () => {
                                                 type="password"
                                                 placeholder="Your Password"
                                                 value={password}
-                                                onChange={(e): void =>
-                                                    setPassword((e.target as HTMLInputElement).value)
-                                                }
+                                                onInput={(e): void => {
+                                                    setErrors('');
+                                                    setPassword((e.target as HTMLInputElement).value);
+                                                }}
                                             />
                                         </div>
                                     </div>
                                     <div class="field">
                                         <div class="control">
-                                            <h2 class={'error is-size-5' + (errors ? '' : 'is-hidden')}>{errors}</h2>
+                                            <h2 class="error is-size-5">{errors}</h2>
                                         </div>
                                     </div>
                                     <button
                                         class={
-                                            'button is-block is-coral-light is-large is-fullwidth' +
+                                            'button is-block is-deep-space-sparkle is-large is-fullwidth' +
                                             (inProgress ? ' is-loading' : '')
                                         }
                                         type="button"
@@ -101,6 +109,6 @@ const Login: preact.FunctionalComponent = () => {
             </section>
         </div>
     );
-};
+});
 
 export default Login;
