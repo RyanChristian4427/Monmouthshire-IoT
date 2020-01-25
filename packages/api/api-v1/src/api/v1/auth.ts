@@ -31,9 +31,9 @@ router.post('/users/login', (req: Request, res: Response) => {
 });
 
 router.post('/users/register', (req: Request, res: Response) => {
-    logger.debug('Registration request made');
+    logger.debug('User registration request made');
     const registrationDetails = req.body.user;
-    logger.debug(`Attempting to register ${registrationDetails.email}`);
+    logger.debug(`Attempting to register user: ${registrationDetails.email}`);
 
     register(registrationDetails)
         .then((user) => {
@@ -61,10 +61,10 @@ router.post('/users/register', (req: Request, res: Response) => {
         });
 });
 
-router.post('/home/register', (req: Request, res: Response) => {
-    logger.debug('Registration request made');
+router.post('/homes/register', (req: Request, res: Response) => {
+    logger.debug('Home registration request made');
     const registrationDetails = req.body.user;
-    logger.debug(`Attempting to register ${registrationDetails.email}`);
+    logger.debug(`Attempting to register home: ${registrationDetails.email}`);
 
     homeRegister(registrationDetails)
         .then((user) => {
