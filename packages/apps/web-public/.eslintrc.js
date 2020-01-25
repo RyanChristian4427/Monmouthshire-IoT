@@ -20,7 +20,7 @@ module.exports =  {
         }
     },
     rules:  {
-        'indent': ['warn', 4, { "SwitchCase": 1 }],
+        'indent': ['warn', 4, { "SwitchCase": 1, "ignoredNodes": ["TemplateLiteral > *"] }],
         'react/jsx-indent': ['warn', 4],
         'react/jsx-indent-props': ['warn', 4],
         'react/no-unknown-property': ['error', { ignore: ['class'] }],
@@ -33,4 +33,12 @@ module.exports =  {
         'semi': 'off',
         '@typescript-eslint/semi': ['warn'],
     },
+    overrides: [
+        {
+            files: ["*.js"],
+            rules: {
+                "@typescript-eslint/explicit-function-return-type": "off",
+            }
+        }
+    ]
 };
