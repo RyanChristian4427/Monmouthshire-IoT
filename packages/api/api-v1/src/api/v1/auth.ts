@@ -76,7 +76,7 @@ router.post('/homes/register', (req: Request, res: Response) => {
             });
         })
         .catch((error) => {
-            if (error.constraint.includes('unique_email')) {
+            if (error.constraint.includes('users_email_key')) {
                 logger.debug(`Registration for home ${registrationDetails.email} has failed due to a non-unique email`);
                 res.status(409).json({
                     success: false,
