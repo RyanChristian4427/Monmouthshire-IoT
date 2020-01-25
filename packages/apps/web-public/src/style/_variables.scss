@@ -12,5 +12,6 @@ $theme-silver: #bfbfbf;
 $colors: (
         "whitesmoke-light": (whitesmoke, $theme-coral),
         "whitesmoke-dark": (whitesmoke, $theme-deep-space-sparkle),
-        "coral-light": ($theme-coral, $theme-isabelline)
+        "coral-light": ($theme-coral, $theme-isabelline),
+        "deep-space-sparkle": ($theme-deep-space-sparkle, $theme-isabelline)
 );
