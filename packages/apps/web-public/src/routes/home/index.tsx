@@ -21,7 +21,7 @@ const Home: preact.FunctionalComponent = () => {
                                     <img src={placeholder} alt="He-Man" />
                                 </a>
                                 <span
-                                    class={'navbar-burger burger ' + (burgerClicked ? 'is-active' : '')}
+                                    class={'navbar-burger burger' + (burgerClicked ? ' is-active' : '')}
                                     onClick={(): void => setBurgerClicked(!burgerClicked)}
                                 >
                                     <span />
@@ -29,7 +29,7 @@ const Home: preact.FunctionalComponent = () => {
                                     <span />
                                 </span>
                             </div>
-                            <div class={'navbar-menu ' + (burgerClicked ? 'is-active' : '')}>
+                            <div class={'navbar-menu' + (burgerClicked ? ' is-active' : '')}>
                                 <div class="navbar-end">
                                     <div class="tabs is-right">
                                         <ul>
