@@ -41,7 +41,6 @@ export const homeRegister = (credentials: RegistrationUser): Promise<UserAuth> =
     return new Promise((resolve, reject): void => {
         bcrypt.hash(credentials.password, 8, (error, hash) => {
             credentials.password = hash;
-            console.log(`New password hash: ${hash}`);
 
             if (error) reject(error);
 
