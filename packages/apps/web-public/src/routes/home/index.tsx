@@ -3,7 +3,7 @@ import { useState } from 'preact/hooks';
 import { Link } from 'preact-router';
 
 import placeholder from 'assets/placeholder.jpg';
-import Footer from 'components/footer';
+import Footer from 'components/Footer';
 
 import './style.scss';
 

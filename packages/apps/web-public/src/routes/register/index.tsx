@@ -5,9 +5,9 @@ import { LogIn } from 'react-feather';
 
 import placeholder from 'assets/placeholder.jpg';
 import { logout, register } from 'services/api';
+import Footer from 'components/Footer';
 
 import './style.scss';
-import Footer from 'components/footer';
 
 const Register: preact.FunctionalComponent = () => {
     const [firstName, setFirstName] = useState('');
