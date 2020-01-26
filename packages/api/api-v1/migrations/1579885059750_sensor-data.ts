@@ -35,13 +35,17 @@ export async function up(pgm: MigrationBuilder): Promise<void> {
             type: 'TEXT',
             notNull: true,
         },
+        time: {
+            type: 'TIMESTAMPTZ',
+            notNull: true,
+        },
     });
 
     pgm.sql(`INSERT INTO rooms(user_id, room_name, room_type)
         VALUES (1, 'Master Bedroom', 'Bedroom')`);
 
-    pgm.sql(`INSERT INTO sensor_data(room_id, value, type)
-        VALUES (1, 72, 'Temperature')`);
+    pgm.sql(`INSERT INTO sensor_data(room_id, value, type, time)
+        VALUES (1, 72, 'Temperature', timestamptz('2020-01-26T10:30:23Z'))`);
 }
 
 export async function down(pgm: MigrationBuilder): Promise<void> {
