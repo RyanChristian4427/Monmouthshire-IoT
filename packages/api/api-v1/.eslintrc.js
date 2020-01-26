@@ -13,7 +13,7 @@ module.exports =  {
         'indent': ['warn', 4, { "SwitchCase": 1 }],
         "quotes": "off",
         "@typescript-eslint/quotes": ["warn", "single"],
-        "@typescript-eslint/no-use-before-define": ["warn"],
+        "@typescript-eslint/no-use-before-define": ["off"],
         "arrow-parens": "warn",
         "@typescript-eslint/ban-ts-ignore": ["warn"],
         "@typescript-eslint/interface-name-prefix": "off",
