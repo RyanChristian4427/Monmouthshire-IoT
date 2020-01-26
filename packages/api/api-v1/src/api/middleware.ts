@@ -17,6 +17,7 @@ export const checkToken = (req: Request, res: Response, next: NextFunction): Res
 
             if (!err) {
                 logger.debug(`JWT verification for user ${user} has succeeded`);
+                res.locals.userInfo = decodedToken;
                 next();
             } else {
                 logger.debug(`JWT verification for user ${user} has failed due to ${err.message}`);
