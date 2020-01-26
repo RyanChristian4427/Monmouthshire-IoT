@@ -72,10 +72,16 @@ describe('POST /api/v1/users/register', () => {
                 },
             })
             .end((err, res) => {
-                expect(res.status).toBe(200);
-                expect(res.body.success).toBe(true);
-                expect(res.body.message).toBe('Registration successful');
-                expect(res.body.user.token).toBeDefined();
+                if (res.status == 200) {
+                    expect(res.status).toBe(200);
+                    expect(res.body.success).toBe(true);
+                    expect(res.body.message).toBe('Registration successful');
+                    expect(res.body.user).toBeDefined();
+                } else {
+                    expect(res.status).toBe(409);
+                    expect(res.body.success).toBe(false);
+                    expect(res.body.message).toBe('Non-Unique Email');
+                }
                 done();
             });
     });
@@ -113,11 +119,17 @@ describe('POST /api/v1/homes/register', () => {
                 },
             })
             .end((err, res) => {
-                expect(res.status).toBe(200);
-                expect(res.body.success).toBe(true);
-                expect(res.body.message).toBe('Registration successful');
-                expect(res.body.user).toBeDefined();
-                expect(res.body.user.refreshToken).toBeDefined();
+                if (res.status == 200) {
+                    expect(res.status).toBe(200);
+                    expect(res.body.success).toBe(true);
+                    expect(res.body.message).toBe('Registration successful');
+                    expect(res.body.user).toBeDefined();
+                    expect(res.body.user.refreshToken).toBeDefined();
+                } else {
+                    expect(res.status).toBe(409);
+                    expect(res.body.success).toBe(false);
+                    expect(res.body.message).toBe('Non-Unique Email');
+                }
                 done();
             });
     });
