@@ -15,7 +15,7 @@ describe('POST /api/v1/users/login', () => {
                     password: 'came try steady fewer',
                 },
             })
-            .end(function(err, res) {
+            .end((err, res) => {
                 expect(res.status).toBe(200);
                 expect(res.body.success).toBe(true);
                 expect(res.body.message).toBe('Authentication successful');
@@ -33,7 +33,7 @@ describe('POST /api/v1/users/login', () => {
                     password: 'wrong password',
                 },
             })
-            .end(function(err, res) {
+            .end((err, res) => {
                 expect(res.status).toBe(401);
                 expect(res.body.success).toBe(false);
                 expect(res.body.message).toBe('Incorrect Password');
@@ -50,7 +50,7 @@ describe('POST /api/v1/users/login', () => {
                     password: 'came try steady fewer',
                 },
             })
-            .end(function(err, res) {
+            .end((err, res) => {
                 expect(res.status).toBe(401);
                 expect(res.body.success).toBe(false);
                 expect(res.body.message).toBe('Unknown User');
@@ -71,7 +71,7 @@ describe('POST /api/v1/users/register', () => {
                     password: 'came try steady fewer',
                 },
             })
-            .end(function(err, res) {
+            .end((err, res) => {
                 expect(res.status).toBe(200);
                 expect(res.body.success).toBe(true);
                 expect(res.body.message).toBe('Registration successful');
@@ -91,7 +91,7 @@ describe('POST /api/v1/users/register', () => {
                     password: 'came try steady fewer',
                 },
             })
-            .end(function(err, res) {
+            .end((err, res) => {
                 expect(res.status).toBe(409);
                 expect(res.body.success).toBe(false);
                 expect(res.body.message).toBe('Non-Unique Email');
@@ -112,7 +112,7 @@ describe('POST /api/v1/homes/register', () => {
                     password: 'came try steady fewer',
                 },
             })
-            .end(function(err, res) {
+            .end((err, res) => {
                 expect(res.status).toBe(200);
                 expect(res.body.success).toBe(true);
                 expect(res.body.message).toBe('Registration successful');
@@ -133,7 +133,7 @@ describe('POST /api/v1/homes/register', () => {
                     password: 'came try steady fewer',
                 },
             })
-            .end(function(err, res) {
+            .end((err, res) => {
                 expect(res.status).toBe(409);
                 expect(res.body.success).toBe(false);
                 expect(res.body.message).toBe('Non-Unique Email');

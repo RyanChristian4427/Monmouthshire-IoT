@@ -11,7 +11,7 @@ describe('GET /api/v1/example', () => {
         chai.request(app)
             .get('/api/v1/example')
             .set('Authorization', `Bearer ${await login()}`)
-            .end(function(err, res) {
+            .end((err, res) => {
                 expect(res.status).toBe(204);
                 done();
             });
@@ -25,7 +25,7 @@ describe('GET /api/v1/example', () => {
                 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJzbW9rZXRlc3RAZXhhbXBsZS5jb2' +
                     '0iLCJpYXQiOjE1Nzk5MDQxMTQsImV4cCI6MTU3OTg5MDUxNH0.pEmR08Kx07udjI5UdG-NvO9TeZ-8Dg-p9yblXjiS4Lk',
             )
-            .end(function(err, res) {
+            .end((err, res) => {
                 expect(res.status).toBe(401);
                 expect(res.body.success).toBe(false);
                 expect(res.body.message).toBe('Access token has expired');
@@ -41,7 +41,7 @@ describe('GET /api/v1/example', () => {
                 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTAsImVtYWlsIjoic21va2V0ZXN0QGV4YW1wbGUuY2' +
                     '9tIiwiaWF0IjoxNTc5OTA0MTE0LCJleHAiOjE1Nzk5OTA1MTR9.I-aibVJ6N7DcvIHefaJlhblDErXqKt5e4jTW7H_8ugI',
             )
-            .end(function(err, res) {
+            .end((err, res) => {
                 expect(res.status).toBe(401);
                 expect(res.body.success).toBe(false);
                 expect(res.body.message).toBe('Access token has invalid signature');
@@ -54,7 +54,7 @@ describe('GET /api/v1/example', () => {
         chai.request(app)
             .get('/api/v1/example')
             .set('Authorization', 'Bearer Obviously_Malformed_JWT')
-            .end(function(err, res) {
+            .end((err, res) => {
                 expect(res.status).toBe(401);
                 expect(res.body.success).toBe(false);
                 expect(res.body.message).toBe('Access token is not valid');
@@ -65,7 +65,7 @@ describe('GET /api/v1/example', () => {
     it('should return 401 Unauthorized with No Access Token Signature', async (done) => {
         chai.request(app)
             .get('/api/v1/example')
-            .end(function(err, res) {
+            .end((err, res) => {
                 expect(res.status).toBe(401);
                 expect(res.body.success).toBe(false);
                 expect(res.body.message).toBe('Access token is not supplied');
