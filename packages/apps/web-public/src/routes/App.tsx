@@ -7,7 +7,7 @@ import Login from 'routes/login';
 import Register from 'routes/register';
 import { AuthStoreContext } from 'stores';
 
-export const App: preact.FunctionalComponent = () => {
+const App: preact.FunctionalComponent = () => {
     const authStore = useContext(AuthStoreContext);
 
     const [currentUrl, setCurrentUrl] = useState<string>(getCurrentUrl());
@@ -32,3 +32,5 @@ export const App: preact.FunctionalComponent = () => {
         </div>
     );
 };
+
+export default App;
