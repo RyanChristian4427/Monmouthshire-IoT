@@ -11,13 +11,14 @@ export async function up(pgm: MigrationBuilder): Promise<void> {
             notNull: true,
             references: 'users(id)',
         },
-        room_name: {
+        name: {
             type: 'TEXT',
             notNull: true,
         },
-        room_type: {
-            type: 'TEXT',
+        type: {
+            type: 'SMALLINT',
             notNull: true,
+            check: 'type BETWEEN 0 AND 4',
         },
     });
     pgm.createTable('sensor_data', {
@@ -32,8 +33,9 @@ export async function up(pgm: MigrationBuilder): Promise<void> {
             notNull: true,
         },
         type: {
-            type: 'TEXT',
+            type: 'SMALLINT',
             notNull: true,
+            check: 'type BETWEEN 0 AND 5',
         },
         time: {
             type: 'TIMESTAMPTZ',
@@ -41,11 +43,20 @@ export async function up(pgm: MigrationBuilder): Promise<void> {
         },
     });
 
-    pgm.sql(`INSERT INTO rooms(user_id, room_name, room_type)
-        VALUES (1, 'Master Bedroom', 'Bedroom')`);
+    pgm.sql(`INSERT INTO rooms(user_id, name, type)
+        VALUES (1, 'Master Bedroom', 1),
+               (1, 'Guest Bedroom', 1)
+        `);
 
     pgm.sql(`INSERT INTO sensor_data(room_id, value, type, time)
-        VALUES (1, 72, 'Temperature', timestamptz('2020-01-26T10:30:23Z'))`);
+        VALUES (1, 72, 0, timestamptz('2020-01-26T10:30:23Z')),
+               (2, 67, 0, timestamptz('2020-01-26T10:30:24Z')),
+               (1, 74, 0, timestamptz('2020-01-26T10:30:25Z')),
+               (2, 69, 0, timestamptz('2020-01-26T10:30:26Z')),
+               (1, 71, 0, timestamptz('2020-01-26T10:30:27Z')),
+               (2, 70, 0, timestamptz('2020-01-26T10:30:28Z')),
+               (1, 71, 0, timestamptz('2020-01-26T10:30:29Z'))
+        `);
 }
 
 export async function down(pgm: MigrationBuilder): Promise<void> {
