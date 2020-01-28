@@ -10,12 +10,12 @@ router.get('/sensors/all', checkToken, (req: Request, res: Response) => {
     logger.debug(`Sensor data request made by user ${res.locals.userInfo.email}`);
 
     getSensors(res.locals.userInfo.email)
-        .then((user) => {
+        .then((data) => {
             logger.debug(`Sensor data request for user ${res.locals.userInfo.email} was successful`);
             res.status(200).json({
                 success: true,
                 message: 'Data retrieval successful',
-                user: user,
+                data: data,
             });
         })
         .catch((error) => {
