@@ -45,7 +45,8 @@ export async function up(pgm: MigrationBuilder): Promise<void> {
 
     pgm.sql(`INSERT INTO rooms(user_id, name, type)
         VALUES (1, 'Master Bedroom', 1),
-               (1, 'Guest Bedroom', 1)
+               (1, 'Guest Bedroom', 1),
+               (1, 'Living Room', 3)
         `);
 
     pgm.sql(`INSERT INTO sensor_data(room_id, value, type, time)
@@ -54,8 +55,11 @@ export async function up(pgm: MigrationBuilder): Promise<void> {
                (1, 74, 0, timestamptz('2020-01-26T10:30:25Z')),
                (2, 69, 0, timestamptz('2020-01-26T10:30:26Z')),
                (1, 71, 0, timestamptz('2020-01-26T10:30:27Z')),
-               (2, 70, 0, timestamptz('2020-01-26T10:30:28Z')),
-               (1, 71, 0, timestamptz('2020-01-26T10:30:29Z'))
+               (3, 70, 0, timestamptz('2020-01-26T10:30:28Z')),
+               (1, 71, 0, timestamptz('2020-01-26T10:30:29Z')),
+               (1, 63, 4, timestamptz('2020-01-26T10:30:27Z')),
+               (2, 55, 4, timestamptz('2020-01-26T10:30:28Z')),
+               (3, 50, 4, timestamptz('2020-01-26T10:30:29Z'))
         `);
 }
 
