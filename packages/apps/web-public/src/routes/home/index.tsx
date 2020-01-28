@@ -50,7 +50,7 @@ const Home: preact.FunctionalComponent = () => {
                     <div class="container has-text-centered">
                         <div class="columns is-vcentered">
                             <div class="column is-5">
-                                <figure class="image is-4by3">
+                                <figure class="image">
                                     <img src="https://picsum.photos/800/600/?random" alt="Description" />
                                 </figure>
                             </div>
