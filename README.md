@@ -18,7 +18,7 @@ As with any ambitious project, we took some risks and tried some solutions that 
 * [Express](https://expressjs.com/) - Web Framework used to Build the API
   * [TypeScript](https://www.typescriptlang.org/) - Language used
   * [PostgreSQL](https://www.postgresql.org/) - Database System used for Persistence
-  * [Knex.js](http://knexjs.org/) - SQL Query Builder used to Interface with Postgres 
+  * [pg-promise](http://vitaly-t.github.io/pg-promise/index.html) - SQL Query Builder used to Interface with Postgres 
   * [NPM](https://www.npmjs.com/) - Dependency Management Tool
 
 ## Authors
