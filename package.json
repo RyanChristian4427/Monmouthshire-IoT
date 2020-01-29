@@ -1,6 +1,9 @@
 {
   "name": "root",
   "private": true,
+  "scripts": {
+    "serve": "lerna run serve:dev"
+  },
   "devDependencies": {
     "lerna": "^3.20.2"
   }
