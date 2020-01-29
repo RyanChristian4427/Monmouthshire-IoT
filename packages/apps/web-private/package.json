@@ -3,7 +3,7 @@
     "version": "0.1.0",
     "private": true,
     "scripts": {
-        "serve:dev": "PORT=3000 preact watch",
+        "serve:dev": "PORT=3001 preact watch",
         "serve:prod": "npm run build && preact serve",
         "build": "preact build",
         "lint": "eslint src/**/*.{js,ts,tsx} --quiet --fix"
