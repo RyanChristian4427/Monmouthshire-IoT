@@ -13,7 +13,7 @@ if ((module as any).hot) {
     require('preact/debug');
 }
 
-export const App: preact.FunctionalComponent = () => {
+const App: preact.FunctionalComponent = () => {
     const [currentUrl, setCurrentUrl] = useState<string>(getCurrentUrl());
 
     const publicRoutes = ['/register', '/login'];
@@ -21,7 +21,7 @@ export const App: preact.FunctionalComponent = () => {
     const authGuard = (): void => {
         if (!publicRoutes.includes(currentUrl) && jwtService.getToken() == null) {
             // TODO: Necessary until https://github.com/preactjs/preact-router/issues/357 is resolved
-            setTimeout(() => route('/login'));
+            route('/login');
         }
     };
 
@@ -36,3 +36,5 @@ export const App: preact.FunctionalComponent = () => {
         </div>
     );
 };
+
+export default App;
