@@ -4,10 +4,10 @@ import { Link, route } from 'preact-router';
 import { LogIn } from 'react-feather';
 
 import placeholder from 'assets/placeholder.jpg';
+import Footer from 'components/Footer';
 import { login, logout } from 'services/api';
 
 import './style.scss';
-import Footer from 'components/footer';
 
 const Login: preact.FunctionalComponent = () => {
     const [email, setEmail] = useState('');
@@ -22,6 +22,7 @@ const Login: preact.FunctionalComponent = () => {
         setErrors('');
         setInProgress(true);
         login(credentials).then((result) => {
+            console.log(result);
             setInProgress(false);
             if (result) setErrors(result);
             else route('/');

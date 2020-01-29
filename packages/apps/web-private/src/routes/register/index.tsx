@@ -4,10 +4,10 @@ import { Link, route } from 'preact-router';
 import { LogIn } from 'react-feather';
 
 import placeholder from 'assets/placeholder.jpg';
+import Footer from 'components/Footer';
 import { logout, register } from 'services/api';
 
 import './style.scss';
-import Footer from 'components/footer';
 
 const Register: preact.FunctionalComponent = () => {
     const [firstName, setFirstName] = useState('');
