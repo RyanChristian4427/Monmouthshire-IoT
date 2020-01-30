@@ -1,0 +1,22 @@
+{
+  "name": "@core/types",
+  "version": "0.1.0",
+  "description": "Common Types Used Across Packages",
+  "private": true,
+  "main": "index.d.ts",
+  "scripts": {
+    "lint": "eslint src/**/*.{js,ts,tsx} --quiet --fix"
+  },
+  "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^2.18.0",
+    "@typescript-eslint/parser": "^2.18.0",
+    "eslint": "^6.8.0",
+    "eslint-config-prettier": "^6.10.0",
+    "eslint-plugin-prettier": "^3.1.2",
+    "prettier": "^1.19.1",
+    "typescript": "^3.7.5"
+  },
+  "peerDependencies": {
+    "typescript": "*"
+  }
+}
