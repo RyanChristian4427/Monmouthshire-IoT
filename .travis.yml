@@ -1,14 +1,14 @@
 language: node_js
-node_js: 
+node_js:
   - "node"
 
 services:
   - docker
 
 install:
+  - npx lerna bootstrap
   - cd packages/api/api-v1
   - docker-compose up --build -d
-  - npm install
   - npm run migration up
 
 jobs:
