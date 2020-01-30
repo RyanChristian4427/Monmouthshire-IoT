@@ -1,6 +1,7 @@
-import { RoomResponse } from 'src/models/Room';
+import { SensorType } from '@core/types';
+import { RoomResponse } from '@core/types';
+
 import { getAllSensorData, QueryRow } from 'src/db/sensorRepository';
-import { SensorType } from 'src/models/Sensor';
 
 export const getSensors = (email: string): Promise<RoomResponse[]> => {
     return new Promise((resolve, reject): void => {
