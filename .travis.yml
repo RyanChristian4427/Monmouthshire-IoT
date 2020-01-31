@@ -6,7 +6,7 @@ services:
   - docker
 
 install:
-  - docker-compose -f packages/api/api-v1/docker-compose.yml up --build -d
+  - docker-compose -f packages/api/docker-compose.yml up --build -d
   - npm ci
   - npx lerna bootstrap --hoist
   - npm run migration:up
