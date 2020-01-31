@@ -3,7 +3,7 @@
   "private": true,
   "scripts": {
     "serve": "lerna run serve:dev",
-    "test": "lerna run test",
+    "test": "lerna exec -- npm run test",
     "migration:up": "lerna run migration -- up",
     "lint": "lerna run lint"
   },
