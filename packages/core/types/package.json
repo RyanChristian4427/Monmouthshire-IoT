@@ -1,10 +1,12 @@
 {
-  "name": "@core/types",
+  "name": "@monmouthshire-iot/types",
   "version": "0.1.0",
   "description": "Common Types Used Across Packages",
   "private": true,
-  "main": "index.d.ts",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
   "scripts": {
+    "build": "tsc",
     "lint": "eslint *.d.ts --quiet --fix"
   },
   "devDependencies": {

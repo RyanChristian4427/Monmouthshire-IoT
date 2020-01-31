@@ -1,5 +1,4 @@
-import { SensorType } from '@core/types';
-import { RoomResponse } from '@core/types';
+import { SensorType, RoomResponse } from '@monmouthshire-iot/types';
 
 import { getAllSensorData, QueryRow } from 'src/db/sensorRepository';
 

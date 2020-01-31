@@ -18,7 +18,7 @@
         "ts-api-toolkit": "^1.0.3"
     },
     "devDependencies": {
-        "@core/types": "^0.1.0",
+        "@monmouthshire-iot/types": "^0.1.0",
         "@types/webpack-env": "^1.15.0",
         "@typescript-eslint/eslint-plugin": "^2.18.0",
         "@typescript-eslint/parser": "^2.18.0",
