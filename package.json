@@ -2,7 +2,9 @@
   "name": "root",
   "private": true,
   "scripts": {
-    "serve": "lerna run serve:dev"
+    "serve": "lerna run serve:dev",
+    "test": "lerna run test",
+    "migration:up": "lerna run migration -- up"
   },
   "devDependencies": {
     "lerna": "^3.20.2"
