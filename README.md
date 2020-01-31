@@ -20,11 +20,12 @@ As with any ambitious project, we took some risks and tried some solutions that 
   * [PostgreSQL](https://www.postgresql.org/) - Database System used for Persistence
   * [pg-promise](http://vitaly-t.github.io/pg-promise/index.html) - SQL Query Builder used to Interface with Postgres 
   * [NPM](https://www.npmjs.com/) - Dependency Management Tool
+* [Node-OpenZWave-Shared](https://github.com/OpenZWave/node-openzwave-shared) - Library used to Interface with Z-Wave Sensors
 
 ## Authors
 
 * **Ryan Christian** - *React and Express* - [Ryan Christian](https://github.com/RyanChristian4427)
-* **Lauren Heymer** - *IoT Service, with some React and Express* - [Lauren Heymer](https://github.com/renHeymer)
+* **Lauren Heymer** - *IoT Service, with React and Express* - [Lauren Heymer](https://github.com/renHeymer)
 * **James Buckland** - *Very minor Express work*
 * **Owen Lever** - *No contributions made*
 
