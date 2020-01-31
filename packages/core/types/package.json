@@ -7,7 +7,7 @@
   "types": "dist/index.d.ts",
   "scripts": {
     "build": "tsc",
-    "lint": "eslint *.d.ts --quiet --fix"
+    "lint": "eslint src/**/*.ts --quiet --fix"
   },
   "devDependencies": {
     "@typescript-eslint/eslint-plugin": "^2.18.0",
