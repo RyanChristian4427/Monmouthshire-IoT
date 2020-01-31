@@ -3,52 +3,30 @@ import bcrypt from 'bcryptjs';
 import { LoginUser, RegistrationUser, toUserAuth, UserAuth } from 'src/models/User';
 import { getUser, registerHome, registerUser } from 'src/db/authRepository';
 
-export const checkCredentials = (credentials: LoginUser): Promise<UserAuth> => {
-    return new Promise((resolve, reject): void => {
-        getUser(credentials)
-            .then((user) => {
-                bcrypt.compare(credentials.password, user.hashedPassword, (error, success) => {
-                    if (success) resolve(toUserAuth(user));
-
-                    if (error) reject(error);
-                    else reject('Incorrect Password');
-                });
-            })
-            .catch((error) => {
-                if (error.received == 0) reject('Unknown User');
-                else reject(error);
-            });
+export const checkCredentials = async (credentials: LoginUser): Promise<UserAuth> => {
+    const user = await getUser(credentials).catch((error) => {
+        if (error.received == 0) throw 'Unknown User';
+        else throw error;
     });
+
+    if (await bcrypt.compare(credentials.password, user.hashedPassword)) return toUserAuth(user);
+    else throw 'Incorrect Password';
 };
 
-export const register = (credentials: RegistrationUser): Promise<UserAuth> => {
-    return new Promise((resolve, reject): void => {
-        bcrypt.hash(credentials.password, 8, (error, hash) => {
-            credentials.password = hash;
-
-            if (error) reject(error);
-
-            registerUser(credentials)
-                .then((user) => resolve(toUserAuth(user)))
-                .catch((error) => {
-                    reject(error);
-                });
-        });
+export const register = async (credentials: RegistrationUser): Promise<UserAuth> => {
+    credentials.password = await bcrypt.hash(credentials.password, 8);
+    const user = await registerUser(credentials).catch((error) => {
+        throw error;
     });
+
+    if (user) return toUserAuth(user);
 };
 
-export const homeRegister = (credentials: RegistrationUser): Promise<UserAuth> => {
-    return new Promise((resolve, reject): void => {
-        bcrypt.hash(credentials.password, 8, (error, hash) => {
-            credentials.password = hash;
-
-            if (error) reject(error);
-
-            registerHome(credentials)
-                .then((user) => resolve(toUserAuth(user)))
-                .catch((error) => {
-                    reject(error);
-                });
-        });
+export const homeRegister = async (credentials: RegistrationUser): Promise<UserAuth> => {
+    credentials.password = await bcrypt.hash(credentials.password, 8);
+    const user = await registerHome(credentials).catch((error) => {
+        throw error;
     });
+
+    if (user) return toUserAuth(user);
 };
