@@ -6,10 +6,10 @@ services:
   - docker
 
 install:
-  - npx lerna bootstrap
-  - cd packages/api/api-v1
-  - docker-compose up --build -d
-  - npm run migration up
+  - docker-compose -f packages/api/api-v1/docker-compose.yml up --build -d
+  - npm ci
+  - npx lerna bootstrap --hoist
+  - npm run migration:up
 
 jobs:
   include:
