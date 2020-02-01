@@ -7,7 +7,7 @@
         "strict": true,
         "noImplicitAny": true,
         "moduleResolution": "node",
-        "baseUrl": "src/"
+        "baseUrl": "."
     },
     "include": ["src"],
     "exclude": ["node_modules"]

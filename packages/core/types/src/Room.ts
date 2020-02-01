@@ -1,4 +1,4 @@
-import { SensorDataResponse } from 'Sensor';
+import { SensorDataResponse } from './Sensor';
 
 export interface Room {
     id: number;
