@@ -1,9 +1,9 @@
 {
     "compilerOptions": {
-        "allowSyntheticDefaultImports": true,
+        "target": "ES6",
+        "module": "commonjs",
         "baseUrl": ".",
         "esModuleInterop": true,
-        "module": "commonjs",
         "moduleResolution": "node",
         "noImplicitAny": true,
         "outDir": "dist",
@@ -18,8 +18,7 @@
                 "../core/*/src"
             ]
         },
-        "sourceMap": true,
-        "target": "es6"
+        "sourceMap": true
     },
     "include": [
         "src/**/*"
