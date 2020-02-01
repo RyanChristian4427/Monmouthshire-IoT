@@ -9,6 +9,7 @@ module.exports = {
     moduleNameMapper: {
         '^src/(.*)$': '<rootDir>/src/$1',
         '^test/(.*)$': '<rootDir>/test/$1',
+        '^@core/(.*)$': '<rootDir>/../core/$1/src',
     },
     transform: {
         '^.+\\.(ts)$': 'ts-jest',
