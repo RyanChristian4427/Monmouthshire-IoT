@@ -1,3 +1,5 @@
+import { resolve } from 'path';
+
 export default {
     /**
      * Function that mutates the original webpack config.
@@ -14,6 +16,8 @@ export default {
 
         // Sets default import to 'src/'
         config.resolve.modules.push(env.src);
+
+        config.resolve.alias['@core/types'] = resolve(__dirname, '../../core/types/src');
 
         if (!env.isProd) {
             config.devServer.proxy = [
