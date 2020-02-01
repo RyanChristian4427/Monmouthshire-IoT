@@ -11,8 +11,8 @@
         "noImplicitAny": true,
         "outDir": "dist",
         "paths": {
-            "@core/types": [
-                "../../core/types/src"
+            "@core/*": [
+                "../../../core/*/src"
             ]
         },
         "sourceMap": true,
