@@ -13,7 +13,7 @@ router.post('/users/login', async (req: Request, res: Response) => {
     logger.debug(`Attempting to authenticate ${credentials.email}`);
 
     const user = await checkCredentials(credentials).catch((error) => {
-        logger.debug(`Authentication for user ${credentials.email} has failed due to ${error.toString()}`);
+        logger.debug(`Authentication for user ${credentials.email} has failed due to ${error}`);
         res.status(401).json({
             success: false,
             message: error,
