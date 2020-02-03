@@ -1,11 +1,17 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-var SensorType;
-(function (SensorType) {
-    SensorType[SensorType["temperature"] = 0] = "temperature";
-    SensorType[SensorType["luminance"] = 1] = "luminance";
-    SensorType[SensorType["motion"] = 2] = "motion";
-    SensorType[SensorType["ultraviolet"] = 3] = "ultraviolet";
-    SensorType[SensorType["humidity"] = 4] = "humidity";
-    SensorType[SensorType["electricFlow"] = 5] = "electricFlow";
-})(SensorType = exports.SensorType || (exports.SensorType = {}));
+var SensorDataType;
+(function (SensorDataType) {
+    SensorDataType[SensorDataType["temperature"] = 0] = "temperature";
+    SensorDataType[SensorDataType["luminance"] = 1] = "luminance";
+    SensorDataType[SensorDataType["motion"] = 2] = "motion";
+    SensorDataType[SensorDataType["ultraviolet"] = 3] = "ultraviolet";
+    SensorDataType[SensorDataType["humidity"] = 4] = "humidity";
+    SensorDataType[SensorDataType["electricFlow"] = 5] = "electricFlow";
+})(SensorDataType = exports.SensorDataType || (exports.SensorDataType = {}));
+var SensorHardwareType;
+(function (SensorHardwareType) {
+    SensorHardwareType["multiSensor"] = "multiSensor";
+    SensorHardwareType["smartSwitch"] = "smartSwitch";
+    SensorHardwareType["zStickGen5"] = "Z-Stick Gen5";
+})(SensorHardwareType = exports.SensorHardwareType || (exports.SensorHardwareType = {}));
