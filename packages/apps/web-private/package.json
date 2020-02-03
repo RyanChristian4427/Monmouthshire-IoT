@@ -1,5 +1,5 @@
 {
-    "name": "app-private",
+    "name": "web-private",
     "version": "0.1.0",
     "private": true,
     "scripts": {
