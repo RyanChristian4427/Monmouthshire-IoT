@@ -2,7 +2,9 @@
   "name": "root",
   "private": true,
   "scripts": {
-    "serve": "lerna run serve:dev",
+    "serve:public": "lerna run serve:dev --scope '{api-v1,web-public}'",
+    "serve:private": "lerna run serve:dev --scope web-private",
+    "serve:all": "lerna run serve:dev",
     "test": "lerna exec -- npm run test",
     "migration:up": "lerna run migration -- up",
     "lint": "lerna run lint"

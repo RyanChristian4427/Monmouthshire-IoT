@@ -9,6 +9,8 @@ The `improved` branch of this project contains the updates I applied after the p
 
 As with any ambitious project, we took some risks and tried some solutions that turned out to cause pain points or were simply sub-optimal. The `improved` branch is my way of acknowledging those short comings and redesigning the project using the experience I've gained.
 
+Please see [running.md](running.md) for instructions on how to build the project in various environments.
+
 ## Built With
 
 * [Preact](https://reactjs.org/) - Web Library used to Build the Clients
