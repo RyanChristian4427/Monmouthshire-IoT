@@ -3,7 +3,10 @@
   "version": "0.1.0",
   "description": "Common Types Used Across Packages",
   "private": true,
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
   "scripts": {
+    "build": "tsc",
     "lint": "eslint src/**/*.ts --quiet --fix"
   },
   "devDependencies": {
@@ -14,8 +17,5 @@
     "eslint-plugin-prettier": "^3.1.2",
     "prettier": "^1.19.1",
     "typescript": "^3.7.5"
-  },
-  "peerDependencies": {
-    "typescript": "*"
   }
 }

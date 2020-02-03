@@ -13,9 +13,6 @@
             ],
             "test/*": [
                 "test/*"
-            ],
-            "@core/*": [
-                "../core/*/src"
             ]
         },
         "sourceMap": true
