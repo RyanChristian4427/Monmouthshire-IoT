@@ -1,11 +1,11 @@
-# `@monmouthshire-iot/core`
+# `@core/types`
 
 > TODO: description
 
 ## Usage
 
 ```
-const core = require('@monmouthshire-iot/core');
+const core = require('@core/types');
 
 // TODO: DEMONSTRATE API
 ```
