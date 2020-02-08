@@ -3,8 +3,6 @@ import { useContext, useState } from 'preact/hooks';
 import { getCurrentUrl, route, Route, Router, RouterOnChangeArgs } from 'preact-router';
 
 import Home from 'routes/home';
-import Login from 'routes/login';
-import Register from 'routes/register';
 import { AuthStoreContext } from 'stores';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -32,8 +30,6 @@ const App: preact.FunctionalComponent = () => {
             {authGuard()}
             <Router onChange={(e: RouterOnChangeArgs): void => setCurrentUrl(e.url)}>
                 <Route path="/" component={Home} />
-                <Route path="/login" component={Login} />
-                <Route path="/register" component={Register} />
             </Router>
         </div>
     );
