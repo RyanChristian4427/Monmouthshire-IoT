@@ -1,4 +1,4 @@
-import preact, { h } from 'preact';
+import { FunctionalComponent, h } from 'preact';
 import { useEffect, useState } from 'preact/hooks';
 import { Link, route } from 'preact-router';
 import { LogIn } from 'react-feather';
@@ -9,7 +9,7 @@ import { login, logout } from 'services/api';
 
 import './style.scss';
 
-const Login: preact.FunctionalComponent = () => {
+const Login: FunctionalComponent = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [inProgress, setInProgress] = useState(false);

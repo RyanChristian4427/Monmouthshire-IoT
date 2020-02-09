@@ -1,4 +1,4 @@
-import preact, { h } from 'preact';
+import { FunctionalComponent, h } from 'preact';
 import { useState } from 'preact/hooks';
 import { Link } from 'preact-router';
 
@@ -20,7 +20,7 @@ const SensorList: Array<Sensor> = [
     { nodeId: 7, name: 'Sensor 8', roomType: RoomType.None, hardwareType: HardwareType.smartSwitch },
 ];
 
-const Home: preact.FunctionalComponent = () => {
+const Home: FunctionalComponent = () => {
     const [activeSensor, setActiveSensor] = useState(-1);
     const [burgerClicked, setBurgerClicked] = useState(false);
 

@@ -1,4 +1,4 @@
-import preact, { h } from 'preact';
+import { FunctionalComponent, h } from 'preact';
 
 import { Sensor } from 'models/Sensor';
 
@@ -11,7 +11,7 @@ interface IProps {
     onClick: (index: number) => void;
 }
 
-const SensorCard: preact.FunctionalComponent<IProps> = (props: IProps) => {
+const SensorCard: FunctionalComponent<IProps> = (props: IProps) => {
     const handleOnClick = (): void => {
         props.onClick(props.sensorKey);
     };
