@@ -18,7 +18,7 @@ const Register: preact.FunctionalComponent = observer(() => {
     const [errors, setErrors] = useState('');
     const [inProgress, setInProgress] = useState(false);
 
-    useEffect(() => authStore.logout);
+    useEffect(() => authStore.logout, []);
 
     const submitDetails = (): void => {
         setInProgress(true);
