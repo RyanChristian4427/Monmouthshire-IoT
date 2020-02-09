@@ -1,4 +1,4 @@
-import preact, { h } from 'preact';
+import { FunctionalComponent, h } from 'preact';
 import { useState } from 'preact/hooks';
 import { Link } from 'preact-router';
 
@@ -6,7 +6,7 @@ import placeholder from 'assets/placeholder.jpg';
 
 import './style.scss';
 
-const Navbar: preact.FunctionalComponent = () => {
+const Navbar: FunctionalComponent = () => {
     const [burgerClicked, setBurgerClicked] = useState(false);
 
     return (

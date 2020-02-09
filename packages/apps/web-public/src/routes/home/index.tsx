@@ -1,11 +1,11 @@
-import preact, { h } from 'preact';
+import { FunctionalComponent, h } from 'preact';
 
 import Footer from 'components/Footer';
 import Navbar from 'components/Navbar';
 
 import './style.scss';
 
-const Home: preact.FunctionalComponent = () => {
+const Home: FunctionalComponent = () => {
     return (
         <div class="home-page">
             <section class="hero is-fullheight is-default is-bold">
