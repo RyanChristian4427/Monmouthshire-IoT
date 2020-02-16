@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "scripts": {
     "serve:dev": "nodemon server.ts",
-    "serve:prod": "tsc && cross-env NODE_ENV=production node dist/server.js",
+    "serve:prod": "tsc && NODE_ENV=production node dist/server.js",
     "migration": "./node_modules/.bin/node-pg-migrate -t='migrations' --tsconfig='./tsconfig.json'",
     "test": "jest --forceExit --coverage --verbose --detectOpenHandles"
   },
@@ -33,7 +33,6 @@
     "@types/winston": "^2.4.4",
     "chai": "^4.2.0",
     "chai-http": "^4.3.0",
-    "cross-env": "^6.0.3",
     "jest": "^24.9.0",
     "nodemon": "^2.0.1",
     "ts-jest": "^24.3.0",
