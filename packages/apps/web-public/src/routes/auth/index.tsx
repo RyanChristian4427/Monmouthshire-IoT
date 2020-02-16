@@ -1,7 +1,7 @@
 import { Fragment, FunctionalComponent, h } from 'preact';
 import { useEffect, useState } from 'preact/hooks';
 import { getCurrentUrl, Link } from 'preact-router';
-import { observer } from 'mobx-react-lite';
+import { observer as mobxObserver } from 'mobx-react-lite';
 
 import avatar from 'assets/placeholder.jpg';
 import Footer from 'components/Footer';
@@ -9,6 +9,10 @@ import Login from 'routes/auth/login';
 import Register from 'routes/auth/register';
 
 import './style.scss';
+
+function observer<P>(props: P): any {
+    return mobxObserver(props as any);
+}
 
 const Auth: FunctionalComponent = observer(() => {
     const [title, setTitle] = useState<string>('');

@@ -1,11 +1,15 @@
 import { FunctionalComponent, h } from 'preact';
 import { useContext, useEffect, useState } from 'preact/hooks';
 import { route } from 'preact-router';
-import { observer } from 'mobx-react-lite';
+import { observer as mobxObserver } from 'mobx-react-lite';
 import { LogIn } from 'preact-feather';
 
 import { RegistrationUser } from 'models/User';
 import { AuthStoreContext } from 'stores';
+
+function observer<P>(props: P): any {
+    return mobxObserver(props as any);
+}
 
 const Register: FunctionalComponent = observer(() => {
     const authStore = useContext(AuthStoreContext);
@@ -24,7 +28,6 @@ const Register: FunctionalComponent = observer(() => {
         setInProgress(true);
         const credentials: RegistrationUser = { user: { firstName, lastName, email, password } };
 
-        // TODO: No type hints here? login() was perfectly happy to take registration credentials?
         authStore.register(credentials).then((errors) => {
             setInProgress(false);
             if (errors) setErrors(errors);
