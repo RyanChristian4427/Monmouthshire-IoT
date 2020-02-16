@@ -1,7 +1,7 @@
 import { FunctionalComponent, h } from 'preact';
 import { useEffect, useState } from 'preact/hooks';
 import { Link, route } from 'preact-router';
-import { LogIn } from 'react-feather';
+import { LogIn } from 'preact-feather';
 
 import placeholder from 'assets/placeholder.jpg';
 import Footer from 'components/Footer';
