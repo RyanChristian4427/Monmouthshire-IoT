@@ -2,7 +2,7 @@
   "name": "api-v1",
   "version": "0.1.0",
   "scripts": {
-    "serve:dev": "npm run lint && nodemon server.ts",
+    "serve:dev": "nodemon server.ts",
     "serve:prod": "tsc && cross-env NODE_ENV=production node dist/server.js",
     "migration": "./node_modules/.bin/node-pg-migrate -t='migrations' --tsconfig='./tsconfig.json'",
     "test": "jest --forceExit --coverage --verbose --detectOpenHandles"
@@ -31,7 +31,6 @@
     "@types/node-pg-migrate": "^2.3.1",
     "@types/pg-promise": "^5.4.3",
     "@types/winston": "^2.4.4",
-    "acorn": "^7.1.0",
     "chai": "^4.2.0",
     "chai-http": "^4.3.0",
     "cross-env": "^6.0.3",
