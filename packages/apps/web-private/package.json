@@ -4,8 +4,8 @@
   "private": true,
   "scripts": {
     "serve:dev": "PORT=3001 preact watch",
-    "serve:prod": "npm run build && preact serve",
-    "build": "preact build"
+    "serve:prod": "npm run build",
+    "build": "preact build --no-prerender"
   },
   "dependencies": {
     "bulma": "^0.8.0",

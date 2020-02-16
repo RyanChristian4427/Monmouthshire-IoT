@@ -5,7 +5,7 @@
   "scripts": {
     "serve:dev": "PORT=3000 preact watch",
     "serve:prod": "preact build --no-prerender && sirv build --port 3000",
-    "build": "preact build"
+    "build": "preact build --no-prerender"
   },
   "dependencies": {
     "bulma": "^0.8.0",
