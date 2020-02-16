@@ -5,8 +5,7 @@
   "scripts": {
     "serve:dev": "PORT=3001 preact watch",
     "serve:prod": "npm run build && preact serve",
-    "build": "preact build",
-    "lint": "eslint src/**/*.{js,ts,tsx} --quiet --fix"
+    "build": "preact build"
   },
   "dependencies": {
     "bulma": "^0.8.0",
@@ -17,15 +16,8 @@
   },
   "devDependencies": {
     "@core/types": "^0.1.0",
-    "@typescript-eslint/eslint-plugin": "^2.18.0",
-    "@typescript-eslint/parser": "^2.18.0",
-    "eslint": "^6.8.0",
-    "eslint-config-prettier": "^6.10.0",
-    "eslint-plugin-prettier": "^3.1.2",
-    "eslint-plugin-react": "^7.18.0",
     "node-sass": "^4.13.1",
     "preact-cli": "^3.0.0-next.19",
-    "prettier": "^1.19.1",
     "sass-loader": "^7.3.1",
     "ts-loader": "^6.2.1",
     "typescript": "^3.7.5"

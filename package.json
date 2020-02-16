@@ -7,9 +7,16 @@
     "serve:all": "lerna run serve:dev",
     "test": "lerna exec -- npm run test",
     "migration:up": "lerna run migration -- up",
-    "lint": "lerna run lint"
+    "lint": "eslint packages/**/src/**/*.{js,ts,tsx} --fix"
   },
   "devDependencies": {
-    "lerna": "^3.20.2"
+    "@typescript-eslint/eslint-plugin": "^2.18.0",
+    "@typescript-eslint/parser": "^2.18.0",
+    "eslint": "^6.8.0",
+    "eslint-config-prettier": "^6.10.0",
+    "eslint-plugin-prettier": "^3.1.2",
+    "eslint-plugin-react": "^7.18.0",
+    "lerna": "^3.20.2",
+    "prettier": "^1.19.1"
   }
 }

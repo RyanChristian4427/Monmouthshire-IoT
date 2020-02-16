@@ -3,7 +3,7 @@ import { SensorHardwareType, Sensor } from '@core/types';
 
 import SensorService from './service/sensorService';
 import ReadingService from './service/readingService';
-import {USER_ID} from './util/secrets';
+import { USER_ID } from './util/secrets';
 import { setUpSockets } from 'src/sockets/setup';
 import logger from 'src/util/logger';
 
@@ -147,11 +147,11 @@ zwave.on('node ready', (nodeId, nodeinfo) => {
         loc: nodeinfo.loc,
     };
 
-    for (let comclass in nodes[nodeId]['classes']) {
+    for (const comclass in nodes[nodeId]['classes']) {
         switch (comclass) {
             case 0x25: // COMMAND_CLASS_SWITCH_BINARY
             case 0x26: // COMMAND_CLASS_SWITCH_MULTILEVEL
-                let valueIds = nodes[nodeId]['classes'][comclass];
+                const valueIds = nodes[nodeId]['classes'][comclass];
                 for (valueId in valueIds) {
                     zwave.enablePoll(valueId, comclass);
                     break;
