@@ -1,0 +1,10 @@
+{
+  "nodes": [
+    {
+      "nodeId": 1,
+      "name": "Master Bedroom",
+      "roomType": 1,
+      "sensorHardwareType": "multiSensor"
+    }
+  ]
+}
