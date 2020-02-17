@@ -1,7 +1,7 @@
 import low from 'lowdb';
 import FileSync from 'lowdb/adapters/FileSync';
 
-import { RoomType, SensorHardwareType } from '@core/types';
+import { RoomType } from '@core/types';
 import { Node } from 'src/models/Node';
 
 type Schema = {
@@ -19,18 +19,11 @@ export const getAllNodes = (): Node[] => {
     return db.get('nodes').value();
 };
 
-export const getNodeById = (id: number): Node => {
+export const getNodeById = (nodeId: number): Node => {
     return db
         .get('nodes')
-        .find({ nodeId: id })
+        .find({ nodeId })
         .value();
-};
-
-export const getSensorType = (id: number): SensorHardwareType => {
-    return db
-        .get('nodes')
-        .find({ nodeId: id })
-        .value().sensorHardwareType;
 };
 
 export const createNode = (node: Node): void => {
@@ -47,9 +40,9 @@ export const createNode = (node: Node): void => {
     }
 };
 
-export const updateNode = (id: number, name: string, roomType: RoomType): void => {
+export const updateNode = (nodeId: number, name: string, roomType: RoomType): void => {
     db.get('nodes')
-        .find({ nodeId: id })
-        .assign({ name: name, roomType: roomType })
+        .find({ nodeId })
+        .assign({ name, roomType })
         .write();
 };

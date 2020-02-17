@@ -1,19 +1,16 @@
 import ZWave, { NodeInfo } from 'openzwave-shared';
-import { SensorHardwareType, Sensor } from '@core/types';
+import { SensorHardwareType, RoomType } from '@core/types';
 
-import SensorService from './service/sensorService';
-import ReadingService from './service/readingService';
-import { USER_ID } from './util/secrets';
+import { createNode, getNodeById, setupDB } from 'src/dataStorageHandler';
 import { setUpSockets } from 'src/sockets/setup';
 import logger from 'src/util/logger';
-
-const sensorService = new SensorService();
-const readingService = new ReadingService();
+import { Node } from 'src/models/Node';
+// import { USER_ID } from 'src/util/secrets';
 
 // Socket configuration
 export const socket = setUpSockets();
 
-sensorService.createTable();
+setupDB();
 
 const zwave = new ZWave({
     ConsoleOutput: false,
@@ -67,7 +64,7 @@ zwave.on('value added', (nodeId, comclass, value) => {
         const data = {
             nodeId,
             value: value.value,
-            roomType: sensorService.getRoomType(nodeId),
+            roomType: getNodeById(nodeId).roomType,
             sensorType: value.label,
             userId: USER_ID,
         };
@@ -85,24 +82,20 @@ zwave.on('value changed', (nodeId, comclass, value) => {
     if (value) {
         logger.info(`node ${nodeId}: ${comclass} : ${value['label']}: ${value['value']}`);
 
-        sensorService.getById(nodeId).then((sensor) => {
-            const data = {
-                nodeId,
-                value: value.value,
-                roomType: sensor.roomType,
-                sensorType: value.label,
-                userId: USER_ID,
-                units: value.units,
-            };
-            readingService.sendReading(data);
+        const node = getNodeById(nodeId);
+        readingService.sendReading({
+            nodeId,
+            value: value.value,
+            roomType: node.roomType,
+            sensorType: value.label,
+            userId: USER_ID,
+            units: value.units,
         });
 
-        if (sensorService.sensorHasBeenShook(value.label)) {
-            sensorService.getById(nodeId).then((sensor) => {
-                logger.debug(`Sensor shake detected from sensor ${nodeId}`);
-                logger.debug(sensor);
-                socket.alertSensorShake(sensor);
-            });
+        if (value.label === 'Burglar') {
+            const node = getNodeById(nodeId);
+            logger.debug(`Sensor shake detected from sensor ${nodeId}`);
+            socket.alertSensorShake(node);
         }
     }
     nodes[nodeId]['classes'][comclass][value.index] = value;
@@ -120,19 +113,20 @@ const isControllerNode = (hardwareType: SensorHardwareType): boolean => {
 zwave.on('node ready', (nodeId, nodeinfo) => {
     logger.debug(`Node ${nodeId} ready`);
 
-    const hardwareType =
+    const sensorHardwareType =
         nodeinfo.product == SensorHardwareType.multiSensor
             ? SensorHardwareType.multiSensor
             : SensorHardwareType.smartSwitch;
 
-    const sensor: Sensor = {
+    const sensor: Node = {
         nodeId,
-        hardwareType: hardwareType,
         name: `Sensor ${nodeId} (${nodeinfo.product})`,
+        roomType: RoomType.none,
+        sensorHardwareType,
     };
 
-    if (!isControllerNode(sensor.hardwareType)) {
-        sensorService.create(sensor);
+    if (!isControllerNode(sensor.sensorHardwareType)) {
+        createNode(sensor);
         socket.alertSensorAdded(sensor);
     }
 
