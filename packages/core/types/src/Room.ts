@@ -13,6 +13,7 @@ export enum RoomType {
     bathroom,
     livingRoom,
     exteriorDoor,
+    none,
 }
 
 export interface RoomResponse {

@@ -10,7 +10,8 @@ export declare enum RoomType {
     bedroom = 1,
     bathroom = 2,
     livingRoom = 3,
-    exteriorDoor = 4
+    exteriorDoor = 4,
+    none = 5,
 }
 export interface RoomResponse {
     roomName: string;
