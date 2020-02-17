@@ -5,12 +5,14 @@
   "main": "index.js",
   "dependencies": {
     "dotenv": "^8.2.0",
+    "lowdb": "^1.0.0",
     "openzwave-shared": "^1.5.12",
     "socket.io": "^2.3.0",
     "winston": "^3.2.1"
   },
   "devDependencies": {
     "@core/types": "0.1.0",
+    "@types/lowdb": "^1.0.9",
     "@types/socket.io": "^2.1.4",
     "typescript": "^3.7.5"
   }
