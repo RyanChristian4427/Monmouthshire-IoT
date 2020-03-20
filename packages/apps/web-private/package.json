@@ -4,13 +4,15 @@
   "private": true,
   "scripts": {
     "serve:dev": "preact watch --port 3000",
-    "serve:prod": "npm run build",
-    "build": "preact build --no-prerender"
+    "serve:prod": "npm run build && sirv build --port 3000 --single",
+    "build": "preact build --no-esm --no-prerender",
+    "analyze": "preact build --no-esm --no-prerender --analyze"
   },
   "dependencies": {
     "bulma": "^0.8.0",
     "preact": "^10.3.4",
     "preact-feather": "^4.1.0",
+    "preact-render-to-string": "^5.1.4",
     "preact-router": "^3.2.1",
     "ts-api-toolkit": "^2.0.1"
   },
@@ -19,6 +21,7 @@
     "node-sass": "^4.13.1",
     "preact-cli": "^3.0.0-rc.10",
     "sass-loader": "^8.0.2",
+    "sirv-cli": "^1.0.0-next.3",
     "ts-loader": "^6.2.1",
     "typescript": "^3.8.3"
   }
