@@ -1,6 +1,8 @@
 language: node_js
 node_js: "12.16.1"
-cache: yarn
+cache:
+  directories:
+    - .yarn/cache
 env:
   global:
     # so the yarn installed in before_install will be used
