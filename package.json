@@ -5,7 +5,7 @@
     "serve:public": "lerna run serve:dev --scope '{api-v1,web-public}'",
     "serve:private": "lerna run serve:dev --scope web-private",
     "serve:all": "lerna run serve:dev",
-    "test": "lerna exec -- yarn test",
+    "test": "lerna run test",
     "migration:up": "lerna run migration -- up",
     "lint": "eslint --cache 'packages/**/src/**/*.{js,ts,tsx}' --fix",
     "prettier": "prettier 'packages/**/src/**/*.{css,scss,json}' --write"
