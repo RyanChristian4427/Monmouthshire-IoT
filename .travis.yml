@@ -1,20 +1,22 @@
 language: node_js
 node_js: "12.16.1"
 cache: yarn
-
+env:
+  global:
+    # so the yarn installed in before_install will be used
+    - PATH=$HOME/.yarn/bin:$PATH
 services:
   - docker
-
+matrix:
+  fast_finish: true
+before_install:
+  # update yarn - travis is using an old version
+  # https://yarnpkg.com/en/docs/install#alternatives-stable
+  - curl -o- -L https://yarnpkg.com/install.sh | bash
 install:
   - docker-compose -f packages/api/docker-compose.yml up --build -d
-  - yarn set version berry
   - yarn --frozen-lockfile
   - yarn migration:up
-
-jobs:
-  include:
-    - stage: "API"
-      name: "Yarn Test"
-      script: "yarn test"
-    - name: "Yarn Lint"
-      script: "yarn lint"
+script:
+  - yarn test
+  - yarn lint
