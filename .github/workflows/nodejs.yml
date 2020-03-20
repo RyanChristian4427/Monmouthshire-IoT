@@ -19,7 +19,12 @@ jobs:
         node-version: ${{ matrix.node-version }}
 #    - run: wget https://github.com/OpenZWave/open-zwave/archive/v1.6.tar.gz && tar -xzf v1.6.tar.gz && rm v1.6.tar.gz
 #    - run: cd open-zwave-1.6 && make && sudo make install && sudo ldconfig
-    - run: sudo cat /tmp/xfs-32f75010/build.log
     - run: yarn
     - run: yarn lint
     - run: yarn prettier
+    - name: Archive production artifacts
+      uses: actions/upload-artifact@v1
+      with:
+        name: buildLog
+        path: /tmp/xfs-32f75010/build.log
+      if: always()
