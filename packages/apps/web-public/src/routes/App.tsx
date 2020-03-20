@@ -9,18 +9,17 @@ import { AuthStoreContext } from 'stores';
 const App: FunctionalComponent = () => {
     const authStore = useContext(AuthStoreContext);
 
-    const publicRoutes = ['/register', '/login'];
+    const publicRoutes = ['/auth/register', '/auth/login'];
 
     const authGuard = (e: RouterOnChangeArgs): void => {
-        if (!publicRoutes.includes(e.url) && !authStore.isAuthenticated) route('/login');
+        if (!publicRoutes.includes(e.url) && !authStore.isAuthenticated) route('/auth/login');
     };
 
     return (
         <div id="app">
             <Router onChange={authGuard}>
                 <Route path="/" component={Home} />
-                <Route path="/login" component={Auth} />
-                <Route path="/register" component={Auth} />
+                <Route path="/auth/:subPage?" component={Auth} />
             </Router>
         </div>
     );

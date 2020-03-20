@@ -1,15 +1,11 @@
 import { FunctionalComponent, h } from 'preact';
 import { useContext, useEffect, useState } from 'preact/hooks';
 import { route } from 'preact-router';
-import { observer as mobxObserver } from 'mobx-react-lite';
 import { LogIn } from 'preact-feather';
 
 import { RegistrationUser } from 'models/User';
+import { observer } from 'services/mobx';
 import { AuthStoreContext } from 'stores';
-
-function observer<P>(props: P): any {
-    return mobxObserver(props as any);
-}
 
 const Register: FunctionalComponent = observer(() => {
     const authStore = useContext(AuthStoreContext);

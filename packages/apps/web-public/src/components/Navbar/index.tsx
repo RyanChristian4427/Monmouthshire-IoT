@@ -33,7 +33,7 @@ const Navbar: FunctionalComponent = () => {
                                     <Link href="/">Home</Link>
                                 </li>
                                 <li>
-                                    <Link href="/login">Log Out</Link>
+                                    <Link href="/auth/login">Log Out</Link>
                                 </li>
                             </ul>
                         </div>

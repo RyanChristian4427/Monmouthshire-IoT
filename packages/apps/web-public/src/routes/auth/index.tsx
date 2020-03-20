@@ -1,51 +1,54 @@
-import { Fragment, FunctionalComponent, h } from 'preact';
+import { ComponentChild, Fragment, FunctionalComponent, h } from 'preact';
 import { useEffect, useState } from 'preact/hooks';
-import { getCurrentUrl, Link } from 'preact-router';
-import { observer as mobxObserver } from 'mobx-react-lite';
+import { Link } from 'preact-router';
 
 import avatar from 'assets/placeholder.jpg';
 import Footer from 'components/Footer';
 import Login from 'routes/auth/login';
 import Register from 'routes/auth/register';
+import { observer } from 'services/mobx';
 
 import './style.scss';
 
-function observer<P>(props: P): any {
-    return mobxObserver(props as any);
+interface IProps {
+    subPage?: SubPage;
 }
 
-const Auth: FunctionalComponent = observer(() => {
+enum SubPage {
+    login = 'login',
+    register = 'register',
+}
+
+const Auth: FunctionalComponent<IProps> = observer((props: IProps) => {
     const [title, setTitle] = useState<string>('');
     const [subtitle, setSubtitle] = useState<string>('');
-    const [form, setForm] = useState<preact.ComponentChild>(null);
-    const [links, setLinks] = useState<preact.ComponentChild>(null);
+    const [form, setForm] = useState<ComponentChild>(null);
+    const [links, setLinks] = useState<ComponentChild>(null);
 
     useEffect(() => {
-        switch (getCurrentUrl()) {
-            case '/login':
+        switch (props.subPage) {
+            case SubPage.login:
                 setTitle('Login');
                 setSubtitle('Please provide your credentials to proceed.');
                 setForm(<Login />);
                 setLinks(
                     <Fragment>
-                        <Link href="/register">Sign Up</Link>&nbsp;·&nbsp;<Link href="/">Forgot Password</Link>
+                        <Link href="/auth/register">Sign Up</Link>&nbsp;·&nbsp;<Link href="/">Forgot Password</Link>
                     </Fragment>,
                 );
                 break;
-            case '/register':
+            case SubPage.register:
                 setTitle('Register');
                 setSubtitle('Please provide your details to proceed.');
                 setForm(<Register />);
                 setLinks(
                     <Fragment>
-                        <Link href="/login">Login</Link>&nbsp;·&nbsp;<Link href="/">Forgot Password</Link>
+                        <Link href="/auth/login">Login</Link>&nbsp;·&nbsp;<Link href="/">Forgot Password</Link>
                     </Fragment>,
                 );
                 break;
-            default:
-                break;
         }
-    }, [getCurrentUrl()]);
+    });
 
     return (
         <div class="auth-page">
