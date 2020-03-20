@@ -18,5 +18,5 @@ install:
   - yarn
   - yarn migration:up
 script:
-  - yarn test
+  - yarn workspace api test
   - yarn lint
