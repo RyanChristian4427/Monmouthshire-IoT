@@ -1,13 +1,14 @@
 language: node_js
 node_js:
-  - "node"
+  - "12.16.1"
+cache: yarn
 
 services:
   - docker
 
 install:
   - docker-compose -f packages/api/docker-compose.yml up --build -d
-  - yarn
+  - yarn --frozen-lockfile
   - yarn migration:up
 
 jobs:
