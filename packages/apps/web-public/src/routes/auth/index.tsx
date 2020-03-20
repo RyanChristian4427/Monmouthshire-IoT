@@ -48,7 +48,7 @@ const Auth: FunctionalComponent<IProps> = observer((props: IProps) => {
                 );
                 break;
         }
-    });
+    }, [props.subPage]);
 
     return (
         <div class="auth-page">

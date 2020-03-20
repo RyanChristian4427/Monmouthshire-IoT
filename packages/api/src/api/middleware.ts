@@ -12,8 +12,9 @@ export const checkToken = (req: Request, res: Response, next: NextFunction): Res
 
     if (token) {
         jwt.verify(token, JWT_SECRET, (err) => {
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
             const decodedToken: any = jwt.decode(token);
-            const user = decodedToken ? decodedToken.email : 'Unknown';
+            const user = decodedToken?.email || 'Unknown';
 
             if (!err) {
                 logger.debug(`JWT verification for user ${user} has succeeded`);
@@ -32,12 +33,11 @@ export const checkToken = (req: Request, res: Response, next: NextFunction): Res
                         success: false,
                         message: 'Access token has invalid signature',
                     });
-                } else {
-                    return res.status(401).json({
-                        success: false,
-                        message: 'Access token is not valid',
-                    });
                 }
+                return res.status(401).json({
+                    success: false,
+                    message: 'Access token is not valid',
+                });
             }
         });
     } else {

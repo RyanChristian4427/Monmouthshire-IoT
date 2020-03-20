@@ -38,7 +38,7 @@ export const toUserAuth = (user: User): UserAuth => {
         firstName: user.firstName,
         lastName: user.lastName,
         email: user.email,
-        token: token,
+        token,
         refreshToken: user.refreshToken,
     };
 };

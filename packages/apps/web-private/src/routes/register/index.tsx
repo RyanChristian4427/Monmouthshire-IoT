@@ -96,14 +96,13 @@ const Register: FunctionalComponent = () => {
                                     </div>
                                     <div class="field">
                                         <div class="control">
-                                            <h2 class={'error is-size-5' + (errors ? '' : 'is-hidden')}>{errors}</h2>
+                                            <h2 class={`error is-size-5${errors ? '' : 'is-hidden'}`}>{errors}</h2>
                                         </div>
                                     </div>
                                     <button
-                                        class={
-                                            'button is-block is-coral-light is-large is-fullwidth' +
-                                            (inProgress ? ' is-loading' : '')
-                                        }
+                                        class={`button is-block is-coral-light is-large is-fullwidth${
+                                            inProgress ? ' is-loading' : ''
+                                        }`}
                                         type="button"
                                         onClick={(): void => submitDetails()}
                                     >

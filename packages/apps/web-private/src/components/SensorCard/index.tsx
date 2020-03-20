@@ -17,7 +17,7 @@ const SensorCard: FunctionalComponent<IProps> = (props: IProps) => {
     };
 
     return (
-        <div className={'card is-clickable ' + (props.active ? 'active' : '')} onClick={handleOnClick}>
+        <div className={`card is-clickable ${props.active ? 'active' : ''}`} onClick={handleOnClick}>
             <div class="card-content">
                 <div class="card-details">
                     <span class="sensor-type">

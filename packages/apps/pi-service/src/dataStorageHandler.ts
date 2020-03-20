@@ -28,16 +28,15 @@ export const getNodeById = (nodeId: number): Node => {
 
 export const createNode = (node: Node): void => {
     if (getNodeById(node.nodeId)) return;
-    else {
-        db.get('nodes')
-            .push({
-                nodeId: node.nodeId,
-                name: node.name,
-                roomType: node.roomType,
-                sensorHardwareType: node.sensorHardwareType,
-            })
-            .write();
-    }
+
+    db.get('nodes')
+        .push({
+            nodeId: node.nodeId,
+            name: node.name,
+            roomType: node.roomType,
+            sensorHardwareType: node.sensorHardwareType,
+        })
+        .write();
 };
 
 export const updateNode = (nodeId: number, name: string, roomType: RoomType): void => {

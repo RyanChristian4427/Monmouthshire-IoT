@@ -10,7 +10,7 @@ export const checkCredentials = async (credentials: LoginUser): Promise<UserAuth
     });
 
     if (await bcrypt.compare(credentials.password, user.hashedPassword)) return toUserAuth(user);
-    else throw 'Incorrect Password';
+    throw 'Incorrect Password';
 };
 
 export const register = async (credentials: RegistrationUser): Promise<UserAuth> => {

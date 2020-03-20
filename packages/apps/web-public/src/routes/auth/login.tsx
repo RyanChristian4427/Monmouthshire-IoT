@@ -16,7 +16,7 @@ const Login: FunctionalComponent = observer(() => {
     const [errors, setErrors] = useState('');
     const [inProgress, setInProgress] = useState(false);
 
-    useEffect(() => authStore.logout, []);
+    useEffect(() => authStore.logout);
 
     const submitDetails = (): void => {
         setInProgress(true);
@@ -64,9 +64,7 @@ const Login: FunctionalComponent = observer(() => {
                 </div>
             </div>
             <button
-                class={
-                    'button is-block is-deep-space-sparkle is-large is-fullwidth' + (inProgress ? ' is-loading' : '')
-                }
+                class={`button is-block is-deep-space-sparkle is-large is-fullwidth${inProgress ? ' is-loading' : ''}`}
                 type="button"
                 onClick={(): void => submitDetails()}
             >

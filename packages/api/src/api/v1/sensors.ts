@@ -22,7 +22,7 @@ router.get('/sensors/all', checkToken, async (req: Request, res: Response) => {
         res.status(200).json({
             success: true,
             message: 'Data retrieval successful',
-            data: data,
+            data,
         });
     }
 });

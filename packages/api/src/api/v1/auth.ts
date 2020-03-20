@@ -25,7 +25,7 @@ router.post('/users/login', async (req: Request, res: Response) => {
         res.status(200).json({
             success: true,
             message: 'Authentication successful',
-            user: user,
+            user,
         });
     }
 });
@@ -56,7 +56,7 @@ router.post('/users/register', async (req: Request, res: Response) => {
         res.status(200).json({
             success: true,
             message: 'Registration successful',
-            user: user,
+            user,
         });
     }
 });
@@ -87,7 +87,7 @@ router.post('/homes/register', async (req: Request, res: Response) => {
         res.status(200).json({
             success: true,
             message: 'Registration successful',
-            user: user,
+            user,
         });
     }
 });
