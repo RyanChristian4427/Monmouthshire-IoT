@@ -17,7 +17,7 @@ PostgreSQL (optional)
 
 ### Running
 
-A Docker-Compose file is included in the project for easily setting up the database, should you choose to use it. If you do, run from the project directory: 
+A Docker-Compose file is included in the project for easily setting up the database, should you choose to use it. If you do, run from the project directory:
 
 ```
 docker-compose up --build -d
@@ -39,7 +39,13 @@ npm run migration up
 
 This will run all of the migrations, and this also populates the database with seeding data, ensuring you can start to use the system immediately.
 
-From there, the server can be ran using `npm run serve:dev` or `npm run serve:prod`. The development server uses NoDemon for hot-reloading, while the production server is a more optimized build. 
+From there, the server can be ran using `npm run serve:dev` or `npm run serve:prod`. The development server uses NoDemon for hot-reloading, while the production server is a more optimized build.
+
+Note: To run the prod server, you will need to install `module_alias` manually in this directory, lerna/yarn workspaces will not work. In this directory, run:
+
+```bash
+npm install --no-package-lock module-alias
+```
 
 ## Code Style
 
@@ -53,9 +59,9 @@ npm run lint
 
 ## Built With
 
-* [Express](https://expressjs.com/) - Web Framework Used to Build the API
-  * [TypeScript](https://www.typescriptlang.org/) - Language Used
-  * [PostgreSQL](https://www.postgresql.org/) - Database System Used for Persistence
-  * [PG-Promise](https://github.com/vitaly-t/pg-promise) - PostgreSQL Interface for Node.js
-  * [Node-PG-Migrate](https://github.com/salsita/node-pg-migrate) - Node Migration System for PostgreSQL
-  * [NPM](https://www.npmjs.com/) - Dependency Management Tool
+-   [Express](https://expressjs.com/) - Web Framework Used to Build the API
+    -   [TypeScript](https://www.typescriptlang.org/) - Language Used
+    -   [PostgreSQL](https://www.postgresql.org/) - Database System Used for Persistence
+    -   [PG-Promise](https://github.com/vitaly-t/pg-promise) - PostgreSQL Interface for Node.js
+    -   [Node-PG-Migrate](https://github.com/salsita/node-pg-migrate) - Node Migration System for PostgreSQL
+    -   [NPM](https://www.npmjs.com/) - Dependency Management Tool
