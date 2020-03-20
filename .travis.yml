@@ -7,14 +7,13 @@ services:
 
 install:
   - docker-compose -f packages/api/docker-compose.yml up --build -d
-  - npm ci
-  - npx lerna bootstrap --hoist --ignore pi-service
-  - npm run migration:up
+  - yarn
+  - yarn migration:up
 
 jobs:
   include:
     - stage: "API"
-      name: "NPM Test"
-      script: "npm run test"
-    - name: "NPM Lint"
-      script: "npm run lint"
+      name: "Yarn Test"
+      script: "yarn test"
+    - name: "Yarn Lint"
+      script: "yarn lint"
