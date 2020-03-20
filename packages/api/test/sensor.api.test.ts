@@ -7,16 +7,14 @@ import { login } from 'test/common';
 chai.use(chaiHttp);
 
 describe('POST /api/v1/sensors/all', () => {
-    it('should return 200 OK with DAta', async (done) => {
-        chai.request(app)
+    it('should return 200 OK with Data', async () => {
+        const response = await chai
+            .request(app)
             .get('/api/v1/sensors/all')
-            .set('Authorization', `Bearer ${await login()}`)
-            .end((err, res) => {
-                expect(res.status).toBe(200);
-                expect(res.body.success).toBe(true);
-                expect(res.body.message).toBe('Data retrieval successful');
-                done();
-            });
+            .set('Authorization', `Bearer ${await login()}`);
+        expect(response.status).toBe(200);
+        expect(response.body.success).toBe(true);
+        expect(response.body.message).toBe('Data retrieval successful');
     });
 
     // it('should return 401 Bad Request', async (done) => {

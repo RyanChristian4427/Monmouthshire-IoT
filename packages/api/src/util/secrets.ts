@@ -1,10 +1,11 @@
 import logger from './logger';
 import dotenv from 'dotenv';
 import fs from 'fs';
+import path from 'path';
 
-if (fs.existsSync('.env')) {
+if (fs.existsSync(path.join(__dirname, '../../', '.env'))) {
     logger.debug('Using .env file to supply config environment variables');
-    dotenv.config({ path: '.env' });
+    dotenv.config({ path: path.join(__dirname, '../../', '.env') });
 }
 
 export const DATABASE_URL = process.env.DATABASE_URL;
