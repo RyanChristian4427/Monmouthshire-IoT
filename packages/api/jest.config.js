@@ -1,8 +1,11 @@
+const base = require('../../jest.base.config.js');
+
 module.exports = {
+    ...base,
     coveragePathIgnorePatterns: ['<rootDir>/test/common/'],
     globals: {
         'ts-jest': {
-            tsConfig: 'tsconfig.json',
+            tsConfig: '<rootDir>/tsconfig.json',
         },
     },
     moduleFileExtensions: ['ts', 'js'],

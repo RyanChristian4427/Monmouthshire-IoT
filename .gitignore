@@ -15,3 +15,6 @@ node_modules/
 
 # Excluding Eslint's Cache
 .eslintcache
+
+# Coverage reports
+coverage

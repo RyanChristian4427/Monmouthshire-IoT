@@ -4,8 +4,7 @@
   "scripts": {
     "serve:dev": "nodemon server.ts",
     "serve:prod": "tsc && NODE_ENV=production node dist/server.js",
-    "migration": "node-pg-migrate -t='migrations' --tsconfig='./tsconfig.json'",
-    "test": "jest --forceExit --coverage --verbose --detectOpenHandles"
+    "migration": "node-pg-migrate -t='migrations' --tsconfig='./tsconfig.json'"
   },
   "dependencies": {
     "bcryptjs": "^2.4.3",
@@ -22,20 +21,14 @@
     "@core/types": "^0.1.0",
     "@types/bcryptjs": "^2.4.2",
     "@types/body-parser": "^1.19.0",
-    "@types/chai": "^4.2.11",
     "@types/dotenv": "^8.2.0",
     "@types/express": "^4.17.3",
-    "@types/jest": "^25.1.4",
     "@types/jsonwebtoken": "^8.3.8",
     "@types/node": "^13.9.2",
     "@types/node-pg-migrate": "^2.3.1",
     "@types/pg-promise": "^5.4.3",
     "@types/winston": "^2.4.4",
-    "chai": "^4.2.0",
-    "chai-http": "^4.3.0",
-    "jest": "^25.1.0",
     "nodemon": "^2.0.2",
-    "ts-jest": "^25.2.1",
     "ts-node": "^8.7.0",
     "tsconfig-paths": "^3.9.0",
     "typescript": "^3.8.3"
