@@ -1,10 +1,10 @@
 {
-  "name": "api-v1",
+  "name": "api",
   "version": "0.1.0",
   "scripts": {
     "serve:dev": "nodemon server.ts",
     "serve:prod": "tsc && NODE_ENV=production node dist/server.js",
-    "migration": "./node_modules/.bin/node-pg-migrate -t='migrations' --tsconfig='./tsconfig.json'",
+    "migration": "node-pg-migrate -t='migrations' --tsconfig='./tsconfig.json'",
     "test": "jest --forceExit --coverage --verbose --detectOpenHandles"
   },
   "dependencies": {
@@ -13,32 +13,32 @@
     "express": "^4.17.1",
     "jsonwebtoken": "^8.5.1",
     "module-alias": "^2.2.2",
-    "node-pg-migrate": "^4.2.2",
-    "pg": "^7.17.1",
-    "pg-promise": "^10.3.3",
+    "node-pg-migrate": "^4.2.3",
+    "pg": "^7.18.2",
+    "pg-promise": "^10.4.4",
     "winston": "^3.2.1"
   },
   "devDependencies": {
     "@core/types": "^0.1.0",
     "@types/bcryptjs": "^2.4.2",
-    "@types/body-parser": "^1.17.1",
-    "@types/chai": "^4.2.7",
-    "@types/dotenv": "^6.1.1",
-    "@types/express": "^4.17.2",
-    "@types/jest": "^24.9.1",
-    "@types/jsonwebtoken": "^8.3.7",
-    "@types/node": "^12.12.26",
+    "@types/body-parser": "^1.19.0",
+    "@types/chai": "^4.2.11",
+    "@types/dotenv": "^8.2.0",
+    "@types/express": "^4.17.3",
+    "@types/jest": "^25.1.4",
+    "@types/jsonwebtoken": "^8.3.8",
+    "@types/node": "^13.9.2",
     "@types/node-pg-migrate": "^2.3.1",
     "@types/pg-promise": "^5.4.3",
     "@types/winston": "^2.4.4",
     "chai": "^4.2.0",
     "chai-http": "^4.3.0",
-    "jest": "^24.9.0",
-    "nodemon": "^2.0.1",
-    "ts-jest": "^24.3.0",
-    "ts-node": "^8.6.2",
+    "jest": "^25.1.0",
+    "nodemon": "^2.0.2",
+    "ts-jest": "^25.2.1",
+    "ts-node": "^8.7.0",
     "tsconfig-paths": "^3.9.0",
-    "typescript": "^3.7.5"
+    "typescript": "^3.8.3"
   },
   "_moduleAliases": {
     "src": "dist/"

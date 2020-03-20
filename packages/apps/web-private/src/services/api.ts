@@ -1,4 +1,4 @@
-import { apiService, jwtService } from 'ts-api-toolkit';
+import { apiService, authStorageService } from 'ts-api-toolkit';
 import { LoginUser, RegistrationUser } from 'models/User';
 
 export const login = (credentials: LoginUser): Promise<string> => {
@@ -6,7 +6,7 @@ export const login = (credentials: LoginUser): Promise<string> => {
         apiService
             .post('users/home/login', credentials)
             .then(({ data }) => {
-                jwtService.saveToken(data.user.token);
+                authStorageService.saveToken(data.user.token);
                 resolve();
             })
             .catch(({ response }) => {
@@ -20,7 +20,7 @@ export const login = (credentials: LoginUser): Promise<string> => {
 };
 
 export const logout = (): void => {
-    jwtService.destroyToken();
+    authStorageService.destroyToken();
 };
 
 export const register = (credentials: RegistrationUser): Promise<string> => {
@@ -28,7 +28,7 @@ export const register = (credentials: RegistrationUser): Promise<string> => {
         apiService
             .post('users/register', credentials)
             .then(({ data }) => {
-                jwtService.saveToken(data.user.token);
+                authStorageService.saveToken(data.user.token);
                 resolve();
             })
             .catch(({ response }) => {
