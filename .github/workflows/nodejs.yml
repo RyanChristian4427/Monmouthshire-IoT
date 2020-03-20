@@ -26,5 +26,5 @@ jobs:
       uses: actions/upload-artifact@v1
       with:
         name: buildLog
-        path: /tmp/xfs-32f75010/build.log
+        path: /tmp/xfs-*/build.log
       if: always()
