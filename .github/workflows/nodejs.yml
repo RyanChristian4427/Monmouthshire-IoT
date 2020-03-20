@@ -36,13 +36,3 @@ jobs:
       run: yarn linter
     - name: Run Prettier
       run: yarn prettier
-
-    - run: ls /tmp
-      if: always()
-
-    - name: Archive production artifacts
-      if: always()
-      uses: actions/upload-artifact@v1
-      with:
-        name: buildLog
-        path: /tmp/xfs-*/build.log

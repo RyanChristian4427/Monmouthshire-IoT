@@ -6,7 +6,7 @@
   "dependencies": {
     "dotenv": "^8.2.0",
     "lowdb": "^1.0.0",
-    "openzwave-shared": "^1.5.12",
+    "openzwave-shared": "^1.6.2",
     "socket.io": "^2.3.0",
     "winston": "^3.2.1"
   },
