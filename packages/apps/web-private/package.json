@@ -10,8 +10,8 @@
   "dependencies": {
     "bulma": "^0.8.0",
     "preact": "^10.2.1",
-    "preact-router": "^3.2.1",
     "preact-feather": "^4.1.0",
+    "preact-router": "^3.2.1",
     "ts-api-toolkit": "^1.0.3"
   },
   "devDependencies": {

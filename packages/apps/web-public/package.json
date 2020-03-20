@@ -12,8 +12,8 @@
     "mobx": "^5.15.4",
     "mobx-react-lite": "^1.5.2",
     "preact": "^10.2.1",
-    "preact-router": "^3.2.1",
     "preact-feather": "^4.1.0",
+    "preact-router": "^3.2.1",
     "ts-api-toolkit": "^1.0.3"
   },
   "devDependencies": {

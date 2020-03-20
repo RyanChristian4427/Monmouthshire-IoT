@@ -6,3 +6,12 @@
 
 # Excluding Lerna Hoisted Modules
 node_modules/
+
+# Excluding Yarn's files that are unnecesary
+.yarn/*
+!.yarn/releases
+!.yarn/plugins
+.pnp.*
+
+# Excluding Eslint's Cache
+.eslintcache

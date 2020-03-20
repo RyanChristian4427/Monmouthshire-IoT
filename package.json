@@ -7,8 +7,8 @@
     "serve:all": "lerna run serve:dev",
     "test": "lerna exec -- npm run test",
     "migration:up": "lerna run migration -- up",
-    "lint": "eslint packages/**/src/**/*.{js,ts,tsx} --quiet --fix",
-    "prettier": "prettier packages/**/*.{css,scss,json} --write"
+    "lint": "eslint --cache 'packages/**/src/**/*.{js,ts,tsx}' --fix",
+    "prettier": "prettier 'packages/**/src/**/*.{css,scss,json}' --write"
   },
   "husky": {
     "hooks": {
@@ -34,5 +34,8 @@
     "lerna": "^3.20.2",
     "lint-staged": "^10.0.7",
     "prettier": "^1.19.1"
-  }
+  },
+  "workspaces": [
+    "packages/**"
+  ]
 }
