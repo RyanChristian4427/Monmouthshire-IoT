@@ -38,6 +38,7 @@ jobs:
       run: yarn prettier
 
     - run: ls /tmp
+      if: always()
 
     - name: Archive production artifacts
       if: always()
