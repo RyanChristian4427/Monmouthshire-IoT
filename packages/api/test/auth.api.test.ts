@@ -6,62 +6,57 @@ import { app } from 'src/app';
 chai.use(chaiHttp);
 
 describe('POST /api/v1/users/login', () => {
-    it('should return 200 OK with Token', async (done) => {
-        chai.request(app)
+    it('should return 200 OK with Token', async () => {
+        const response = await chai
+            .request(app)
             .post('/api/v1/users/login')
             .send({
                 user: {
                     email: 'smoketest@example.com',
                     password: 'came try steady fewer',
                 },
-            })
-            .end((err, res) => {
-                expect(res.status).toBe(200);
-                expect(res.body.success).toBe(true);
-                expect(res.body.message).toBe('Authentication successful');
-                expect(res.body.user.token).toBeDefined();
-                done();
             });
+        expect(response.status).toBe(200);
+        expect(response.body.success).toBe(true);
+        expect(response.body.message).toBe('Authentication successful');
+        expect(response.body.user.token).toBeDefined();
     });
 
-    it('should return 401 Unauthorized with Incorrect Password', async (done) => {
-        chai.request(app)
+    it('should return 401 Unauthorized with Incorrect Password', async () => {
+        const response = await chai
+            .request(app)
             .post('/api/v1/users/login')
             .send({
                 user: {
                     email: 'smoketest@example.com',
                     password: 'wrong password',
                 },
-            })
-            .end((err, res) => {
-                expect(res.status).toBe(401);
-                expect(res.body.success).toBe(false);
-                expect(res.body.message).toBe('Incorrect Password');
-                done();
             });
+        expect(response.status).toBe(401);
+        expect(response.body.success).toBe(false);
+        expect(response.body.message).toBe('Incorrect Password');
     });
 
-    it('should return 401 Unauthorized with Unknown User', async (done) => {
-        chai.request(app)
+    it('should return 401 Unauthorized with Unknown User', async () => {
+        const response = await chai
+            .request(app)
             .post('/api/v1/users/login')
             .send({
                 user: {
                     email: 'unknownuser@example.com',
                     password: 'came try steady fewer',
                 },
-            })
-            .end((err, res) => {
-                expect(res.status).toBe(401);
-                expect(res.body.success).toBe(false);
-                expect(res.body.message).toBe('Unknown User');
-                done();
             });
+        expect(response.status).toBe(401);
+        expect(response.body.success).toBe(false);
+        expect(response.body.message).toBe('Unknown User');
     });
 });
 
 describe('POST /api/v1/users/register', () => {
-    it('should return 200 OK', async (done) => {
-        chai.request(app)
+    it('should return 200 OK', async () => {
+        const response = await chai
+            .request(app)
             .post('/api/v1/users/register')
             .send({
                 user: {
@@ -70,24 +65,21 @@ describe('POST /api/v1/users/register', () => {
                     email: 'newsmoketest@example.com',
                     password: 'came try steady fewer',
                 },
-            })
-            .end((err, res) => {
-                if (res.status == 200) {
-                    expect(res.status).toBe(200);
-                    expect(res.body.success).toBe(true);
-                    expect(res.body.message).toBe('Registration successful');
-                    expect(res.body.user).toBeDefined();
-                } else {
-                    expect(res.status).toBe(409);
-                    expect(res.body.success).toBe(false);
-                    expect(res.body.message).toBe('Non-Unique Email');
-                }
-                done();
             });
+        if (response.status == 200) {
+            expect(response.body.success).toBe(true);
+            expect(response.body.message).toBe('Registration successful');
+            expect(response.body.user).toBeDefined();
+        } else {
+            expect(response.status).toBe(409);
+            expect(response.body.success).toBe(false);
+            expect(response.body.message).toBe('Non-Unique Email');
+        }
     });
 
-    it('should return 409 Conflict with Non-Unique Email', async (done) => {
-        chai.request(app)
+    it('should return 409 Conflict with Non-Unique Email', async () => {
+        const response = await chai
+            .request(app)
             .post('/api/v1/users/register')
             .send({
                 user: {
@@ -96,19 +88,17 @@ describe('POST /api/v1/users/register', () => {
                     email: 'smoketest@example.com',
                     password: 'came try steady fewer',
                 },
-            })
-            .end((err, res) => {
-                expect(res.status).toBe(409);
-                expect(res.body.success).toBe(false);
-                expect(res.body.message).toBe('Non-Unique Email');
-                done();
             });
+        expect(response.status).toBe(409);
+        expect(response.body.success).toBe(false);
+        expect(response.body.message).toBe('Non-Unique Email');
     });
 });
 
 describe('POST /api/v1/homes/register', () => {
-    it('should return 200 OK', async (done) => {
-        chai.request(app)
+    it('should return 200 OK', async () => {
+        const response = await chai
+            .request(app)
             .post('/api/v1/homes/register')
             .send({
                 user: {
@@ -117,25 +107,22 @@ describe('POST /api/v1/homes/register', () => {
                     email: 'newsmoketesthome@example.com',
                     password: 'came try steady fewer',
                 },
-            })
-            .end((err, res) => {
-                if (res.status == 200) {
-                    expect(res.status).toBe(200);
-                    expect(res.body.success).toBe(true);
-                    expect(res.body.message).toBe('Registration successful');
-                    expect(res.body.user).toBeDefined();
-                    expect(res.body.user.refreshToken).toBeDefined();
-                } else {
-                    expect(res.status).toBe(409);
-                    expect(res.body.success).toBe(false);
-                    expect(res.body.message).toBe('Non-Unique Email');
-                }
-                done();
             });
+        if (response.status == 200) {
+            expect(response.body.success).toBe(true);
+            expect(response.body.message).toBe('Registration successful');
+            expect(response.body.user).toBeDefined();
+            expect(response.body.user.refreshToken).toBeDefined();
+        } else {
+            expect(response.status).toBe(409);
+            expect(response.body.success).toBe(false);
+            expect(response.body.message).toBe('Non-Unique Email');
+        }
     });
 
-    it('should return 409 Conflict with Non-Unique Email', async (done) => {
-        chai.request(app)
+    it('should return 409 Conflict with Non-Unique Email', async () => {
+        const response = await chai
+            .request(app)
             .post('/api/v1/homes/register')
             .send({
                 user: {
@@ -144,12 +131,9 @@ describe('POST /api/v1/homes/register', () => {
                     email: 'smoketesthome@example.com',
                     password: 'came try steady fewer',
                 },
-            })
-            .end((err, res) => {
-                expect(res.status).toBe(409);
-                expect(res.body.success).toBe(false);
-                expect(res.body.message).toBe('Non-Unique Email');
-                done();
             });
+        expect(response.status).toBe(409);
+        expect(response.body.success).toBe(false);
+        expect(response.body.message).toBe('Non-Unique Email');
     });
 });
