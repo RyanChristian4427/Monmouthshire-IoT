@@ -12,13 +12,13 @@ jobs:
         node-version: [12.x]
 
     steps:
-    - uses: actions/cache@v2
+    - uses: actions/cache@v1
       id: yarn-cache
       with:
         path: .yarn/.cache
-        key: ${{ runner.os }}-yarn-55
+        key: ${{ runner.os }}-yarn
           restore-keys: |
-            ${{ runner.os }}-yarn-
+            ${{ runner.os }}-yarn
 
     - run: ls
 
