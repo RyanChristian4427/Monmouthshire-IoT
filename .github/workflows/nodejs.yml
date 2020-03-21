@@ -18,15 +18,15 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
 
-    - name: Install Dependencies
-      run: yarn
-    - name: Run Linter
-      run: yarn lint
-
     - uses: actions/cache@v1
       id: yarn-cache
       with:
         path: .yarn/cache
-        key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
+        key: ${{ runner.os }}-yarn-monmouthshire-iot
         restore-keys: |
-          ${{ runner.os }}-yarn-
+          ${{ runner.os }}-yarn-monmouthshire-iot
+
+    - name: Install Dependencies
+      run: yarn
+    - name: Run Linter
+      run: yarn lint
