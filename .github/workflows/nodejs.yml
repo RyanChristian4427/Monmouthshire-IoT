@@ -22,20 +22,15 @@ jobs:
       id: yarn-cache
       with:
         path: ./.yarn/cache
-        key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
+        key: ${{ runner.os }}-yarn-${{ hashFiles('yarn.lock') }}
         restore-keys: |
           ${{ runner.os }}-yarn
-
-    - name: Check Cache
-      if: steps.yarn-cache.outputs.cache-hit != 'true'
-      run: |
-        echo test
 
     - uses: actions/cache@v1
       id: eslint-cache
       with:
         path: ./.eslintcache
-        key: ${{ runner.os }}-eslint-${{ hashFiles('**/.eslintrc.js') }}
+        key: ${{ runner.os }}-eslint-${{ hashFiles('.eslintrc.js') }}
         restore-keys: |
           ${{ runner.os }}-eslint-
 
