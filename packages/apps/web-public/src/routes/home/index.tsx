@@ -1,8 +1,7 @@
 import { FunctionalComponent, h } from 'preact';
 import { useEffect, useState } from 'preact/hooks';
-import { CartesianGrid, Line, LineChart, ResponsiveContainer, Tooltip, XAxis, YAxis } from 'recharts';
+import { CartesianGrid, Legend, Line, LineChart, ResponsiveContainer, Tooltip, XAxis, YAxis } from 'recharts';
 import { DateTime } from 'luxon';
-import { RoomType, SensorDataResponse } from '@core/types';
 
 import Footer from 'components/Footer';
 import Navbar from 'components/Navbar';
@@ -10,24 +9,38 @@ import { getAllSensors } from 'services/api/sensors';
 
 import './style.scss';
 
+interface SensorDataArray {
+    time: Date;
+    [key: string]: number | Date;
+}
+
 const Home: FunctionalComponent = () => {
-    const [bedroomTemp, setBedroomTemp] = useState<SensorDataResponse[]>([]);
+    const [temperatureData, setTemperatureData] = useState([]);
 
     useEffect(() => {
         getAllSensors().then((response) => {
             if (typeof response != 'string') {
+                const temperatureDataArray: SensorDataArray[] = [];
                 response.map((roomResponse) => {
-                    if (roomResponse.roomType === RoomType.bedroom) {
-                        roomResponse.temperature.map((sensorDataResponse) => {
-                            setBedroomTemp((oldData) => [...oldData, sensorDataResponse]);
-                        });
-                    }
+                    roomResponse.temperature.map((sensorDataResponse) => {
+                        const dataPointToEditIndex = temperatureDataArray.findIndex(
+                            (dataPoint) => dataPoint.time === sensorDataResponse.time,
+                        );
+                        if (dataPointToEditIndex > -1) {
+                            temperatureDataArray[dataPointToEditIndex][roomResponse.roomName] =
+                                sensorDataResponse.value;
+                        } else {
+                            temperatureDataArray.push({
+                                time: sensorDataResponse.time,
+                                [roomResponse.roomName]: sensorDataResponse.value,
+                            });
+                        }
+                    });
                 });
+                setTemperatureData(temperatureDataArray);
             }
         });
     }, []);
-
-    console.log(bedroomTemp);
 
     return (
         <div class="home-page">
@@ -40,9 +53,15 @@ const Home: FunctionalComponent = () => {
                         <div class="columns is-vcentered">
                             <div class="column is-5">
                                 <ResponsiveContainer width="99%" height={300}>
-                                    <LineChart data={bedroomTemp} margin={{ top: 5, right: 20, bottom: 5, left: 0 }}>
-                                        <Line type="monotone" dataKey="value" stroke="#8884d8" />
-                                        <CartesianGrid stroke="#ccc" strokeDasharray="5 5" />
+                                    <LineChart
+                                        data={temperatureData}
+                                        margin={{ top: 5, right: 20, bottom: 5, left: 0 }}
+                                    >
+                                        <Line type="monotone" dataKey="Master Bedroom" stroke="#8884d8" />
+                                        <Line type="monotone" dataKey="Guest Bedroom" stroke="#222222" />
+                                        <Line type="monotone" dataKey="Living Room" stroke="#aaaaaa" />
+                                        <CartesianGrid stroke="#ccc" strokeDasharray="1 1" />
+                                        <Legend />
                                         <XAxis
                                             dataKey="time"
                                             tickFormatter={(timestamp): string =>
