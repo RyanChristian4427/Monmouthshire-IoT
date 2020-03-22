@@ -6,7 +6,7 @@ import logger from 'src/util/logger';
 
 const router = Router();
 
-router.get('/sensors/all', checkToken, async (req: Request, res: Response) => {
+router.get('/sensors', checkToken, async (req: Request, res: Response) => {
     logger.debug(`Sensor data request made by user ${res.locals.userInfo.email}`);
 
     const data = await getSensors(res.locals.userInfo.email).catch((error) => {
