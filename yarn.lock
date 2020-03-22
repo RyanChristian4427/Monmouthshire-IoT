@@ -11861,6 +11861,18 @@ __metadata:
   languageName: node
   linkType: hard
 
+"mobx-sync@npm:^2.1.3":
+  version: 2.1.3
+  resolution: "mobx-sync@npm:2.1.3"
+  dependencies:
+    monofile-utilities: ^4.11.1
+    tslib: ^1.10.0
+  peerDependencies:
+    mobx: "*"
+  checksum: 2/9ed0a1764e09e9924a027bc7810c616be5d2569b06c5c4be7a4d1d5c44932034a823e944b7292904d493bf0aa9019e9f9c9ca61aeaabc726436672ba1f5e45a8
+  languageName: node
+  linkType: hard
+
 "mobx@npm:^5.15.4":
   version: 5.15.4
   resolution: "mobx@npm:5.15.4"
@@ -11879,6 +11891,17 @@ __metadata:
   version: 2.2.2
   resolution: "module-alias@npm:2.2.2"
   checksum: 2/1b37943df4fbe56799688eb3496f5113f7f1e18ff7a53bd3543e93fd4ee6c4b04e1548fc0cb49ae73e086b18ee712ab3321f6d7f5444cf413c638914decb8918
+  languageName: node
+  linkType: hard
+
+"monofile-utilities@npm:^4.11.1":
+  version: 4.11.1
+  resolution: "monofile-utilities@npm:4.11.1"
+  dependencies:
+    tslib: ^1.10.0
+  bin:
+    bench: lib/bench.js
+  checksum: 2/b3be3167c569e8b6b0d284da91e8fe5627713d0656df57da10187aabc1d2f46d86037cb609f1482aeb8ac5176ab16b91629407a5c3df5d0f8993b1d181f1eedf
   languageName: node
   linkType: hard
 
@@ -17229,7 +17252,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"tslib@npm:^1.8.1, tslib@npm:^1.9.0":
+"tslib@npm:^1.10.0, tslib@npm:^1.8.1, tslib@npm:^1.9.0":
   version: 1.11.1
   resolution: "tslib@npm:1.11.1"
   checksum: 2/d40eba08de267b2d3c458ddbf51f9010a45b8e752d3bf8c0fed63e266afc9277c6a26e65e51223335b8753f9f106aeb600e704f2a6eae05729160671a97c52e7
@@ -17913,6 +17936,7 @@ __metadata:
     bulma: ^0.8.0
     mobx: ^5.15.4
     mobx-react-lite: ^1.5.2
+    mobx-sync: ^2.1.3
     node-sass: ^4.13.1
     preact: ^10.3.4
     preact-cli: ^3.0.0-rc.10
