@@ -19,5 +19,5 @@ export async function up(pgm: MigrationBuilder): Promise<void> {
 
 export async function down(pgm: MigrationBuilder): Promise<void> {
     pgm.dropColumn('users', ['refresh_token']);
-    pgm.sql(`DELETE FROM users WHERE email = 'smoketesthome@example.com'`);
+    pgm.sql(`DELETE FROM users WHERE email = 'smoketesthome@example.com'`); // eslint-disable-line @typescript-eslint/quotes
 }
