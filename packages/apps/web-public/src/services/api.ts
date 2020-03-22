@@ -9,10 +9,7 @@ export const login = async (credentials: LoginUser): Promise<User | string> => {
             return data.user;
         })
         .catch(({ response }) => {
-            if (response.data !== '') {
-                return response.data.message;
-            }
-            return 'Unknown error while logging in';
+            return response.data?.message || 'Unknown error while logging in';
         });
 };
 
@@ -28,9 +25,6 @@ export const register = async (credentials: RegistrationUser): Promise<User | st
             return data.user;
         })
         .catch(({ response }) => {
-            if (response.data !== '') {
-                return response.data.message;
-            }
-            return 'Unknown error while registering';
+            return response.data?.message || 'Unknown error while registering';
         });
 };
