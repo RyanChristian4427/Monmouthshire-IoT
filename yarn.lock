@@ -2751,6 +2751,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/luxon@npm:^1.21.0":
+  version: 1.21.0
+  resolution: "@types/luxon@npm:1.21.0"
+  checksum: 2/24b33132d07b8930a48701afce6a6a1d6bc1c04d0a59483b95825adf16a0cf2e97a74a2460b7f7f05a0d58ee972d7e8ef139e3e0ec190d6ad0d9a4ceda2dbab5
+  languageName: node
+  linkType: hard
+
 "@types/mime@npm:*":
   version: 2.0.1
   resolution: "@types/mime@npm:2.0.1"
@@ -11296,6 +11303,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"luxon@npm:^1.22.0":
+  version: 1.22.0
+  resolution: "luxon@npm:1.22.0"
+  checksum: 2/9c45991e5a7337857af5676f4ef489709103afae56b3fe41bf13471315caf70f3a4a84f4307f75c165655a6415c8b1acd623d643c417e70df605baf0ec743f42
+  languageName: node
+  linkType: hard
+
 "macos-release@npm:^2.2.0":
   version: 2.3.0
   resolution: "macos-release@npm:2.3.0"
@@ -17931,9 +17945,11 @@ __metadata:
   resolution: "web-public@workspace:packages/apps/web-public"
   dependencies:
     "@core/types": ^0.1.0
+    "@types/luxon": ^1.21.0
     "@types/react": ^16.9.23
     "@types/recharts": ^1.8.9
     bulma: ^0.8.0
+    luxon: ^1.22.0
     mobx: ^5.15.4
     mobx-react-lite: ^1.5.2
     mobx-sync: ^2.1.3
