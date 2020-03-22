@@ -22,6 +22,7 @@
   "devDependencies": {
     "@core/types": "^0.1.0",
     "@types/react": "^16.9.23",
+    "@types/recharts": "^1.8.9",
     "node-sass": "^4.13.1",
     "preact-cli": "^3.0.0-rc.10",
     "sass-loader": "^8.0.2",
