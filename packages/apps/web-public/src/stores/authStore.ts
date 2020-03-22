@@ -2,7 +2,7 @@ import { observable, action } from 'mobx';
 import { AsyncTrunk } from 'mobx-sync';
 
 import { LoginUser, RegistrationUser, User } from 'models/User';
-import { login, logout, register } from 'services/api';
+import { login, logout, register } from 'services/api/auth';
 
 class AuthStore {
     @observable user: User | undefined;
