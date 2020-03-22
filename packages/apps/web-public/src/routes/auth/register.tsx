@@ -18,12 +18,13 @@ const Register: FunctionalComponent = observer(() => {
     const [errors, setErrors] = useState('');
     const [inProgress, setInProgress] = useState(false);
 
-    useEffect(() => authStore.logout, [authStore]);
+    useEffect(() => {
+        authStore.logout().then();
+    }, [authStore]);
 
     const submitDetails = (): void => {
         setInProgress(true);
         const credentials: RegistrationUser = { user: { firstName, lastName, email, password } };
-
         authStore.register(credentials).then((errors) => {
             setInProgress(false);
             if (errors) setErrors(errors);
