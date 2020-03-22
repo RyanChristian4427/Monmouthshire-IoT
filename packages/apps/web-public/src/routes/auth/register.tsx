@@ -18,7 +18,7 @@ const Register: FunctionalComponent = observer(() => {
     const [errors, setErrors] = useState('');
     const [inProgress, setInProgress] = useState(false);
 
-    useEffect(() => authStore.logout);
+    useEffect(() => authStore.logout, [authStore]);
 
     const submitDetails = (): void => {
         setInProgress(true);
