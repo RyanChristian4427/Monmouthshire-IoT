@@ -1,6 +1,6 @@
 import { ComponentChild, FunctionalComponent, h } from 'preact';
 
-import { RechartsSensorDataResponse } from 'routes/home';
+import { RechartsSensorDataResponse } from 'models/Recharts';
 import { CartesianGrid, Legend, Line, LineChart, ResponsiveContainer, Tooltip, XAxis, YAxis } from 'recharts';
 import { DateTime } from 'luxon';
 

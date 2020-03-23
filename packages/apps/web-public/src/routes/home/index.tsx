@@ -4,15 +4,11 @@ import { useEffect, useState } from 'preact/hooks';
 import Footer from 'components/Footer';
 import Navbar from 'components/Navbar';
 import { CustomLineChart } from 'components/LineChart';
+import { RechartsSensorDataResponse } from 'models/Recharts';
 import { getAllSensors } from 'services/api/sensors';
 import { dataProcessor } from 'services/dataProcessor';
 
 import './style.scss';
-
-export interface RechartsSensorDataResponse {
-    time: Date;
-    [key: string]: number | Date;
-}
 
 const Home: FunctionalComponent = () => {
     const [temperatureData, setTemperatureData] = useState<RechartsSensorDataResponse[]>([]);

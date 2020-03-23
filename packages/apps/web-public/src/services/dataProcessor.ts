@@ -1,6 +1,6 @@
 import { RoomResponse, SensorDataResponse } from '@core/types';
 
-import { RechartsSensorDataResponse } from 'routes/home';
+import { RechartsSensorDataResponse } from 'models/Recharts';
 
 const appendOrReplace = (
     dataArray: RechartsSensorDataResponse[],
