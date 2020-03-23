@@ -5,38 +5,33 @@ import Footer from 'components/Footer';
 import Navbar from 'components/Navbar';
 import { CustomLineChart } from 'components/LineChart';
 import { getAllSensors } from 'services/api/sensors';
+import { dataProcessor } from 'services/dataProcessor';
 
 import './style.scss';
 
-interface SensorDataArray {
+export interface RechartsSensorDataResponse {
     time: Date;
     [key: string]: number | Date;
 }
 
 const Home: FunctionalComponent = () => {
-    const [temperatureData, setTemperatureData] = useState([]);
+    const [temperatureData, setTemperatureData] = useState<RechartsSensorDataResponse[]>([]);
+    const [luminanceData, setLuminanceData] = useState<RechartsSensorDataResponse[]>([]);
+    const [motionData, setMotionData] = useState<RechartsSensorDataResponse[]>([]);
+    const [ultraVioletData, setUltraVioletData] = useState<RechartsSensorDataResponse[]>([]);
+    const [humidityData, setHumidityData] = useState<RechartsSensorDataResponse[]>([]);
+    const [electricFlowData, setElectricFlowData] = useState<RechartsSensorDataResponse[]>([]);
 
     useEffect(() => {
         getAllSensors().then((response) => {
             if (typeof response != 'string') {
-                const temperatureDataArray: SensorDataArray[] = [];
-                response.map((roomResponse) => {
-                    roomResponse.temperature.map((sensorDataResponse) => {
-                        const dataPointToEditIndex = temperatureDataArray.findIndex(
-                            (dataPoint) => dataPoint.time === sensorDataResponse.time,
-                        );
-                        if (dataPointToEditIndex > -1) {
-                            temperatureDataArray[dataPointToEditIndex][roomResponse.roomName] =
-                                sensorDataResponse.value;
-                        } else {
-                            temperatureDataArray.push({
-                                time: sensorDataResponse.time,
-                                [roomResponse.roomName]: sensorDataResponse.value,
-                            });
-                        }
-                    });
-                });
-                setTemperatureData(temperatureDataArray);
+                const processedData = dataProcessor(response);
+                setTemperatureData(processedData.temperatureDataArray);
+                setLuminanceData(processedData.luminanceDataArray);
+                setMotionData(processedData.motionDataArray);
+                setUltraVioletData(processedData.ultraVioletDataArray);
+                setHumidityData(processedData.humidityDataArray);
+                setElectricFlowData(processedData.electricFlowDataArray);
             }
         });
     }, []);
