@@ -1,10 +1,9 @@
 import { FunctionalComponent, h } from 'preact';
 import { useEffect, useState } from 'preact/hooks';
-import { CartesianGrid, Legend, Line, LineChart, ResponsiveContainer, Tooltip, XAxis, YAxis } from 'recharts';
-import { DateTime } from 'luxon';
 
 import Footer from 'components/Footer';
 import Navbar from 'components/Navbar';
+import { CustomLineChart } from 'components/LineChart';
 import { getAllSensors } from 'services/api/sensors';
 
 import './style.scss';
@@ -52,30 +51,7 @@ const Home: FunctionalComponent = () => {
                     <div class="container has-text-centered">
                         <div class="columns is-vcentered">
                             <div class="column is-5">
-                                <ResponsiveContainer width="99%" height={300}>
-                                    <LineChart
-                                        data={temperatureData}
-                                        margin={{ top: 5, right: 20, bottom: 5, left: 0 }}
-                                    >
-                                        <Line type="monotone" dataKey="Master Bedroom" stroke="#8884d8" />
-                                        <Line type="monotone" dataKey="Guest Bedroom" stroke="#222222" />
-                                        <Line type="monotone" dataKey="Living Room" stroke="#aaaaaa" />
-                                        <CartesianGrid stroke="#ccc" strokeDasharray="1 1" />
-                                        <Legend />
-                                        <XAxis
-                                            dataKey="time"
-                                            tickFormatter={(timestamp): string =>
-                                                DateTime.fromISO(timestamp).toLocaleString(DateTime.DATETIME_MED)
-                                            }
-                                        />
-                                        <YAxis />
-                                        <Tooltip
-                                            labelFormatter={(timestamp: string): string =>
-                                                DateTime.fromISO(timestamp).toLocaleString(DateTime.DATETIME_MED)
-                                            }
-                                        />
-                                    </LineChart>
-                                </ResponsiveContainer>
+                                <CustomLineChart dataSet={temperatureData} />
                             </div>
                             <div class="column is-6 is-offset-1">
                                 <h1 class="title is-2">Superhero Scaffolding</h1>
