@@ -7067,9 +7067,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eslint-config-preact@npm:^1.1.0":
-  version: 1.1.0
-  resolution: "eslint-config-preact@npm:1.1.0"
+"eslint-config-preact@npm:^1.1.1":
+  version: 1.1.1
+  resolution: "eslint-config-preact@npm:1.1.1"
   dependencies:
     babel-eslint: ^10.0.1
     eslint-plugin-compat: ^3.5.1
@@ -7078,7 +7078,7 @@ __metadata:
     eslint-plugin-react-hooks: ^2.4.0
   peerDependencies:
     eslint: 6.x
-  checksum: 2/0024a750691b57086d27f96cd822c84dab0c6240ab286d34c139febe73c2c7c2af6fa09b9be79b7edf7c70230cffdfa10628e75c810bef5fa00006e94e102174
+  checksum: 2/22a1304da78d0cacdf91b713288c2240a35f9624a7277d7d21711809452f252032c9a5f7d91e903c106135e2249c251f05b4118c529fec37c96a59b0eba14877
   languageName: node
   linkType: hard
 
@@ -15366,7 +15366,7 @@ __metadata:
     chai: ^4.2.0
     chai-http: ^4.3.0
     eslint: ^6.8.0
-    eslint-config-preact: ^1.1.0
+    eslint-config-preact: ^1.1.1
     eslint-config-prettier: ^6.10.0
     eslint-plugin-prettier: ^3.1.2
     husky: ^4.2.3
