@@ -44,11 +44,15 @@ export async function up(pgm: MigrationBuilder): Promise<void> {
     });
 
     pgm.sql(`INSERT INTO rooms(user_id, name, type)
-        VALUES (1, 'Master Bedroom', 1),
-               (1, 'Guest Bedroom', 1),
-               (1, 'Living Room', 3)
+        VALUES (1, 'Kitchen', 0),
+               (1, 'Master Bedroom', 1),
+               (1, 'Master Bathroom', 2),
+               (1, 'Living Room', 3),
+               (1, 'Front Door', 4),
+               (1, 'Back Door', 4)
         `);
 
+    // 6 rooms of temperature data
     pgm.sql(`INSERT INTO sensor_data(room_id, value, type, time)
         VALUES (1, 72, 0, timestamptz('2020-01-26T10:30:23Z')),
                (1, 67, 0, timestamptz('2020-01-26T10:32:24Z')),
@@ -71,7 +75,31 @@ export async function up(pgm: MigrationBuilder): Promise<void> {
                (3, 6, 0, timestamptz('2020-01-26T10:38:27Z')),
                (3, 4, 0, timestamptz('2020-01-26T10:40:28Z')),
                (3, 7, 0, timestamptz('2020-01-26T10:42:29Z')),
-               (1, 63, 4, timestamptz('2020-01-26T10:30:27Z')),
+               (4, 29, 0, timestamptz('2020-01-26T10:30:23Z')),
+               (4, 43, 0, timestamptz('2020-01-26T10:32:24Z')),
+               (4, 23, 0, timestamptz('2020-01-26T10:34:25Z')),
+               (4, 73, 0, timestamptz('2020-01-26T10:36:26Z')),
+               (4, 23, 0, timestamptz('2020-01-26T10:38:27Z')),
+               (4, 23, 0, timestamptz('2020-01-26T10:40:28Z')),
+               (4, 67, 0, timestamptz('2020-01-26T10:42:29Z')),
+               (5, 12, 0, timestamptz('2020-01-26T10:30:23Z')),
+               (5, 12, 0, timestamptz('2020-01-26T10:32:24Z')),
+               (5, 32, 0, timestamptz('2020-01-26T10:34:25Z')),
+               (5, 65, 0, timestamptz('2020-01-26T10:36:26Z')),
+               (5, 54, 0, timestamptz('2020-01-26T10:38:27Z')),
+               (5, 4, 0, timestamptz('2020-01-26T10:40:28Z')),
+               (5, -12, 0, timestamptz('2020-01-26T10:42:29Z')),
+               (6, 64, 0, timestamptz('2020-01-26T10:30:23Z')),
+               (6, 45, 0, timestamptz('2020-01-26T10:32:24Z')),
+               (6, 45, 0, timestamptz('2020-01-26T10:34:25Z')),
+               (6, 7, 0, timestamptz('2020-01-26T10:36:26Z')),
+               (6, 23, 0, timestamptz('2020-01-26T10:38:27Z')),
+               (6, 32, 0, timestamptz('2020-01-26T10:40:28Z')),
+               (6, 19, 0, timestamptz('2020-01-26T10:42:29Z'))
+        `);
+
+    pgm.sql(`INSERT INTO sensor_data(room_id, value, type, time)
+        VALUES (1, 63, 4, timestamptz('2020-01-26T10:30:27Z')),
                (2, 55, 4, timestamptz('2020-01-26T10:30:28Z')),
                (3, 50, 4, timestamptz('2020-01-26T10:30:29Z'))
         `);
