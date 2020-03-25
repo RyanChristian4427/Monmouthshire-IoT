@@ -1,28 +1,32 @@
-import { FunctionalComponent, h } from 'preact';
-import { useContext } from 'preact/hooks';
-import { route, Route, Router, RouterOnChangeArgs } from 'preact-router';
+import { FunctionalComponent, h, VNode } from 'preact';
+import { useContext, useEffect } from 'preact/hooks';
+import { route, Route, Router } from 'preact-router';
 
 import Auth from 'routes/auth';
 import Home from 'routes/home';
 import { AuthStoreContext } from 'stores';
 
 const App: FunctionalComponent = () => {
-    const authStore = useContext(AuthStoreContext);
-
-    const publicRoutes = ['/auth/register', '/auth/login'];
-
-    const authGuard = (e: RouterOnChangeArgs): void => {
-        if (!publicRoutes.includes(e.url) && !authStore.isAuthenticated) route('/auth/login');
-    };
-
     return (
         <div id="app">
-            <Router onChange={authGuard}>
-                <Route path="/" component={Home} />
+            <Router>
+                <AuthenticatedRoute path="/" component={Home} />
                 <Route path="/auth/:subPage?" component={Auth} />
             </Router>
         </div>
     );
+};
+
+const AuthenticatedRoute = (props: { path: string; component: FunctionalComponent }): VNode => {
+    const isLoggedIn = useContext(AuthStoreContext).isAuthenticated;
+
+    useEffect(() => {
+        if (!isLoggedIn) route('/login', true);
+    }, [isLoggedIn]);
+
+    if (!isLoggedIn) return null;
+
+    return <Route {...props} />;
 };
 
 export default App;
