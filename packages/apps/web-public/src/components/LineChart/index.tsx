@@ -15,11 +15,9 @@ export const CustomLineChart: FunctionalComponent<IProps> = (props: IProps) => {
         const lineArray: ComponentChild[] = [];
         let iterator = 0;
         for (const key in props.dataSet[0]) {
-            if (Object.prototype.hasOwnProperty.call(props.dataSet[0], key)) {
-                if (key !== 'time') {
-                    lineArray.push(<Line type="monotone" dataKey={key} stroke={colors[iterator]} strokeWidth="2" />);
-                    iterator = (iterator + 1) % 8;
-                }
+            if (Object.prototype.hasOwnProperty.call(props.dataSet[0], key) && key !== 'time') {
+                lineArray.push(<Line type="monotone" dataKey={key} stroke={colors[iterator]} strokeWidth="2" />);
+                iterator = (iterator + 1) % 8;
             }
         }
         return lineArray;
@@ -37,7 +35,7 @@ export const CustomLineChart: FunctionalComponent<IProps> = (props: IProps) => {
                         DateTime.fromISO(timestamp).toLocaleString(DateTime.DATETIME_MED)
                     }
                 />
-                <YAxis />
+                <YAxis domain={[(dataMin): number => dataMin - 5, (dataMax): number => dataMax + 5]} />
                 <Tooltip
                     labelFormatter={(timestamp: string): string =>
                         DateTime.fromISO(timestamp).toLocaleString(DateTime.DATETIME_MED)
