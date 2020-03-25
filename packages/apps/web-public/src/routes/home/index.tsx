@@ -43,6 +43,8 @@ const Home: FunctionalComponent = () => {
                         <div class="columns is-vcentered">
                             <div class="column is-5">
                                 <CustomLineChart dataSet={temperatureData} />
+                                <CustomLineChart dataSet={humidityData} />
+                                <CustomLineChart dataSet={luminanceData} />
                             </div>
                             <div class="column is-6 is-offset-1">
                                 <h1 class="title is-2">Superhero Scaffolding</h1>
