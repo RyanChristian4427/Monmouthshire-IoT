@@ -98,10 +98,50 @@ export async function up(pgm: MigrationBuilder): Promise<void> {
                (6, 19, 0, timestamptz('2020-01-26T10:42:29Z'))
         `);
 
+    // 6 rooms of humidity data
     pgm.sql(`INSERT INTO sensor_data(room_id, value, type, time)
         VALUES (1, 63, 4, timestamptz('2020-01-26T10:30:27Z')),
-               (2, 55, 4, timestamptz('2020-01-26T10:30:28Z')),
-               (3, 50, 4, timestamptz('2020-01-26T10:30:29Z'))
+               (1, 67, 4, timestamptz('2020-01-26T10:32:28Z')),
+               (1, 71, 4, timestamptz('2020-01-26T10:34:29Z')),
+               (1, 69, 4, timestamptz('2020-01-26T10:36:27Z')),
+               (1, 68, 4, timestamptz('2020-01-26T10:38:28Z')),
+               (1, 72, 4, timestamptz('2020-01-26T10:40:29Z')),
+               (1, 65, 4, timestamptz('2020-01-26T10:42:27Z')),
+               (2, 64, 4, timestamptz('2020-01-26T10:30:27Z')),
+               (2, 66, 4, timestamptz('2020-01-26T10:32:28Z')),
+               (2, 73, 4, timestamptz('2020-01-26T10:34:29Z')),
+               (2, 67, 4, timestamptz('2020-01-26T10:36:27Z')),
+               (2, 69, 4, timestamptz('2020-01-26T10:38:28Z')),
+               (2, 70, 4, timestamptz('2020-01-26T10:40:29Z')),
+               (2, 66, 4, timestamptz('2020-01-26T10:42:27Z')),
+               (3, 66, 4, timestamptz('2020-01-26T10:30:27Z')),
+               (3, 63, 4, timestamptz('2020-01-26T10:32:28Z')),
+               (3, 73, 4, timestamptz('2020-01-26T10:34:29Z')),
+               (3, 64, 4, timestamptz('2020-01-26T10:36:27Z')),
+               (3, 64, 4, timestamptz('2020-01-26T10:38:28Z')),
+               (3, 77, 4, timestamptz('2020-01-26T10:40:29Z')),
+               (3, 62, 4, timestamptz('2020-01-26T10:42:27Z')),
+               (4, 62, 4, timestamptz('2020-01-26T10:30:27Z')),
+               (4, 64, 4, timestamptz('2020-01-26T10:32:28Z')),
+               (4, 75, 4, timestamptz('2020-01-26T10:34:29Z')),
+               (4, 63, 4, timestamptz('2020-01-26T10:36:27Z')),
+               (4, 66, 4, timestamptz('2020-01-26T10:38:28Z')),
+               (4, 77, 4, timestamptz('2020-01-26T10:40:29Z')),
+               (4, 61, 4, timestamptz('2020-01-26T10:42:27Z')),
+               (5, 62, 4, timestamptz('2020-01-26T10:30:27Z')),
+               (5, 66, 4, timestamptz('2020-01-26T10:32:28Z')),
+               (5, 72, 4, timestamptz('2020-01-26T10:34:29Z')),
+               (5, 67, 4, timestamptz('2020-01-26T10:36:27Z')),
+               (5, 66, 4, timestamptz('2020-01-26T10:38:28Z')),
+               (5, 74, 4, timestamptz('2020-01-26T10:40:29Z')),
+               (5, 62, 4, timestamptz('2020-01-26T10:42:27Z')),
+               (6, 63, 4, timestamptz('2020-01-26T10:30:27Z')),
+               (6, 69, 4, timestamptz('2020-01-26T10:32:28Z')),
+               (6, 78, 4, timestamptz('2020-01-26T10:34:29Z')),
+               (6, 62, 4, timestamptz('2020-01-26T10:36:27Z')),
+               (6, 63, 4, timestamptz('2020-01-26T10:38:28Z')),
+               (6, 74, 4, timestamptz('2020-01-26T10:40:29Z')),
+               (6, 66, 4, timestamptz('2020-01-26T10:42:27Z'))
         `);
 }
 
