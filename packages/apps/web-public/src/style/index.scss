@@ -5,5 +5,26 @@
 
 $family-primary: 'Questrial', sans-serif;
 
+$tabs-link-color: $theme-isabelline;
+$tabs-link-active-color: $theme-isabelline;
+$tabs-link-hover-color: $theme-isabelline;
+$tabs-link-border-bottom-color: $theme-isabelline;
+$tabs-link-active-border-bottom-color: $theme-isabelline;
+$tabs-border-bottom-width: 2px;
+
 // Importing all of Bulma
 @import '~bulma/bulma.sass';
+
+// Important to import styles after Bulma, to take priority
+@import 'core';
+
+@each $name, $pair in $colors {
+  $color: nth($pair, 1);
+  $color-invert: nth($pair, 2);
+
+  &.is-#{$name} {
+    background-color: $color;
+    border-color: transparent;
+    color: $color-invert;
+  }
+}
