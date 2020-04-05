@@ -17,12 +17,8 @@
     }
   },
   "lint-staged": {
-    "*.{css,md,scss,json}": [
-      "prettier --write"
-    ],
-    "*.{js,jsx,ts,tsx}": [
-      "eslint --fix"
-    ]
+    "*.{css,md,scss,json}": "prettier --write",
+    "*.{js,jsx,ts,tsx}": "eslint --fix"
   },
   "devDependencies": {
     "@types/chai": "^4.2.11",
