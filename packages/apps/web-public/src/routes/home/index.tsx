@@ -1,8 +1,8 @@
 import { FunctionalComponent, h } from 'preact';
 import { useEffect, useState } from 'preact/hooks';
 
-import Footer from 'components/Footer';
-import Navbar from 'components/Navbar';
+import { Footer, Navbar } from 'components/Core';
+import { GraphContainer } from 'components/GraphContainer';
 import { CustomLineChart } from 'components/LineChart';
 import { RechartsSensorDataResponse } from 'models/Recharts';
 import { getAllSensors } from 'services/api/sensors';
@@ -34,17 +34,15 @@ const Home: FunctionalComponent = () => {
 
     return (
         <div class="home-page">
-            <section class="hero is-fullheight is-default is-bold">
-                <div class="hero-head">
-                    <Navbar />
-                </div>
+            <section class="hero is-fullheight is-bold">
+                <Navbar />
                 <div class="hero-body">
                     <div class="container has-text-centered">
                         <div class="columns is-vcentered">
                             <div class="column is-5">
-                                <CustomLineChart dataSet={temperatureData} />
-                                <CustomLineChart dataSet={humidityData} />
-                                <CustomLineChart dataSet={luminanceData} />
+                                <GraphContainer childGraph={<CustomLineChart dataSet={temperatureData} />} />
+                                <GraphContainer childGraph={<CustomLineChart dataSet={humidityData} />} />
+                                <GraphContainer childGraph={<CustomLineChart dataSet={luminanceData} />} />
                             </div>
                             <div class="column is-6 is-offset-1">
                                 <h1 class="title is-2">Superhero Scaffolding</h1>

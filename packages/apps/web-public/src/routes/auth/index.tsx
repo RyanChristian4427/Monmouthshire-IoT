@@ -2,8 +2,8 @@ import { ComponentChild, Fragment, FunctionalComponent, h } from 'preact';
 import { useEffect, useState } from 'preact/hooks';
 import { Link } from 'preact-router';
 
-import avatar from 'assets/placeholder.jpg';
-import Footer from 'components/Footer';
+import MCC from 'assets/MCC-HOVER.png';
+import { Footer } from 'components/Core';
 import Login from 'routes/auth/login';
 import Register from 'routes/auth/register';
 import { observer } from 'services/mobx';
@@ -61,7 +61,7 @@ const Auth: FunctionalComponent<IProps> = observer((props: IProps) => {
                             <h5 class="subtitle">{subtitle}</h5>
                             <div class="box">
                                 <figure class="avatar">
-                                    <img src={avatar} alt="he-man" />
+                                    <img src={MCC} alt="MCC Logo" />
                                 </figure>
                                 {form}
                             </div>

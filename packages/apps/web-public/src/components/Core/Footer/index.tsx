@@ -1,6 +1,6 @@
 import { FunctionalComponent, h } from 'preact';
 
-const Footer: FunctionalComponent = () => (
+export const Footer: FunctionalComponent = () => (
     <div class="hero-foot">
         <div class="container has-text-centered">
             <span>
@@ -10,5 +10,3 @@ const Footer: FunctionalComponent = () => (
         </div>
     </div>
 );
-
-export default Footer;
