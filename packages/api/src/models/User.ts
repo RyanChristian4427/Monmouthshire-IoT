@@ -20,7 +20,7 @@ export interface User {
     lastName: string;
     email: string;
     hashedPassword: string;
-    refreshToken?: string;
+    refreshToken?: string; // Only used for Rasp-Pi users
 }
 
 export interface UserAuth {
@@ -28,7 +28,7 @@ export interface UserAuth {
     lastName: string;
     email: string;
     token: string;
-    refreshToken: string;
+    refreshToken: string; // Only used for Rasp-Pi users
 }
 
 export const toUserAuth = (user: User): UserAuth => {
