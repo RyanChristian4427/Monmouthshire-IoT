@@ -39,12 +39,12 @@ const Home: FunctionalComponent = () => {
                 <div class="hero-body">
                     <div class="container has-text-centered">
                         <div class="columns is-vcentered">
-                            <div class="column is-5">
+                            <div class="column is-6">
                                 <GraphContainer childGraph={<CustomLineChart dataSet={temperatureData} />} />
                                 <GraphContainer childGraph={<CustomLineChart dataSet={humidityData} />} />
                                 <GraphContainer childGraph={<CustomLineChart dataSet={luminanceData} />} />
                             </div>
-                            <div class="column is-6 is-offset-1">
+                            <div class="column is-5 is-offset-1">
                                 <h1 class="title is-2">Superhero Scaffolding</h1>
                                 <h2 class="subtitle is-4">Let this cover page describe a product or service.</h2>
                                 <br />
