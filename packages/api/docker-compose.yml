@@ -5,8 +5,17 @@ services:
     container_name: 'postgres'
     image: postgres:12-alpine
     environment:
-      POSTGRES_USER: "iot-api"
-      POSTGRES_PASSWORD: "admin"
-      POSTGRES_DB: "iot"
+      POSTGRES_USER: 'iot-api'
+      POSTGRES_PASSWORD: 'admin'
+      POSTGRES_DB: 'iot'
     ports:
-      - "5432:5432"
+      - '5432:5432'
+
+  mongo:
+    container_name: 'mongo'
+    image: mongo:4-bionic
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: 'iot-api'
+      MONGO_INITDB_ROOT_PASSWORD: 'admin'
+    ports:
+      - '27017-27019:27017-27019'
