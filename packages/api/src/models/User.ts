@@ -32,7 +32,7 @@ export interface UserAuth {
 }
 
 export const toUserAuth = (user: User): UserAuth => {
-    const token = jwt.sign({ id: user.id, email: user.email }, JWT_SECRET, { expiresIn: '24h' });
+    const token = jwt.sign({ id: user.id, email: user.email }, JWT_SECRET, { expiresIn: '30m' });
 
     return {
         firstName: user.firstName,
