@@ -1,0 +1,17 @@
+version: '3.7'
+
+services:
+  postgres:
+    container_name: 'postgres'
+    image: postgres:12-alpine
+    environment:
+      POSTGRES_USER: 'iot-api'
+      POSTGRES_PASSWORD: 'admin'
+      POSTGRES_DB: 'iot'
+
+  mongo:
+    container_name: 'mongo'
+    image: mongo:4-bionic
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: 'iot-api'
+      MONGO_INITDB_ROOT_PASSWORD: 'admin'
