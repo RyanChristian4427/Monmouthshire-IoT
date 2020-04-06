@@ -66,7 +66,7 @@ const Login: FunctionalComponent = observer(() => {
                 </div>
             </div>
             <button
-                class={`button is-block is-deep-space-sparkle is-large is-fullwidth ${inProgress ? 'is-loading' : ''}`}
+                class={`button is-block is-monmouthshire-green is-large is-fullwidth ${inProgress ? 'is-loading' : ''}`}
                 type="button"
                 onClick={(): void => submitDetails()}
             >
