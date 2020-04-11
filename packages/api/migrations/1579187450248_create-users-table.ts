@@ -23,8 +23,8 @@ export async function up(pgm: MigrationBuilder): Promise<void> {
         },
     });
     pgm.sql(`INSERT INTO users(first_name, last_name, email, hashed_password)
-        VALUES ('smoke', 'test', 'smoketest@example.com', '$2b$12$dNetpytUYbAg0Yud55CB.OIIGNACrIPpxZAW4G8md9eman7qdawz2')
-        `);
+        VALUES ('smoke', 'test', 'smoketest@example.com', '$2b$12$dNetpytUYbAg0Yud55CB.OIIGNACrIPpxZAW4G8md9eman7qdawz2');
+    `);
 }
 
 export async function down(pgm: MigrationBuilder): Promise<void> {
