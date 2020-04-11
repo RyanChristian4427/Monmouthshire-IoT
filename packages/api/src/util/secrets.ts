@@ -1,7 +1,8 @@
-import logger from './logger';
 import dotenv from 'dotenv';
 import fs from 'fs';
 import path from 'path';
+
+import logger from './logger';
 
 if (fs.existsSync(path.join(__dirname, '../../', '.env'))) {
     logger.debug('Using .env file to supply config environment variables');

@@ -17,5 +17,5 @@ export const login = async (): Promise<string> => {
         });
 
     if (response.body.user) return response.body.user.token;
-    else return 'Error';
+    return 'Error';
 };
