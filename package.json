@@ -8,6 +8,7 @@
     "test": "jest --forceExit --detectOpenHandles",
     "migration:up": "lerna run migration -- up",
     "migration:down": "lerna run migration -- down -- 50",
+    "migration:generate": "lerna run migration -- create --",
     "lint": "eslint --cache 'packages/**/{src,migrations,test}/**/*.{js,ts,tsx}' --fix",
     "prettier": "prettier 'packages/**/src/**/*.{css,scss,json}' --write"
   },
