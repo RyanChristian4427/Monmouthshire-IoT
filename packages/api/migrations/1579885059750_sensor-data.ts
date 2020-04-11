@@ -2,6 +2,10 @@
 import { MigrationBuilder } from 'node-pg-migrate';
 
 export async function up(pgm: MigrationBuilder): Promise<void> {
+    pgm.createExtension('timescaledb', {
+        cascade: true,
+        ifNotExists: true,
+    });
     pgm.createTable('rooms', {
         id: 'id',
         user_id: {
@@ -20,7 +24,10 @@ export async function up(pgm: MigrationBuilder): Promise<void> {
         },
     });
     pgm.createTable('sensor_data', {
-        id: 'id',
+        time: {
+            type: 'TIMESTAMPTZ',
+            notNull: true,
+        },
         room_id: {
             type: 'INTEGER',
             notNull: true,
@@ -35,11 +42,8 @@ export async function up(pgm: MigrationBuilder): Promise<void> {
             notNull: true,
             check: 'type BETWEEN 0 AND 5',
         },
-        time: {
-            type: 'TIMESTAMPTZ',
-            notNull: true,
-        },
     });
+    pgm.sql(`SELECT create_hypertable('sensor_data', 'time');`); // eslint-disable-line @typescript-eslint/quotes
 
     pgm.sql(`INSERT INTO rooms(user_id, name, type)
         VALUES (1, 'Kitchen', 0),
@@ -144,4 +148,7 @@ export async function up(pgm: MigrationBuilder): Promise<void> {
 export async function down(pgm: MigrationBuilder): Promise<void> {
     pgm.dropTable('sensor_data');
     pgm.dropTable('rooms');
+    pgm.dropExtension('timescaledb', {
+        cascade: true,
+    });
 }
