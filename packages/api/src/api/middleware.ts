@@ -6,9 +6,8 @@ import { JWT_SECRET } from 'src/util/secrets';
 
 export const checkToken = (req: Request, res: Response, next: NextFunction): Response | NextFunction => {
     let token: string;
-    if (req.headers.authorization && req.headers.authorization.split(' ')[0] === 'Bearer') {
+    if (req.headers.authorization && req.headers.authorization.split(' ')[0] === 'Bearer')
         token = req.headers.authorization.split(' ')[1];
-    }
 
     if (token) {
         jwt.verify(token, JWT_SECRET, (err) => {

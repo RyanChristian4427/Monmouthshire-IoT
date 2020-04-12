@@ -9,7 +9,7 @@ const router = Router();
 router.get('/sensors', checkToken, async (req: Request, res: Response) => {
     logger.debug(`Sensor data request made by user ${res.locals.userInfo.email}`);
 
-    const data = await getSensors(res.locals.userInfo.email).catch((error) => {
+    const data = await getSensors(res.locals.userInfo.id).catch((error) => {
         logger.debug(`Sensor data request for user ${res.locals.userInfo.email} has failed due to ${error}`);
         res.status(400).json({
             success: false,

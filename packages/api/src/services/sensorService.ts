@@ -68,8 +68,8 @@ const dataProcessor = (data: QueryRow[]): RoomResponse[] => {
     return processedData;
 };
 
-export const getSensors = async (email: string): Promise<RoomResponse[]> => {
-    const data = await getAllSensorData(email).catch((error) => {
+export const getSensors = async (userId: number): Promise<RoomResponse[]> => {
+    const data = await getAllSensorData(userId).catch((error) => {
         if (error.received == 0) throw 'Unknown User';
         else throw error;
     });
