@@ -1,6 +1,5 @@
 import { Response, Request, Router } from 'express';
 
-import { checkToken } from 'src/api/middleware';
 import { LoginUser } from 'src/models/User';
 import { checkCredentials, homeRegister, register } from 'src/services/authService';
 import logger from 'src/util/logger';
@@ -90,10 +89,6 @@ router.post('/homes/register', async (req: Request, res: Response) => {
             user,
         });
     }
-});
-
-router.get('/example', checkToken, (req: Request, res: Response) => {
-    res.status(204).send();
 });
 
 export default router;
