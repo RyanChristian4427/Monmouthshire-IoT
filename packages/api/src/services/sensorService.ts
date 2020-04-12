@@ -2,15 +2,6 @@ import { SensorDataType, RoomResponse } from '@core/types';
 
 import { getAllSensorData, QueryRow } from 'src/db/sensorRepository';
 
-export const getSensors = async (email: string): Promise<RoomResponse[]> => {
-    const data = await getAllSensorData(email).catch((error) => {
-        if (error.received == 0) throw 'Unknown User';
-        else throw error;
-    });
-
-    if (data) return dataProcessor(data);
-};
-
 // TODO: Check out scalability of this. Might be slow.
 const dataProcessor = (data: QueryRow[]): RoomResponse[] => {
     const processedData: RoomResponse[] = [];
@@ -75,4 +66,13 @@ const dataProcessor = (data: QueryRow[]): RoomResponse[] => {
         }
     });
     return processedData;
+};
+
+export const getSensors = async (email: string): Promise<RoomResponse[]> => {
+    const data = await getAllSensorData(email).catch((error) => {
+        if (error.received == 0) throw 'Unknown User';
+        else throw error;
+    });
+
+    if (data) return dataProcessor(data);
 };
