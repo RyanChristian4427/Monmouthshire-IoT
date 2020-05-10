@@ -10,7 +10,7 @@
     "migration:down": "lerna run migration -- down",
     "migration:generate": "lerna run migration -- create --",
     "lint": "eslint --cache 'packages/**/{src,migrations,test}/**/*.{js,ts,tsx}' --fix",
-    "prettier": "prettier 'packages/**/src/**/*.{css,scss,json}' --write"
+    "prettier": "prettier 'packages/**/src/**/*.{css,scss,json,md}' --write"
   },
   "husky": {
     "hooks": {
@@ -18,8 +18,8 @@
     }
   },
   "lint-staged": {
-    "*.{css,md,scss,json}": "prettier --write",
-    "*.{js,jsx,ts,tsx}": "eslint --fix"
+    "*.{css,scss,json,md}": "prettier --write",
+    "*.{js,ts,tsx}": "eslint --fix"
   },
   "devDependencies": {
     "@types/chai": "^4.2.11",
