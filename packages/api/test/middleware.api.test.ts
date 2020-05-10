@@ -6,19 +6,19 @@ import { login } from 'test/common';
 
 chai.use(chaiHttp);
 
-describe('GET /api/v1/example', () => {
-    it('should return 204 No Content', async () => {
+describe('GET /api/v1/sensors', () => {
+    it('should return 200 Ok', async () => {
         const response = await chai
             .request(app)
-            .get('/api/v1/example')
+            .get('/api/v1/sensors')
             .set('Authorization', `Bearer ${await login()}`);
-        expect(response.status).toBe(204);
+        expect(response.status).toBe(200);
     });
 
     it('should return 401 Unauthorized with Expired Access Token', async () => {
         const response = await chai
             .request(app)
-            .get('/api/v1/example')
+            .get('/api/v1/sensors')
             .set(
                 'Authorization',
                 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJzbW9rZXRlc3RAZXhhbXBsZS5jb2' +
@@ -32,7 +32,7 @@ describe('GET /api/v1/example', () => {
     it('should return 401 Unauthorized with Invalid Access Token Signature', async () => {
         const response = await chai
             .request(app)
-            .get('/api/v1/example')
+            .get('/api/v1/sensors')
             .set(
                 'Authorization',
                 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTAsImVtYWlsIjoic21va2V0ZXN0QGV4YW1wbGUuY2' +
@@ -47,7 +47,7 @@ describe('GET /api/v1/example', () => {
     it('should return 401 Unauthorized with Invalid Access Token', async () => {
         const response = await chai
             .request(app)
-            .get('/api/v1/example')
+            .get('/api/v1/sensors')
             .set('Authorization', 'Bearer Obviously_Malformed_JWT');
         expect(response.status).toBe(401);
         expect(response.body.success).toBe(false);
@@ -55,7 +55,7 @@ describe('GET /api/v1/example', () => {
     });
 
     it('should return 401 Unauthorized with No Access Token Signature', async () => {
-        const response = await chai.request(app).get('/api/v1/example');
+        const response = await chai.request(app).get('/api/v1/sensors');
         expect(response.status).toBe(401);
         expect(response.body.success).toBe(false);
         expect(response.body.message).toBe('Access token is not supplied');
