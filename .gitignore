@@ -18,3 +18,5 @@ node_modules/
 
 # Coverage reports
 coverage
+
+**/size-plugin.json
