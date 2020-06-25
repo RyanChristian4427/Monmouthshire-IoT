@@ -21,7 +21,7 @@ const AuthenticatedRoute = (props: { path: string; component: FunctionalComponen
     const isLoggedIn = useContext(AuthStoreContext).isAuthenticated;
 
     useEffect(() => {
-        if (!isLoggedIn) route('/login', true);
+        if (!isLoggedIn) route('/auth/login', true);
     }, [isLoggedIn]);
 
     if (!isLoggedIn) return null;
