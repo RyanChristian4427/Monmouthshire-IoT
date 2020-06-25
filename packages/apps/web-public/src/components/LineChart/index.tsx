@@ -28,7 +28,7 @@ export const CustomLineChart: FunctionalComponent<IProps> = (props: IProps) => {
             <LineChart data={props.dataSet} margin={{ top: 5, right: 20, bottom: 5, left: 0 }}>
                 {createLines()}
                 <CartesianGrid stroke="#ccc" strokeDasharray="1 1" />
-                <Legend />
+                {/*<Legend />*/}
                 <XAxis
                     dataKey="time"
                     tickFormatter={(timestamp): string =>

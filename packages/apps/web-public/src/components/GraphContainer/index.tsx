@@ -1,4 +1,4 @@
-import { ComponentChild, FunctionalComponent, h } from 'preact';
+import { ComponentChild, Fragment, FunctionalComponent, h } from 'preact';
 import { useState } from 'preact/hooks';
 
 import './style.scss';
@@ -18,8 +18,11 @@ export const GraphContainer: FunctionalComponent<IProps> = (props: IProps) => {
     const zeroPad = (value: number): string => (value < 10 ? '0' : '') + value;
 
     return (
-        <div class="container graph-container is-flex">
-            {props.childGraph}
+        <div class="graph-container is-flex">
+            <div class="is-pulled-left container">
+                Title
+                {props.childGraph}
+            </div>
             <div class="is-pulled-right">
                 <div class="field">
                     <label class="label">Start Date</label>
